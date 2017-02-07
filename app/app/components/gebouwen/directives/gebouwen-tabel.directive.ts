@@ -20,7 +20,7 @@ angular.module('StoringenApp')
           <th>GebouwID</th>
           <th>Adres</th>
         </tr>
-          <tr ng-repeat="gebouw in gebouwen" ng-click="clickEvent({id: gebouw.gebouwId})">
+          <tr ng-repeat="gebouw in gebouwen | limitTo: 20" ng-click="clickEvent({id: gebouw.gebouwId})">
           <td>{{gebouw.gebouwId}}</td>
           <td>{{gebouw.adres}}</td>
         </tr>

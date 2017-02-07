@@ -15,10 +15,19 @@
   color: #ddd;
 }
 
+.navbar-prognotice .navbar-toggle {
+  border-color: white;
+  border-radius: 0px;
+}
+
+.navbar-prognotice .navbar-toggle:hover {
+  background-color: #0c97c4;
+}
+
 input[type=file] {
   max-width: 100%;
 }
 
-.panel {
+.panel, .panel-heading {
   border-radius: 0px;
 }
