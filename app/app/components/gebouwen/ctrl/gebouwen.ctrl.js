@@ -24,23 +24,9 @@ var StoringenApp;
                 if (tabName === 'map') {
                 }
             };
-            this.initMap = function () {
-                var coordinates = {
-                    lat: 52.1646443,
-                    lng: 5.363390400000071
-                };
-                _this.$window.map = new google.maps.Map(document.getElementById('map'), {
-                    center: coordinates,
-                    zoom: 16
-                });
-            };
             this.gebouwen = GEBOUWEN;
             this.selectedTab = "map";
             LocationService.getCurrentPosition().then(this.storeLocation);
-            var that = this;
-            this.$document.ready(function () {
-                that.initMap();
-            });
         }
         return GebouwenCtrl;
     }());

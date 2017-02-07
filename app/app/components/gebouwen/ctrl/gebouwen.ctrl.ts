@@ -22,14 +22,10 @@ module StoringenApp {
       this.selectedTab = "map";
       LocationService.getCurrentPosition().then(this.storeLocation);
 
-      var that = this;
-      this.$document.ready(function() {
-        that.initMap();
-      })
     }
 
     public storeLocation = (loc):void => {
-      console.log(loc)
+      console.log(loc);
       this.location = loc;
     }
 
@@ -45,19 +41,6 @@ module StoringenApp {
         //this.$window.dispatchEvent(new Event('resize'));
         //google.maps.event.trigger(this.$window.map, "resize");
       }
-    }
-
-    public initMap = (): void => {
-
-      var coordinates = {
-        lat: 52.1646443,
-        lng: 5.363390400000071
-      }
-
-      this.$window.map = new google.maps.Map(document.getElementById('map'), {
-        center: coordinates,
-        zoom: 16
-      });
     }
 
   }

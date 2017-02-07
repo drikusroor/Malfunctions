@@ -1,5 +1,4 @@
 <h1>Gebouwen</h1>
-{{gebouwenctrl.location}}
 <form class="form-inline">
   <label class="sr-only" for="inlineFormInput">Rayon</label>
   <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
@@ -28,7 +27,8 @@
   </style>
 
   <div ng-show="gebouwenctrl.selectedTab === 'map'">
-    <div id="map"></div>
+    <google-maps gebouwen="gebouwen" click-event="gebouwenctrl.selectGebouw(id)" location="location"></google-maps>
+    
   </div>
   <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
 </div>
