@@ -25,6 +25,43 @@
   <div ng-show="gebouwenctrl.selectedTab === 'map'">
     Benko
   </div>
-  <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen"></gebouwen-tabel>
+  <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+
+</div>
+
+<div class="col-sm-6" ng-show="gebouwenctrl.selectedGebouw">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{gebouwenctrl.selectedGebouw.adres}}</h3>
+    </div>
+    <ul class=" list-group">
+      <li class="list-group-item">
+        <b>ID:</b>
+        {{gebouwenctrl.selectedGebouw.gebouwId}}
+      </li>
+      <li class="list-group-item">
+        <b>Adres:</b>
+        {{gebouwenctrl.selectedGebouw.adres}}
+      </li>
+      <li class="list-group-item">
+        <b>VHENR:</b>
+        {{gebouwenctrl.selectedGebouw.vhenr}}
+      </li>
+      <li class="list-group-item">
+        <b>Latitude:</b>
+        {{gebouwenctrl.selectedGebouw.latitude | number:2}}
+      </li>
+      <li class="list-group-item">
+        <b>Longitude:</b>
+        {{gebouwenctrl.selectedGebouw.longitude | number:2}}
+      </li>
+    </ul>
+  </div>
+
+  <button type="button" class="btn btn-info" ng-click="gebouwenctrl.$state.go('portal.gebouwen.detail', {id: gebouwenctrl.selectedGebouw.gebouwId})">
+    Ga naar Gebouw
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  </button>
 
 </div>

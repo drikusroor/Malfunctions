@@ -41,6 +41,8 @@ angular.module('StoringenApp')
             views: {
                 'content@': {
                     templateUrl: 'app/components/gebouwen-detail/gebouwen-detail.html',
+                    controller: 'GebouwenDetailCtrl',
+                    controllerAs: 'gebouwendetailctrl'
                 }
             },
             resolve: {}

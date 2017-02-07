@@ -5,13 +5,13 @@ angular.module('StoringenApp')
         restrict: 'E',
         transclude: true,
         scope: {
-            'gebouwen': '=gebouwen',
-            'clickEvent': '=clickEvent'
+            'gebouwen': '=',
+            'clickEvent': '&'
         },
         controller: function ($scope) {
         },
         link: function ($scope) {
         },
-        template: "\n      <table>\n        <tr>\n          <th>GebouwID</th>\n          <th>Adres</th>\n        </tr>\n        <tr ng-repeat=\"gebouw in gebouwen\" ng-click=\"clickEvent(gebouw.gebouwId)\">\n          <td>{{gebouw.gebouwId}}</td>\n          <td>{{gebouw.adres}}</td>\n        </tr>\n      </table>\n    "
+        template: "\n      <table>\n        <tr>\n          <th>GebouwID</th>\n          <th>Adres</th>\n        </tr>\n          <tr ng-repeat=\"gebouw in gebouwen\" ng-click=\"clickEvent({id: gebouw.gebouwId})\">\n          <td>{{gebouw.gebouwId}}</td>\n          <td>{{gebouw.adres}}</td>\n        </tr>\n      </table>\n    "
     };
 });

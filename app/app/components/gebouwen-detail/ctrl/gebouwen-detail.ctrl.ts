@@ -4,22 +4,22 @@ module StoringenApp {
   export class GebouwenDetailCtrl {
 
     gebouwen: IGebouw[];
+    service: GebouwenDetailService;
 
-    static $inject = ['$scope', '$http', '$localStorage', 'GEBOUWEN'];
+    static $inject = ['$scope', '$http', '$localStorage', 'GebouwenDetailService'];
     constructor(
       private $scope,
-      private $http, 
+      private $http,
       private $localStorage,
-      private GEBOUWEN
+      private GebouwenDetailService
     )
     {
+      this.service = GebouwenDetailService
+      this.service.getGebouwByParamsId();
     }
-
-
-
   }
-  function controller($scope, $http, $localStorage, GEBOUWEN): GebouwenDetailCtrl {
-    return new GebouwenDetailCtrl($scope, $http, $localStorage, GEBOUWEN);
+  function controller($scope, $http, $localStorage, GebouwenDetailService): GebouwenDetailCtrl {
+    return new GebouwenDetailCtrl($scope, $http, $localStorage, GebouwenDetailService);
   }
   angular.module('StoringenApp').controller('GebouwenDetailCtrl', controller);
 }

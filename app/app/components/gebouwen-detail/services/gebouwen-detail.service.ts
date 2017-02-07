@@ -4,24 +4,30 @@ module StoringenApp {
   export class GebouwenDetailService {
     gebouw: IGebouw;
 
-    static $inject = [];
-    constructor()
-    {
-
-    }
-
-    static $inject = ['$http', 'GEBOUWEN'];
+    static $inject = ['$http', 'GEBOUWEN', '$state'];
     constructor(
       private $http,
-      private GEBOUWEN
+      private GEBOUWEN,
+      private $state
     )
     {
-      // this.gebouwen = GEBOUWEN;
+      // this.getGebouwByParamsId();
     }
 
+    public getGebouwById = (id):void => {
+      this.gebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
+    }
+
+    public getGebouwByParamsId = (): void => {
+      var id = parseInt(this.$state.params.id);
+      this.getGebouwById(id);
+    }
+
+
+
   }
-  function service(): GebouwenDetailService {
-    return new GebouwenDetailService();
+  function service($http, GEBOUWEN, $state): GebouwenDetailService {
+    return new GebouwenDetailService($http, GEBOUWEN, $state);
   }
   angular.module('StoringenApp').service('GebouwenDetailService', service);
 }

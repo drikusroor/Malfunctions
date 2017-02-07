@@ -5,8 +5,8 @@ angular.module('StoringenApp')
     restrict: 'E',
     transclude: true,
     scope: {
-      'gebouwen': '=gebouwen',
-      'clickEvent': '=clickEvent'
+      'gebouwen': '=',
+      'clickEvent': '&'
     },
     controller: function($scope) {
 
@@ -20,7 +20,7 @@ angular.module('StoringenApp')
           <th>GebouwID</th>
           <th>Adres</th>
         </tr>
-        <tr ng-repeat="gebouw in gebouwen" ng-click="clickEvent(gebouw.gebouwId)">
+          <tr ng-repeat="gebouw in gebouwen" ng-click="clickEvent({id: gebouw.gebouwId})">
           <td>{{gebouw.gebouwId}}</td>
           <td>{{gebouw.adres}}</td>
         </tr>
