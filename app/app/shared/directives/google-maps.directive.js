@@ -13,15 +13,6 @@ angular.module('StoringenApp')
             $document.ready(function () {
                 $scope.initMap();
             });
-            $scope.toggleStreetView = function () {
-                var toggle = $scope.panorama.getVisible();
-                if (toggle == false) {
-                    $scope.panorama.setVisible(true);
-                }
-                else {
-                    $scope.panorama.setVisible(false);
-                }
-            };
             $scope.initMap = function () {
                 var coordinates = {
                     lat: 52.1646443,
@@ -40,15 +31,16 @@ angular.module('StoringenApp')
                         },
                         map: $window.map,
                         title: GEBOUWEN[i].adres,
-                        icon: 'favicon.png'
+                        icon: 'assets/images/Gebouwen-klein.png'
+                    });
+                    marker.addListener('click', function (e) {
+                        console.log(e);
+                        console.log(e.latLng.lat());
+                        console.log(e.latLng.lng());
+                        $window.map.setZoom(20);
+                        $window.map.setCenter(marker.getPosition());
                     });
                 }
-                $scope.panorama = $window.map.getStreetView();
-                $scope.panorama.setPosition(coordinates);
-                $scope.panorama.setPov(({
-                    heading: 265,
-                    pitch: 0,
-                }));
             };
         },
         link: function ($scope) {
@@ -56,6 +48,6 @@ angular.module('StoringenApp')
                 console.log(location);
             });
         },
-        template: "\n      <div id=\"floating-panel\">\n        <input type=\"button\" value=\"Toggle Street View\" ng-click=\"toggleStreetView();\"></input>\n      </div>\n      <div id=\"map\"></div>\n    "
+        template: "\n      <div id=\"map\"></div>\n    "
     };
 });

@@ -15,14 +15,14 @@ angular.module('StoringenApp')
         $scope.initMap();
       })
 
-      $scope.toggleStreetView = ():void => {
-          var toggle = $scope.panorama.getVisible();
-          if (toggle == false) {
-            $scope.panorama.setVisible(true);
-          } else {
-            $scope.panorama.setVisible(false);
-          }
-        }
+      // $scope.toggleStreetView = ():void => {
+      //   var toggle = $scope.panorama.getVisible();
+      //   if (toggle == false) {
+      //     $scope.panorama.setVisible(true);
+      //   } else {
+      //     $scope.panorama.setVisible(false);
+      //   }
+      // }
 
       $scope.initMap = (): void => {
 
@@ -45,19 +45,27 @@ angular.module('StoringenApp')
             },
             map: $window.map,
             title: GEBOUWEN[i].adres,
-            icon: 'favicon.png'
+            icon: 'assets/images/Gebouwen-klein.png'
           })
+          marker.addListener('click', function(e) {
+            console.log(e);
+            console.log(e.latLng.lat())
+            console.log(e.latLng.lng())
+            $window.map.setZoom(20);
+            $window.map.setCenter(marker.getPosition());
+        });
         }
 
         // We get the map's default panorama and set up some defaults.
         // Note that we don't yet set it visible.
 
-        $scope.panorama = $window.map.getStreetView();
-        $scope.panorama.setPosition(coordinates);
-        $scope.panorama.setPov(/** @type {google.maps.StreetViewPov} */({
-          heading: 265,
-          pitch: 0,
-        }));
+        // $scope.panorama = $window.map.getStreetView();
+        // $scope.panorama.setPosition(coordinates);
+        // $scope.panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+        //   heading: 265,
+        //   pitch: 0,
+        // }));
+
 
       }
     },
@@ -66,10 +74,10 @@ angular.module('StoringenApp')
         console.log(location);
       })
     },
+    // <div id="floating-panel">
+    //   <input type="button" value="Toggle Street View" ng-click="toggleStreetView();"></input>
+    // </div>
     template: `
-      <div id="floating-panel">
-        <input type="button" value="Toggle Street View" ng-click="toggleStreetView();"></input>
-      </div>
       <div id="map"></div>
     `
   };
