@@ -5,6 +5,7 @@ module StoringenApp {
     gebouwen: IGebouw[];
     selectedGebouw: IGebouw;
     selectedTab: string;
+    form: any;
 
     static $inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN'];
     constructor(
@@ -18,6 +19,7 @@ module StoringenApp {
     {
       this.gebouwen = GEBOUWEN;
       this.selectedTab = "map";
+      this.form = {};
 
       var that = this;
 
@@ -28,7 +30,8 @@ module StoringenApp {
 
     public selectGebouw = (id: number): void => {
       this.selectedGebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
-      console.log(this.selectedGebouw)
+      this.form.adres = this.selectedGebouw.adres;
+      this.form.vhenr = this.selectedGebouw.vhenr;
     }
 
     public initMap = (): void => {

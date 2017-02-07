@@ -1,6 +1,6 @@
-<h1>Gebouwen</h1>
+<h1>Meldingen</h1>
 
-<form class="form-inline">
+<form class="form-inline vertical-padding-15">
   <label class="sr-only" for="inlineFormInput">Naam</label>
   <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
 
@@ -16,7 +16,7 @@
 
 <br>
 
-<div class="col-sm-9">
+<div class="col-sm-7 col-md-8 vertical-padding-15">
 
   <uib-tabset active="activeJustified" justified="true">
     <uib-tab index="0" heading="Kaart" ng-click="meldingen.selectedTab = 'map'"></uib-tab>
@@ -39,7 +39,7 @@
 
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-5 col-md-4">
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -47,36 +47,36 @@
     </div>
     <ul class=" list-group">
       <li class="list-group-item">
-        <b>ID:</b>
-        {{meldingen.selectedGebouw.gebouwId}}
+        <label class="sr-only" for="inlineFormInput">Naam</label>
+        <input ng-model="meldingen.form.naam" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Naam">
       </li>
       <li class="list-group-item">
-        <b>Adres:</b>
-        {{meldingen.selectedGebouw.adres}}
+        <label class="sr-only" for="inlineFormInput">Adres</label>
+        <input ng-model="meldingen.form.adres" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
       </li>
       <li class="list-group-item">
-        <b>VHENR:</b>
-        {{meldingen.selectedGebouw.vhenr}}
+        <label class="sr-only" for="inlineFormInput">Klacht</label>
+        <input ng-model="meldingen.form.klacht" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Klacht">
       </li>
       <li class="list-group-item">
-        <b>Latitude:</b>
-        {{meldingen.selectedGebouw.latitude | number:2}}
+        <label class="sr-only" for="inlineFormInput">Element</label>
+        <input ng-model="meldingen.form.element" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Element">
       </li>
       <li class="list-group-item">
-        <b>Longitude:</b>
-        {{meldingen.selectedGebouw.longitude | number:2}}
+        <label class="sr-only" for="inlineFormInput">VHENR</label>
+        <input ng-model="meldingen.form.vhenr" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="VHENR">
       </li>
     </ul>
-  <!-- </div>
+  </div>
 
-  <div class="panel panel-default"> -->
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Foto:</h3>
     </div>
     <ul class=" list-group">
       <li class="list-group-item">
-        <b>Beschrijving:</b>
-        <input type="text"/>
+        <label class="sr-only" for="inlineFormInput">Beschrijving Foto</label>
+        <input ng-model="meldingen.form.fotobeschrijving" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Beschrijving Foto">
       </li>
       <li class="list-group-item form-control-file">
         <b>Uploaden:</b>

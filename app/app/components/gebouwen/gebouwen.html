@@ -13,14 +13,12 @@
 
 <br>
 
-<div class="col-sm-6">
+<div ng-class="{'col-sm-6': gebouwenctrl.selectedGebouw}">
 
   <uib-tabset active="activeJustified" justified="true">
     <uib-tab index="0" heading="Kaart" ng-click="gebouwenctrl.selectTab('map')"></uib-tab>
     <uib-tab index="1" heading="Lijst" ng-click="gebouwenctrl.selectTab('list')"></uib-tab>
   </uib-tabset>
-
-  <br>
 
   <div ng-show="gebouwenctrl.selectedTab === 'map'">
     <div id="map"></div>
@@ -32,10 +30,9 @@
     </style>
 
   </div>
-  </div>
   <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
-
 </div>
+
 
 <div class="col-sm-6" ng-show="gebouwenctrl.selectedGebouw">
 

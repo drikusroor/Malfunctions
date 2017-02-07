@@ -35,9 +35,9 @@ module StoringenApp {
       this.selectedTab = tabName;
       if (tabName === 'map') {
 
-        this.$window.dispatchEvent(new Event('resize'));
+        //this.$window.dispatchEvent(new Event('resize'));
+        //google.maps.event.trigger(this.$window.map, "resize");
       }
-      // google.maps.event.trigger(this.$window.map, "resize");
     }
 
     public initMap = (): void => {

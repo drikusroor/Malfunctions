@@ -17,7 +17,6 @@ var StoringenApp;
             this.selectTab = function (tabName) {
                 _this.selectedTab = tabName;
                 if (tabName === 'map') {
-                    _this.$window.dispatchEvent(new Event('resize'));
                 }
             };
             this.initMap = function () {

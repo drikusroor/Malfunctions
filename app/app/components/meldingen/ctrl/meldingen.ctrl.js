@@ -12,7 +12,8 @@ var StoringenApp;
             this.GEBOUWEN = GEBOUWEN;
             this.selectGebouw = function (id) {
                 _this.selectedGebouw = _this.GEBOUWEN.find(function (g) { return g.gebouwId === id; });
-                console.log(_this.selectedGebouw);
+                _this.form.adres = _this.selectedGebouw.adres;
+                _this.form.vhenr = _this.selectedGebouw.vhenr;
             };
             this.initMap = function () {
                 var coordinates = {
@@ -26,6 +27,7 @@ var StoringenApp;
             };
             this.gebouwen = GEBOUWEN;
             this.selectedTab = "map";
+            this.form = {};
             var that = this;
             this.$document.ready(function () {
                 that.initMap();
