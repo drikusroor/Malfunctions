@@ -1,0 +1,21 @@
+$vision-blue: #003b59;
+
+.form-control {
+  border-radius: 0px;
+}
+
+// Tabbladen scherpe hoeken
+.nav-tabs.nav-justified>li>a {
+    //border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+}
+
+.navbar-prognotice {
+  color: white;
+  background-color: $vision-blue;
+
+  .navbar-nav>li>a {
+    color: #ddd;
+  }
+
+}

@@ -15,7 +15,7 @@ angular.module('StoringenApp')
 
     },
     template: `
-      <table>
+      <table class="table">
         <tr>
           <th>GebouwID</th>
           <th>Adres</th>

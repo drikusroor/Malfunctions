@@ -2,39 +2,40 @@
 <div class="header-logo-container">
   <!-- <div class="header-logo"><img ID="" src="assets/images/feenstralogo.jpg" /></div> -->
   <a ui-sref="portal"><div class="header-logo prognotice header-logo-prognotice"></div></a>
-  <div class="header-logo customer header-logo-customer" ng-class="{'header-ymere': visionctrl.LoginService.session.email == 'ymere@feenstra.nl', 'header-feenstra': visionctrl.LoginService.session.email == 'feenstra@feenstra.nl'}"></div>
+  <div class="header-logo customer header-logo-customer" ng-class="{'header-ymere': storingenctrl.LoginService.session.email == 'ymere@feenstra.nl', 'header-feenstra': storingenctrl.LoginService.session.email == 'feenstra@feenstra.nl'}"></div>
 </div>
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    <div id="navbar" class="collapse navbar-collapse">
+<div class="navbar navbar-static-top  navbar-inverse navbar-prognotice" >
+  <div class="container2">
+    <button type="button" class="navbar-toggle" ng-click="storingenctrl.isNavCollapsed = !storingenctrl.isNavCollapsed">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+    <div id="navbar" class="collapse navbar-collapse  navbar-inverse navbar-prognotice" uib-collapse="storingenctrl.isNavCollapsed">
       <ul class="nav navbar-nav">
-        <li ng-class="{'active': $state.current.name === 'portal'}">
-          <a ui-sref="portal">Home</a>
+        <li ng-class="{'active': storingenctrl.$state.current.name === 'portal'}">
+          <a  ui-sref="portal">Home</a>
         </li>
-        <li ng-class="{'active': $state.current.name === 'portal.meldingen'}">
-          <a ui-sref="portal.meldingen">Meld een storing</a>
+        <li ng-class="{'active': storingenctrl.$state.current.name === 'portal.meldingen'}">
+          <a  ui-sref="portal.meldingen">Meld een storing</a>
         </li>
-        <li ng-class="{'active': $state.current.name === 'portal.gebouwen'}">
+        <li ng-class="{'active': storingenctrl.$state.current.name === 'portal.gebouwen'}">
           <a ui-sref="portal.gebouwen">Gebouwen</a>
         </li>
 
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" style="margin-right: 16px;">
         <li>
-          <a ng-click="visionctrl.LoginService.Logout()">Uitloggen</a>
+          <a ng-click="storingenctrl.LoginService.Logout()">Uitloggen</a>
+        </li>
+        <li>
+          <a ui-sref="portal" style="padding-top: 0px; padding-bottom: 0px; padding-right: 0px">
+            <img style="width: 64px; margin-top:  6px" src="assets/images/vision-logo-only.png"/>
+          </a>
         </li>
       </ul>
 
-      <form ng-show="visionctrl.state.current.name === 'portal.collections.detail'" class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Zoek inzicht" ng-model="visionctrl.inzichtFilter">
-        </div>
-      </form>
     </div>
   </div>
 </div>

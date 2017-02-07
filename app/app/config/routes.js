@@ -5,7 +5,7 @@ angular.module('StoringenApp')
             .state('portal', {
             url: '/',
             controller: 'StoringenCtrl',
-            controllerAs: 'storingen',
+            controllerAs: 'storingenctrl',
             views: {
                 'header@': {
                     templateUrl: 'app/shared/header/header.html'
