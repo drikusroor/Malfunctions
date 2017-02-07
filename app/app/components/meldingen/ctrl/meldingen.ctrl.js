@@ -1,8 +1,8 @@
 var StoringenApp;
 (function (StoringenApp) {
     "use strict";
-    var GebouwenCtrl = (function () {
-        function GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN) {
+    var MeldingenCtrl = (function () {
+        function MeldingenCtrl($scope, $http, $state, $window, $document, GEBOUWEN) {
             var _this = this;
             this.$scope = $scope;
             this.$http = $http;
@@ -13,12 +13,6 @@ var StoringenApp;
             this.selectGebouw = function (id) {
                 _this.selectedGebouw = _this.GEBOUWEN.find(function (g) { return g.gebouwId === id; });
                 console.log(_this.selectedGebouw);
-            };
-            this.selectTab = function (tabName) {
-                _this.selectedTab = tabName;
-                if (tabName === 'map') {
-                    _this.$window.dispatchEvent(new Event('resize'));
-                }
             };
             this.initMap = function () {
                 var coordinates = {
@@ -37,12 +31,12 @@ var StoringenApp;
                 that.initMap();
             });
         }
-        return GebouwenCtrl;
+        return MeldingenCtrl;
     }());
-    GebouwenCtrl.$inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN'];
-    StoringenApp.GebouwenCtrl = GebouwenCtrl;
+    MeldingenCtrl.$inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN'];
+    StoringenApp.MeldingenCtrl = MeldingenCtrl;
     function controller($scope, $http, $state, $window, $document, GEBOUWEN) {
-        return new GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
+        return new MeldingenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
     }
-    angular.module('StoringenApp').controller('GebouwenCtrl', controller);
+    angular.module('StoringenApp').controller('MeldingenCtrl', controller);
 })(StoringenApp || (StoringenApp = {}));

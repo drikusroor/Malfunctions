@@ -40,7 +40,6 @@
 body {
   font-family: 'Catamaran', Arial, helvetica, sans-serif;
   overflow-x: hidden;
-  color: #253372;
 }
 
 @media screen and (max-width: 1024px) {

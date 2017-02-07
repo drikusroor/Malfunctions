@@ -25,8 +25,8 @@ angular.module('StoringenApp')
         views: {
           'content@': {
             templateUrl: 'app/components/meldingen/meldingen.html',
-            // controller: 'LoginCtrl',
-            // controllerAs: 'loginctrl'
+            controller: 'MeldingenCtrl',
+            controllerAs: 'meldingen'
           }
         },
         resolve: {

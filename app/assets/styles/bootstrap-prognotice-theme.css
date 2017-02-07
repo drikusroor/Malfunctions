@@ -14,3 +14,7 @@
 .navbar-prognotice .navbar-nav > li > a {
   color: #ddd;
 }
+
+input[type=file] {
+  max-width: 100%;
+}

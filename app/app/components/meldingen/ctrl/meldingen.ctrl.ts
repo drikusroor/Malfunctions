@@ -1,7 +1,7 @@
 module StoringenApp {
   "use strict";
 
-  export class GebouwenCtrl {
+  export class MeldingenCtrl {
     gebouwen: IGebouw[];
     selectedGebouw: IGebouw;
     selectedTab: string;
@@ -19,8 +19,8 @@ module StoringenApp {
       this.gebouwen = GEBOUWEN;
       this.selectedTab = "map";
 
-
       var that = this;
+
       this.$document.ready(function() {
         that.initMap();
       })
@@ -29,15 +29,6 @@ module StoringenApp {
     public selectGebouw = (id: number): void => {
       this.selectedGebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
       console.log(this.selectedGebouw)
-    }
-
-    public selectTab = (tabName: string) : void => {
-      this.selectedTab = tabName;
-      if (tabName === 'map') {
-
-        this.$window.dispatchEvent(new Event('resize'));
-      }
-      // google.maps.event.trigger(this.$window.map, "resize");
     }
 
     public initMap = (): void => {
@@ -53,9 +44,10 @@ module StoringenApp {
       });
     }
 
+
   }
-  function controller($scope, $http, $state, $window, $document, GEBOUWEN): GebouwenCtrl {
-    return new GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
+  function controller($scope, $http, $state, $window, $document, GEBOUWEN): MeldingenCtrl {
+    return new MeldingenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
   }
-  angular.module('StoringenApp').controller('GebouwenCtrl', controller);
+  angular.module('StoringenApp').controller('MeldingenCtrl', controller);
 }

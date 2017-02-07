@@ -1,0 +1,95 @@
+<h1>Gebouwen</h1>
+
+<form class="form-inline">
+  <label class="sr-only" for="inlineFormInput">Naam</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
+
+  <label class="sr-only" for="inlineFormInput">Adres</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
+
+  <label class="sr-only" for="inlineFormInput">Woonplaats</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
+
+  <label class="sr-only" for="inlineFormInput">Klantnummer</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
+</form>
+
+<br>
+
+<div class="col-sm-9">
+
+  <uib-tabset active="activeJustified" justified="true">
+    <uib-tab index="0" heading="Kaart" ng-click="meldingen.selectedTab = 'map'"></uib-tab>
+    <uib-tab index="1" heading="Lijst" ng-click="meldingen.selectedTab = 'list'"></uib-tab>
+  </uib-tabset>
+
+  <br>
+
+  <div ng-show="meldingen.selectedTab === 'map'">
+    <div id="map"></div>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+  </div>
+  <gebouwen-tabel ng-show="meldingen.selectedTab === 'list'" gebouwen="meldingen.gebouwen" click-event="meldingen.selectGebouw(id)"></gebouwen-tabel>
+
+</div>
+
+<div class="col-sm-3">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Klacht voor Gebouw X:</h3>
+    </div>
+    <ul class=" list-group">
+      <li class="list-group-item">
+        <b>ID:</b>
+        {{meldingen.selectedGebouw.gebouwId}}
+      </li>
+      <li class="list-group-item">
+        <b>Adres:</b>
+        {{meldingen.selectedGebouw.adres}}
+      </li>
+      <li class="list-group-item">
+        <b>VHENR:</b>
+        {{meldingen.selectedGebouw.vhenr}}
+      </li>
+      <li class="list-group-item">
+        <b>Latitude:</b>
+        {{meldingen.selectedGebouw.latitude | number:2}}
+      </li>
+      <li class="list-group-item">
+        <b>Longitude:</b>
+        {{meldingen.selectedGebouw.longitude | number:2}}
+      </li>
+    </ul>
+  <!-- </div>
+
+  <div class="panel panel-default"> -->
+    <div class="panel-heading">
+      <h3 class="panel-title">Foto:</h3>
+    </div>
+    <ul class=" list-group">
+      <li class="list-group-item">
+        <b>Beschrijving:</b>
+        <input type="text"/>
+      </li>
+      <li class="list-group-item form-control-file">
+        <b>Uploaden:</b>
+        <input type="file"/>
+      </li>
+    </ul>
+  </div>
+
+  <button type="button" class="btn btn-primary">Verstuur melding</button>
+
+  <!-- <button type="button" class="btn btn-info" ng-click="meldingen.$state.go('portal.gebouwen.detail', {id: meldingen.selectedGebouw.gebouwId})">
+    Ga naar Gebouw
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  </button> -->
+
+</div>
