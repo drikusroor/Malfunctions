@@ -31,22 +31,29 @@ angular.module('StoringenApp')
                         },
                         map: $window.map,
                         title: GEBOUWEN[i].adres,
-                        icon: 'assets/images/Gebouwen-klein.png'
+                        icon: 'assets/images/Gebouwen-klein.png',
                     });
-                    marker.addListener('click', function (e) {
-                        console.log(e);
-                        console.log(e.latLng.lat());
-                        console.log(e.latLng.lng());
-                        $window.map.setZoom(20);
-                        $window.map.setCenter(marker.getPosition());
+                    marker.metadata = {
+                        adres: GEBOUWEN[i].adres,
+                        gebouwId: GEBOUWEN[i].gebouwId
+                    };
+                    google.maps.event.addListener(marker, 'click', function () {
+                        console.log(this.metadata);
+                        $scope.clickEvent({ id: this.metadata.gebouwId });
+                        google.maps.event.trigger($window.map, "resize");
+                        var position = this.getPosition();
+                        if ($scope.selectedGebouw) {
+                            $window.map.panTo(position);
+                        }
+                        else {
+                            console.log(position);
+                            $window.map.panTo(position);
+                        }
                     });
                 }
             };
         },
         link: function ($scope) {
-            $scope.$watch('location', function () {
-                console.log(location);
-            });
         },
         template: "\n      <div id=\"map\"></div>\n    "
     };

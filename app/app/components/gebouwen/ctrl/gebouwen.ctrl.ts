@@ -21,7 +21,6 @@ module StoringenApp {
       this.gebouwen = GEBOUWEN;
       this.selectedTab = "map";
       LocationService.getCurrentPosition().then(this.storeLocation);
-
     }
 
     public storeLocation = (loc):void => {
@@ -30,16 +29,15 @@ module StoringenApp {
     }
 
     public selectGebouw = (id: number): void => {
-      this.selectedGebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
+      $scope.$apply(
+        this.selectedGebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
+      );
       console.log(this.selectedGebouw)
     }
 
     public selectTab = (tabName: string) : void => {
       this.selectedTab = tabName;
       if (tabName === 'map') {
-
-        //this.$window.dispatchEvent(new Event('resize'));
-        //google.maps.event.trigger(this.$window.map, "resize");
       }
     }
 

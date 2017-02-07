@@ -16,7 +16,8 @@ var StoringenApp;
                 _this.location = loc;
             };
             this.selectGebouw = function (id) {
-                _this.selectedGebouw = _this.GEBOUWEN.find(function (g) { return g.gebouwId === id; });
+                $scope.$apply(_this.selectedGebouw = _this.GEBOUWEN.find(function (g) { return g.gebouwId === id; }));
+                ;
                 console.log(_this.selectedGebouw);
             };
             this.selectTab = function (tabName) {

@@ -15,15 +15,6 @@ angular.module('StoringenApp')
         $scope.initMap();
       })
 
-      // $scope.toggleStreetView = ():void => {
-      //   var toggle = $scope.panorama.getVisible();
-      //   if (toggle == false) {
-      //     $scope.panorama.setVisible(true);
-      //   } else {
-      //     $scope.panorama.setVisible(false);
-      //   }
-      // }
-
       $scope.initMap = (): void => {
 
         var coordinates = {
@@ -45,34 +36,31 @@ angular.module('StoringenApp')
             },
             map: $window.map,
             title: GEBOUWEN[i].adres,
-            icon: 'assets/images/Gebouwen-klein.png'
+            icon: 'assets/images/Gebouwen-klein.png',
           })
-          marker.addListener('click', function(e) {
-            console.log(e);
-            console.log(e.latLng.lat())
-            console.log(e.latLng.lng())
-            $window.map.setZoom(20);
-            $window.map.setCenter(marker.getPosition());
-        });
+
+          marker.metadata = {
+            adres: GEBOUWEN[i].adres,
+            gebouwId: GEBOUWEN[i].gebouwId
+          }
+
+          google.maps.event.addListener(marker, 'click', function() {
+            console.log(this.metadata);
+            $scope.clickEvent({id: this.metadata.gebouwId})
+            google.maps.event.trigger($window.map, "resize");
+            var position = this.getPosition();
+            if($scope.selectedGebouw) {
+              $window.map.panTo(position);
+            } else {
+              console.log(position);
+              $window.map.panTo(position);
+            }
+          });
         }
-
-        // We get the map's default panorama and set up some defaults.
-        // Note that we don't yet set it visible.
-
-        // $scope.panorama = $window.map.getStreetView();
-        // $scope.panorama.setPosition(coordinates);
-        // $scope.panorama.setPov(/** @type {google.maps.StreetViewPov} */({
-        //   heading: 265,
-        //   pitch: 0,
-        // }));
-
-
       }
     },
     link: function($scope) {
-      $scope.$watch('location', function() {
-        console.log(location);
-      })
+
     },
     // <div id="floating-panel">
     //   <input type="button" value="Toggle Street View" ng-click="toggleStreetView();"></input>
