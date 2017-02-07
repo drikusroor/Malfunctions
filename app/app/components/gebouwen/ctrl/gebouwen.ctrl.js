@@ -2,7 +2,7 @@ var StoringenApp;
 (function (StoringenApp) {
     "use strict";
     var GebouwenCtrl = (function () {
-        function GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN) {
+        function GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN, LocationService) {
             var _this = this;
             this.$scope = $scope;
             this.$http = $http;
@@ -10,6 +10,11 @@ var StoringenApp;
             this.$window = $window;
             this.$document = $document;
             this.GEBOUWEN = GEBOUWEN;
+            this.LocationService = LocationService;
+            this.storeLocation = function (loc) {
+                console.log(loc);
+                _this.location = loc;
+            };
             this.selectGebouw = function (id) {
                 _this.selectedGebouw = _this.GEBOUWEN.find(function (g) { return g.gebouwId === id; });
                 console.log(_this.selectedGebouw);
@@ -31,6 +36,7 @@ var StoringenApp;
             };
             this.gebouwen = GEBOUWEN;
             this.selectedTab = "map";
+            LocationService.getCurrentPosition().then(this.storeLocation);
             var that = this;
             this.$document.ready(function () {
                 that.initMap();
@@ -38,10 +44,10 @@ var StoringenApp;
         }
         return GebouwenCtrl;
     }());
-    GebouwenCtrl.$inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN'];
+    GebouwenCtrl.$inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN', 'LocationService'];
     StoringenApp.GebouwenCtrl = GebouwenCtrl;
-    function controller($scope, $http, $state, $window, $document, GEBOUWEN) {
-        return new GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
+    function controller($scope, $http, $state, $window, $document, GEBOUWEN, LocationService) {
+        return new GebouwenCtrl($scope, $http, $state, $window, $document, GEBOUWEN, LocationService);
     }
     angular.module('StoringenApp').controller('GebouwenCtrl', controller);
 })(StoringenApp || (StoringenApp = {}));

@@ -79,17 +79,18 @@
         <input ng-model="meldingen.form.fotobeschrijving" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Beschrijving Foto">
       </li>
       <li class="list-group-item form-control-file">
-        <b>Uploaden:</b>
-        <input type="file"/>
+        <input fileread="meldingen.form.image" accept="image/*" style="width: 0.01px; height: 0.01px; overflow: hidden;" name="file" id="file" type="file"/>
+        <label for="file">
+          <div class="btn btn-primary">Selecteer foto</div>
+        </label>
+      </li>
+      <li class="list-group-item" ng-show="meldingen.form.image">
+        <span class="glyphicon glyphicon-remove image-close-button" ng-click="meldingen.form.image = undefined"></span>
+        <img style="width: 100%; height: auto;" ng-src="{{meldingen.form.image}}"/>
       </li>
     </ul>
   </div>
 
   <button type="button" class="btn btn-primary">Verstuur melding</button>
-
-  <!-- <button type="button" class="btn btn-info" ng-click="meldingen.$state.go('portal.gebouwen.detail', {id: meldingen.selectedGebouw.gebouwId})">
-    Ga naar Gebouw
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-  </button> -->
 
 </div>

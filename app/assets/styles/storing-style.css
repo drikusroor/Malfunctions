@@ -204,3 +204,12 @@ body {
   -ms-transition: all 0.3s ease;
   font-size: 40pt;
 }
+
+.image-close-button {
+  position: absolute;
+  top: 17px;
+  right: 22px;
+  color: white;
+  background: #003b59;
+  padding: 10px;
+}
