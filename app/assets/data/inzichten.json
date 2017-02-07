@@ -1,0 +1,136 @@
+﻿{
+  "inzichten": [
+     {
+      "Titel": "Projecten",
+      "TitelEnkelvoud": "Project",
+      "Controller":  "ProjectenCtrl",
+      "ID": "PRO",
+      "Zichtbaar": "TRUE",
+      "Icon": "Projecten.png",
+      "Doc": "r1.html",
+      "Kinderen": ["GEB", "HE", "CON", "3140" ],
+      "Eigenschappen": [ "KOS", "GEB", "ELE", "GBR" ],
+      "Weergaves":  ["KRT","BarChart","PieChart", "Table"]
+     },
+    {
+      "Titel": "Gebouwen",
+      "TitelEnkelvoud": "Gebouw",
+      "Controller":  "GebouwenCtrl",
+      "ID": "GEB",
+      "Zichtbaar": "TRUE",
+      "Icon": "Gebouwen.png",
+      "Doc": "r2.html",
+      "Kinderen": ["HE", "CON", "3140" ],
+      "Eigenschappen": ["KOS","ELE","GBR"],
+      "Weergaves":  ["BarChart","PieChart","Table"]
+    },
+    {
+      "Titel": "Hoofdelementen",
+      "TitelEnkelvoud": "Hoofdelement",
+      "Controller":  "HoofdelementenCtrl",
+      "ID": "HE",
+      "Zichtbaar": "TRUE",
+      "Icon": "Hoofdelementen.png",
+      "Doc": "r3.html",
+      "Kinderen": ["CON", "PRO" ],
+      "Eigenschappen": [ "KOS", "GBR", "CON" ],
+      "Weergaves":  ["BarChart","PieChart","Table"]
+    },
+    {
+      "Titel": "Condities",
+      "TitelEnkelvoud": "Conditie",
+      "Controller":  "ConditieCtrl",
+      "ID": "CON",
+      "Zichtbaar": "TRUE",
+      "Icon": "2767.png",
+      "Doc": "r4.html",
+      "Kinderen": ["PRO", "HE" ],
+      "Eigenschappen": [ "KOS", "GBR" ],
+      "Weergaves":  ["BarChart","PieChart","Table"]
+    },
+    {
+      "Titel": "NEN3140",
+      "TitelEnkelvoud": "NEN3140",
+      "Controller":  "NEN3140Ctrl",
+      "ID": "3140",
+      "Zichtbaar": "TRUE",
+      "Icon": "3140.png",
+      "Doc": "r1.html",
+      "Kinderen": [ "GEB" ],
+      "Eigenschappen": ["KOS","GBR" ],
+      "Weergaves":  ["BarChart","PieChart","Table"]
+    },
+    {
+      "Titel": "Kosten",
+      "TitelEnkelvoud": "Kosten",
+      "ID": "KOS",
+      "Zichtbaar": "FALSE",
+      "Icon": "kosten.png",
+      "Doc": "",
+      "Kinderen": [ ],
+      "Weergave": [ ]
+    },
+    {
+      "Titel": "Aantal",
+      "TitelEnkelvoud": "Aantal",
+      "ID": "AAN",
+      "Zichtbaar": "FALSE",
+      "Icon": "aantal.png",
+      "Doc": "",
+      "Kinderen": [ ],
+      "Weergave": [ ]
+    },
+    {
+      "Titel": "Gebreken/Defecten",
+      "TitelEnkelvoud": "Gebrek/Defect",
+      "ID": "GBR",
+      "Zichtbaar": "FALSE",
+      "Icon": "gebreken.png",
+      "Doc": "",
+      "Kinderen": [ ],
+      "Weergave": [ ]
+    },
+    {
+      "Titel": "Elementen",
+      "TitelEnkelvoud": "Element",
+      "ID": "ELE",
+      "Zichtbaar": "FALSE",
+      "Icon": "elementen.png",
+      "Doc": "",
+      "Kinderen": [ ],
+      "Weergave": [ ]
+    },
+    {
+      "Titel": "KAART",
+      "ID": "KRT",
+      "Zichtbaar": "FALSE",
+      "Icon": "kaart.png"
+    },
+    {
+      "Titel": "BALK",
+      "ID": "BarChart",
+      "Zichtbaar": "FALSE",
+      "Icon": "grafiekbalk.png"
+    },
+    {
+      "Titel": "LIJN",
+      "ID": "LineChart",
+      "Zichtbaar": "FALSE",
+      "Icon": "Grafieklijn.png"
+    },
+    {
+      "Titel": "TAART",
+      "ID": "PieChart",
+      "Zichtbaar": "FALSE",
+      "Icon": "Grafiektaart.png"
+    },
+    {
+      "Titel": "TABEL",
+      "ID": "Table",
+      "Zichtbaar": "FALSE",
+      "Icon": "Tabel.png"
+    }
+
+ ]
+}
+

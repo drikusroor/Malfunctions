@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html>
+  <head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <!--<meta name="viewport" content="width=device-width">-->
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="16x16">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+    <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"> -->
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- <link rel="icon"
+      type="image/png"
+      href="assets/images/favicon.png" /> -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="libs/ng-sortable/dist/ng-sortable.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" type="text/css" href="assets/styles/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/styles/header.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/storing-style.min.css">
+    <title>Vision</title>
+    <!-- endbuild -->
+  </head>
+  <body ng-app="StoringenApp">
+    <div ng-controller="StoringenCtrl as storingenctrl">
+      <div ui-view="header" class="header"></div>
+      <div ui-view="content" class="container vertical-padding-15"></div>
+      <div ui-view="footer"></div>
+    </div>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- <script src="app/app.js"></script> -->
+
+    <!-- BUNDLE -->
+    <!-- <script src="lib-bundle.js"></script> -->
+    <script src="libs/vendor-min.js"></script>
+    <script src="bundle.js"></script>
+
+    <!-- ARJEN-->
+
+
+    <!-- endbuild -->
+  </body>
+  </html>

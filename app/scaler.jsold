@@ -1,0 +1,67 @@
+var $win = $(window);
+var $lay = $('#inzicht');
+
+var baseSize = {
+  w: $lay.width(),
+  h: $lay.height()
+}
+
+var ibreedte;
+var ihoogte;
+
+if (ibreedte === undefined) {
+  ibreedte = document.getElementById('tabel').offsetWidth;
+}
+if (ihoogte === undefined) {
+  ihoogte = document.getElementById('tabel').offsetHeight;
+}
+
+function origineelupdateScale() {
+  // alert(baseSize.w);
+
+  var ww = $win.width();
+  var wh = $win.height();
+  var newScale = 1;
+
+  console.log(ibreedte);
+
+  // compare ratios
+  if (ww / wh < baseSize.w / baseSize.h) { // tall ratio
+    newScale = ww / baseSize.w;
+  } else { // wide ratio
+    newScale = wh / baseSize.h;
+  }
+
+  $lay.css('transform', 'scale(' + newScale + ',' + newScale + ')');
+
+  //console.log(newScale);
+
+}
+
+function updateScale() {
+  // alert(baseSize.w);
+
+  var ww = $win.width();
+  var wh = $win.height();
+  var newScalew = 1;
+  var newScaleh = 1;
+  var newScale = 1;
+
+  console.log(ibreedte + ' ' + ww);
+
+  newScalew = ww / ibreedte;
+  newScaleh = wh / ihoogte;
+  if (newScalew < newScaleh) {
+    newScale = newScalew
+  } else {
+    newScale = newScaleh
+  }
+
+  $lay.css('transform', 'scale(' + newScale + ',' + newScale + ')');
+
+  console.log(newScale);
+
+}
+
+$(window).resize(updateScale);
+$(window).ready(updateScale);

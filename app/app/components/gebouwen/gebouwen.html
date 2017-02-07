@@ -1,0 +1,30 @@
+<h1>Gebouwen</h1>
+
+<form class="form-inline">
+  <label class="sr-only" for="inlineFormInput">Rayon</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
+
+  <label class="sr-only" for="inlineFormInput">Complexnummer</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
+
+  <label class="sr-only" for="inlineFormInput">Adres</label>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
+</form>
+
+<br>
+
+<div class="col-sm-6">
+
+  <uib-tabset active="activeJustified" justified="true">
+    <uib-tab index="0" heading="Kaart" ng-click="gebouwenctrl.selectedTab = 'map'"></uib-tab>
+    <uib-tab index="1" heading="Lijst" ng-click="gebouwenctrl.selectedTab = 'list'"></uib-tab>
+  </uib-tabset>
+
+  <br>
+
+  <div ng-show="gebouwenctrl.selectedTab === 'map'">
+    Benko
+  </div>
+  <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen"></gebouwen-tabel>
+
+</div>
