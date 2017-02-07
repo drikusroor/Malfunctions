@@ -1,27 +1,37 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{gebouwendetailctrl.service.gebouw.adres}}</h3>
+<div class="row">
+  <!-- General Information -->
+  <div class="col-sm-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{gebouwendetailctrl.service.gebouw.adres}}</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+          <b>ID:</b>
+          {{gebouwendetailctrl.service.gebouw.gebouwId}}
+        </li>
+        <li class="list-group-item">
+          <b>Adres:</b>
+          {{gebouwendetailctrl.service.gebouw.adres}}
+        </li>
+        <li class="list-group-item">
+          <b>VHENR:</b>
+          {{gebouwendetailctrl.service.gebouw.vhenr}}
+        </li>
+        <li class="list-group-item">
+          <b>Latitude:</b>
+          {{gebouwendetailctrl.service.gebouw.latitude | number:2}}
+        </li>
+        <li class="list-group-item">
+          <b>Longitude:</b>
+          {{gebouwendetailctrl.service.gebouw.longitude | number:2}}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Google Streetview Frame -->
+    <div class="col-sm-3">
+    </div>
   </div>
-  <ul class=" list-group">
-    <li class="list-group-item">
-      <b>ID:</b>
-      {{gebouwendetailctrl.service.gebouw.gebouwId}}
-    </li>
-    <li class="list-group-item">
-      <b>Adres:</b>
-      {{gebouwendetailctrl.service.gebouw.adres}}
-    </li>
-    <li class="list-group-item">
-      <b>VHENR:</b>
-      {{gebouwendetailctrl.service.gebouw.vhenr}}
-    </li>
-    <li class="list-group-item">
-      <b>Latitude:</b>
-      {{gebouwendetailctrl.service.gebouw.latitude | number:2}}
-    </li>
-    <li class="list-group-item">
-      <b>Longitude:</b>
-      {{gebouwendetailctrl.service.gebouw.longitude | number:2}}
-    </li>
-  </ul>
+
 </div>
