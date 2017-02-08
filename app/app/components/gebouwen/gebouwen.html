@@ -1,36 +1,52 @@
 <h1>Gebouwen</h1>
-<form class="form-inline">
-  <label class="sr-only" for="inlineFormInput">Rayon</label>
-  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
 
-  <label class="sr-only" for="inlineFormInput">Complexnummer</label>
-  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
-
-  <label class="sr-only" for="inlineFormInput">Adres</label>
-  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
-</form>
 
 <br>
 
-<div ng-class="{'col-sm-6': gebouwenctrl.selectedGebouw}">
+<div class="row">
 
-  <uib-tabset active="activeJustified" justified="true">
-    <uib-tab index="0" heading="Kaart" ng-click="gebouwenctrl.selectTab('map')"></uib-tab>
-    <uib-tab index="1" heading="Lijst" ng-click="gebouwenctrl.selectTab('list')"></uib-tab>
-  </uib-tabset>
+  <div class="col-sm-4">
+    <form class="form-inline">
+      <label class="sr-only" for="inlineFormInput">Rayon</label>
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
 
-  <style>
-  #map {
-    height: 400px;
-    width: 100%;
-  }
-  </style>
+      <label class="sr-only" for="inlineFormInput">Complexnummer</label>
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
 
-  <div ng-show="gebouwenctrl.selectedTab === 'map'">
-    <google-maps gebouwen="gebouwen" click-event="gebouwenctrl.selectGebouw(id)" location="location"></google-maps>
-    
+      <label class="sr-only" for="inlineFormInput">Adres</label>
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
+    </form>
+
+    <gebieden-map gebieden="gebouwenctrl.gebieden"></gebieden-map>
+
+
   </div>
-  <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+
+  <div class="col-sm-8">
+
+    <uib-tabset active="activeJustified" justified="true">
+      <uib-tab index="0" heading="Kaart" ng-click="gebouwenctrl.selectTab('map')"></uib-tab>
+      <uib-tab index="1" heading="Lijst" ng-click="gebouwenctrl.selectTab('list')"></uib-tab>
+    </uib-tabset>
+
+    <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+    #gebieden-map {
+      height: 600px;
+      width: 100%;
+    }
+    </style>
+
+    <div ng-show="gebouwenctrl.selectedTab === 'map'">
+      <google-maps gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)" location="location"></google-maps>
+    </div>
+
+    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+  </div>
+
 </div>
 
 
@@ -39,33 +55,37 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <span ng-click="gebouwenctrl.selectedGebouw = undefined" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-      <h3 class="panel-title">{{gebouwenctrl.selectedGebouw.adres}}</h3>
+      <h3 class="panel-title">{{gebouwenctrl.selectedGebouw.BAG_adres}} {{gebouwenctrl.selectedGebouw.BAG_huisnummer}}, {{gebouwenctrl.selectedGebouw.BAG_postcode}}, {{gebouwenctrl.selectedGebouw.BAG_plaats}}</h3>
     </div>
     <ul class=" list-group">
       <li class="list-group-item">
         <b>ID:</b>
-        {{gebouwenctrl.selectedGebouw.gebouwId}}
+        {{gebouwenctrl.selectedGebouw.BAG_VerblijfsobjectID}}
       </li>
       <li class="list-group-item">
         <b>Adres:</b>
-        {{gebouwenctrl.selectedGebouw.adres}}
+        {{gebouwenctrl.selectedGebouw.BAG_adres}} {{gebouwenctrl.selectedGebouw.BAG_huisnummer}}, {{gebouwenctrl.selectedGebouw.BAG_postcode}}, {{gebouwenctrl.selectedGebouw.BAG_plaats}}
+      </li>
+      <li class="list-group-item">
+        <b>Bouwjaar:</b>
+        {{gebouwenctrl.selectedGebouw.BAG_bouwjaar}}
       </li>
       <li class="list-group-item">
         <b>VHENR:</b>
-        {{gebouwenctrl.selectedGebouw.vhenr}}
+        {{gebouwenctrl.selectedGebouw.VHE_nr}}
       </li>
       <li class="list-group-item">
         <b>Latitude:</b>
-        {{gebouwenctrl.selectedGebouw.latitude | number:2}}
+        {{gebouwenctrl.selectedGebouw.BAG_lat | number:2}}
       </li>
       <li class="list-group-item">
         <b>Longitude:</b>
-        {{gebouwenctrl.selectedGebouw.longitude | number:2}}
+        {{gebouwenctrl.selectedGebouw.BAG_lon | number:2}}
       </li>
     </ul>
   </div>
 
-  <button type="button" class="btn btn-info" ng-click="gebouwenctrl.$state.go('portal.gebouwen.detail', {id: gebouwenctrl.selectedGebouw.gebouwId})">
+  <button type="button" class="btn btn-info" ng-click="gebouwenctrl.$state.go('portal.gebouwen.detail', {id: gebouwenctrl.selectedGebouw.BAG_VerblijfsobjectID})">
     Ga naar Gebouw
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
   </button>

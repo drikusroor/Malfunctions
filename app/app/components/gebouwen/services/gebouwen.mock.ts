@@ -30,7 +30,7 @@ angular.module('StoringenApp')
     longitude: 5.3696328
   },
   {
-    gebouwId: 3,
+    gebouwId: 4,
     adres: "Jan zoutstraat 67A",
     vhenr: "28172001",
     latitude: 52.164303799999994,

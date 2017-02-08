@@ -5,34 +5,59 @@ module StoringenApp {
     gebouwId: number;
     adres: string;
     vhenr: string;
-    latitude: number;
-    longitude: number
+    BAG_lat: number;
+    BAG_lon: number
   }
 
   export class GebouwenService {
     gebouwen: IGebouw[];
 
-    static $inject = ['$http', '$state', 'GEBOUWEN'];
+    static $inject = ['$http', '$state', '$q'];
     constructor(
       private $http,
       private $state,
-      private GEBOUWEN
+      private $q
     )
     {
-      this.gebouwen = GEBOUWEN;
+      this.gebouwen = [];
     }
 
     public addGebouw = (gebouw: IGebouw):void => {
       this.gebouwen.push(gebouw);
     }
 
-    public getGebouwen = ():IGebouw[] => {
-      return this.gebouwen;
+    public getGebouwen = (callback):any => {
+      var deferred = this.$q.defer();
+      var that = this;
+      this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen').then(function(response) {
+        console.log(response);
+        that.gebouwen = response.data;
+        deferred.resolve(response.data);
+      },
+      function(errorResponse) {
+        console.log(errorResponse);
+        deferred.resolve([]);
+      })
+      return deferred.promise;
+    }
+
+    public getGebouwById = (id):any => {
+      var deferred = this.$q.defer();
+      var that = this;
+      this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen/' + id).then(function(response) {
+        console.log(response);
+        deferred.resolve(response.data);
+      },
+      function(errorResponse) {
+        console.log(errorResponse);
+        deferred.resolve({});
+      })
+      return deferred.promise;
     }
 
   }
-  function service($http, $state, GEBOUWEN): GebouwenService {
-    return new GebouwenService($http, $state, GEBOUWEN);
+  function service($http, $state, $q): GebouwenService {
+    return new GebouwenService($http, $state, $q);
   }
   angular.module('StoringenApp').service('GebouwenService', service);
 }
