@@ -22,7 +22,7 @@ angular.module('StoringenApp')
             function getContentString(gebouw) {
                 var html = '<div id="content">' +
                     '<div id="siteNotice">' +
-                    '<a class="btn btn-info" href="#/gebouwen/' + gebouw.BAG_VerblijfsobjectID + '">' +
+                    '<a class="btn btn-info" href="#!/gebouwen/' + gebouw.BAG_VerblijfsobjectID + '">' +
                     gebouw.BAG_adres + ' ' + gebouw.BAG_huisnummer + ', ' + gebouw.BAG_postcode + ', ' + gebouw.BAG_plaats +
                     '<br>VHENR: ' + gebouw.VHE_nr +
                     '</a>' +
@@ -80,6 +80,7 @@ angular.module('StoringenApp')
                         Object_ID: $scope.gebouwen[i].Object_ID
                     };
                     google.maps.event.addListener(marker, 'click', function () {
+                        console.log(marker);
                         infowindow.open($window.map, marker);
                     });
                     return marker;
