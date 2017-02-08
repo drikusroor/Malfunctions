@@ -1,7 +1,7 @@
 angular.module('StoringenApp')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/gebouwen');
 
   $stateProvider
     .state('portal', {
@@ -13,7 +13,9 @@ angular.module('StoringenApp')
           templateUrl: 'app/shared/header/header.html'
         },
         'content@': {
-          templateUrl: 'app/components/front/front.html',
+          templateUrl: 'app/components/gebouwen/gebouwen.html',
+          controller: 'GebouwenCtrl',
+          controllerAs: 'gebouwenctrl'
         }
       },
       resolve: {

@@ -6,8 +6,9 @@ angular.module('StoringenApp')
     transclude: true,
     scope: {
       'gebouwen': '=',
-      'clickEvent': '&',
-      'location': '='
+      'location': '=',
+      'gebouwenFilter': '=',
+      'viewPortCenter': '='
     },
     controller: function($scope, $window, $document) {
 
@@ -15,9 +16,18 @@ angular.module('StoringenApp')
         // $scope.initMap();
       })
 
+      console.log($scope);
       $scope.$watch('gebouwen', function(newValue, oldValue, scope) {
         if(newValue !== undefined) {
           if (oldValue === undefined || newValue.length !== oldValue.length) {
+            $scope.initMap();
+          }
+        }
+      })
+
+      $scope.$watch('gebouwenFilter.Gebied2', function(newValue, oldValue, scope) {
+        if(newValue !== undefined) {
+          if (oldValue === undefined || newValue !== oldValue ) {
             $scope.initMap();
           }
         }
@@ -36,36 +46,9 @@ angular.module('StoringenApp')
         return html;
       }
 
-      var panorama;
-
-      $scope.resizeMarkers = function() {
-        console.log($scope.markers);
-
-        for (var i in $scope.markers) {
-          $scope.markers[i].icon.url = "assets/images/gebouwtje64.png";
-        }
-      }
-
-      function initPanorama() {
-
-        panorama = $window.map.getStreetView();
-        // Add a link to our custom panorama from outside the Google Sydney office.
-        panorama.addListener('links_changed', function() {
-          console.log("benko links chagned", this);
-
-          $scope.resizeMarkers();
-
-          // if (panorama.getPano() === outsideGoogle.location.pano) {
-          //   panorama.getLinks().push({
-          //     description: 'Google Sydney',
-          //     heading: 25,
-          //     pano: 'reception'
-          //   });
-          // }
-        });
-      }
-
       $scope.initMap = (): void => {
+
+        console.log($scope.viewPortCenter);
 
         // Startlocatie
         var coordinates = {
@@ -75,7 +58,7 @@ angular.module('StoringenApp')
 
         $window.map = new google.maps.Map(document.getElementById('map'), {
           center: coordinates,
-          zoom: 16,
+          zoom: 14,
           StreetViewPControl: false
         });
 
@@ -91,6 +74,13 @@ angular.module('StoringenApp')
             lat: $scope.gebouwen[i].BAG_lat,
             lng: $scope.gebouwen[i].BAG_lon
           }
+
+          if ($scope.gebouwenFilter.Gebied2) {
+            if ($scope.gebouwen[i].Gebied2 !== $scope.gebouwenFilter.Gebied2) {
+              return;
+            }
+          }
+
           var marker = new google.maps.Marker({
             position: locationNew,
             map: $window.map,
@@ -114,17 +104,12 @@ angular.module('StoringenApp')
             Object_ID: $scope.gebouwen[i].Object_ID
           }
 
-          // google.maps.event.addListener(marker, 'click', function() {
-          //   console.log(this.metadata);
-          //   $scope.clickEvent({id: this.metadata.Object_ID})
-          //   google.maps.event.trigger($window.map, "resize");
-          // });
-
           google.maps.event.addListener(marker, 'click', function() {
             console.log(marker)
             infowindow.open($window.map, marker);
           })
 
+          $scope.lastMarker = marker;
 
           return marker
         });
@@ -151,6 +136,12 @@ angular.module('StoringenApp')
         google.maps.event.addListener(rectangle, 'click', function() {
           console.log(rectangle)
         })
+
+        var vpc = $scope.viewPortCenter;
+        if(vpc.x !== undefined && vpc.y !== undefined) {
+          var latLng = new google.maps.LatLng($scope.viewPortCenter.x, $scope.viewPortCenter.y);
+          $window.map.panTo(latLng);
+        }
 
         // Add a marker clusterer to manage the markers.
         // var markerCluster = new MarkerClusterer(map, markers,

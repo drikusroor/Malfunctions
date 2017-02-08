@@ -6,15 +6,24 @@ angular.module('StoringenApp')
         transclude: true,
         scope: {
             'gebouwen': '=',
-            'clickEvent': '&',
-            'location': '='
+            'location': '=',
+            'gebouwenFilter': '=',
+            'viewPortCenter': '='
         },
         controller: function ($scope, $window, $document) {
             $document.ready(function () {
             });
+            console.log($scope);
             $scope.$watch('gebouwen', function (newValue, oldValue, scope) {
                 if (newValue !== undefined) {
                     if (oldValue === undefined || newValue.length !== oldValue.length) {
+                        $scope.initMap();
+                    }
+                }
+            });
+            $scope.$watch('gebouwenFilter.Gebied2', function (newValue, oldValue, scope) {
+                if (newValue !== undefined) {
+                    if (oldValue === undefined || newValue !== oldValue) {
                         $scope.initMap();
                     }
                 }
@@ -30,28 +39,15 @@ angular.module('StoringenApp')
                     '</div> ';
                 return html;
             }
-            var panorama;
-            $scope.resizeMarkers = function () {
-                console.log($scope.markers);
-                for (var i in $scope.markers) {
-                    $scope.markers[i].icon.url = "assets/images/gebouwtje64.png";
-                }
-            };
-            function initPanorama() {
-                panorama = $window.map.getStreetView();
-                panorama.addListener('links_changed', function () {
-                    console.log("benko links chagned", this);
-                    $scope.resizeMarkers();
-                });
-            }
             $scope.initMap = function () {
+                console.log($scope.viewPortCenter);
                 var coordinates = {
                     lat: 51.9980072,
                     lng: 4.4957816
                 };
                 $window.map = new google.maps.Map(document.getElementById('map'), {
                     center: coordinates,
-                    zoom: 16,
+                    zoom: 14,
                     StreetViewPControl: false
                 });
                 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -60,6 +56,11 @@ angular.module('StoringenApp')
                         lat: $scope.gebouwen[i].BAG_lat,
                         lng: $scope.gebouwen[i].BAG_lon
                     };
+                    if ($scope.gebouwenFilter.Gebied2) {
+                        if ($scope.gebouwen[i].Gebied2 !== $scope.gebouwenFilter.Gebied2) {
+                            return;
+                        }
+                    }
                     var marker = new google.maps.Marker({
                         position: locationNew,
                         map: $window.map,
@@ -83,6 +84,7 @@ angular.module('StoringenApp')
                         console.log(marker);
                         infowindow.open($window.map, marker);
                     });
+                    $scope.lastMarker = marker;
                     return marker;
                 });
                 var x = (4.50035558312196 - 4.49856168867059) / 4;
@@ -104,6 +106,11 @@ angular.module('StoringenApp')
                 google.maps.event.addListener(rectangle, 'click', function () {
                     console.log(rectangle);
                 });
+                var vpc = $scope.viewPortCenter;
+                if (vpc.x !== undefined && vpc.y !== undefined) {
+                    var latLng = new google.maps.LatLng($scope.viewPortCenter.x, $scope.viewPortCenter.y);
+                    $window.map.panTo(latLng);
+                }
             };
         },
         link: function ($scope) {

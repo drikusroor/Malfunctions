@@ -8,7 +8,7 @@
   <div class="col-sm-4">
     <form class="form-inline">
       <label class="sr-only" for="inlineFormInput">Rayon</label>
-      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon">
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon" ng-model="gebouwenctrl.gebouwenFilter.Gebied2">
 
       <label class="sr-only" for="inlineFormInput">Complexnummer</label>
       <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
@@ -17,7 +17,13 @@
       <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Adres">
     </form>
 
-    <gebieden-map gebieden="gebouwenctrl.gebieden"></gebieden-map>
+    <style>
+    #gebieden-map {
+      height: 600px;
+      width: 100%;
+    }
+    </style>
+    <gebieden-map gebieden="gebouwenctrl.gebieden" click-event="gebouwenctrl.setGebouwenFilter(gebied)"></gebieden-map>
 
 
   </div>
@@ -34,14 +40,10 @@
       height: 600px;
       width: 100%;
     }
-    #gebieden-map {
-      height: 600px;
-      width: 100%;
-    }
     </style>
 
     <div ng-show="gebouwenctrl.selectedTab === 'map'">
-      <google-maps gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)" location="location"></google-maps>
+      <google-maps gebouwen="gebouwenctrl.gebouwen" location="location" gebouwen-filter="gebouwenctrl.gebouwenFilter" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
     </div>
 
     <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>

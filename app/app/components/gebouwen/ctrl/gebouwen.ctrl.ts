@@ -7,6 +7,8 @@ module StoringenApp {
     gebieden: IGebied[];
     selectedGebouw: IGebouw;
     selectedTab: string;
+    gebouwenFilter: any;
+    viewPortCenter: any;
 
     static $inject = [
       '$scope',
@@ -43,11 +45,25 @@ module StoringenApp {
       //GebouwenService.getGebouwen();
       this.selectedTab = "map";
       LocationService.getCurrentPosition().then(this.storeLocation);
+
+      this.gebouwenFilter = {};
+      this.viewPortCenter = {};
     }
 
     public storeLocation = (loc):void => {
       console.log(loc);
       this.location = loc;
+    }
+
+    public setGebouwenFilter = (gebied): void => {
+      var that = this;
+      var x = (gebied.maxlat + gebied.minlat) / 2;
+      var y = (gebied.maxlon + gebied.minlon) / 2;
+      this.$scope.$apply(function() {
+        that.gebouwenFilter.Gebied2 = gebied.Gebied2;
+        that.viewPortCenter = {x, y};
+        console.log(that)
+      })
     }
 
     public selectGebouw = (id: number): void => {

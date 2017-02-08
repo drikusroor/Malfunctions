@@ -17,6 +17,16 @@ var StoringenApp;
                 console.log(loc);
                 _this.location = loc;
             };
+            this.setGebouwenFilter = function (gebied) {
+                var that = _this;
+                var x = (gebied.maxlat + gebied.minlat) / 2;
+                var y = (gebied.maxlon + gebied.minlon) / 2;
+                _this.$scope.$apply(function () {
+                    that.gebouwenFilter.Gebied2 = gebied.Gebied2;
+                    that.viewPortCenter = { x: x, y: y };
+                    console.log(that);
+                });
+            };
             this.selectGebouw = function (id) {
                 console.log(id);
                 var selectedGebouw = _this.gebouwen.find(function (g) { return g.Object_ID === id; });
@@ -49,6 +59,8 @@ var StoringenApp;
             });
             this.selectedTab = "map";
             LocationService.getCurrentPosition().then(this.storeLocation);
+            this.gebouwenFilter = {};
+            this.viewPortCenter = {};
         }
         return GebouwenCtrl;
     }());

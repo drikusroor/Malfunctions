@@ -9,6 +9,11 @@ angular.module('StoringenApp')
             'clickEvent': '&',
             'location': '='
         },
+        link: function ($scope) {
+            $scope.selectGebied = function (gebied) {
+                $scope.clickEvent({ gebied: gebied });
+            };
+        },
         controller: function ($scope, $window, $document) {
             $document.ready(function () {
             });
@@ -19,34 +24,10 @@ angular.module('StoringenApp')
                     }
                 }
             });
-            function getContentString(gebouw) {
-                var html = '<div id="content">' +
-                    '<div id="siteNotice">' +
-                    '<a class="btn btn-info" href="#/gebieden/' + gebouw.BAG_VerblijfsobjectID + '">' +
-                    gebouw.BAG_adres + ' ' + gebouw.BAG_huisnummer + ', ' + gebouw.BAG_postcode + ', ' + gebouw.BAG_plaats +
-                    '<br>VHENR: ' + gebouw.VHE_nr +
-                    '</a>' +
-                    '</div>' +
-                    '</div> ';
-                return html;
-            }
             var panorama;
-            $scope.initMap = function () {
-                var coordinates = {
-                    lat: 51.9980072,
-                    lng: 4.4957816
-                };
-                $window.gebiedenMap = new google.maps.Map(document.getElementById('gebieden-map'), {
-                    center: coordinates,
-                    zoom: 16,
-                    StreetViewPControl: false
-                });
-                var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $scope.rectangles = $scope.gebieden.map(function (location, i) {
-                    var gebied = $scope.gebieden[i];
-                    var maxlat = gebied.maxlat, minlat = gebied.minlat, maxlon = gebied.maxlon, minlon = gebied.minlon;
-                    var x = (maxlat - minlat) / 4;
-                    var y = (maxlon - minlon) / 4;
+            function addRectangle(gebied) {
+                var maxlat = gebied.maxlat, minlat = gebied.minlat, maxlon = gebied.maxlon, minlon = gebied.minlon, x = (maxlat - minlat) / 4, y = (maxlon - minlon) / 4;
+                if (maxlat > 0 && minlat > 0 && maxlon > 0 && minlon > 0) {
                     var rectangle = new google.maps.Rectangle({
                         strokeColor: '#FF0000',
                         strokeOpacity: 0.8,
@@ -61,13 +42,27 @@ angular.module('StoringenApp')
                             west: minlon - x
                         }
                     });
+                    rectangle.metadata = gebied;
                     google.maps.event.addListener(rectangle, 'click', function () {
-                        console.log('benko');
+                        $scope.selectGebied(rectangle.metadata);
                     });
+                }
+            }
+            $scope.initMap = function () {
+                var coordinates = {
+                    lat: 51.9980072,
+                    lng: 4.4957816
+                };
+                $window.gebiedenMap = new google.maps.Map(document.getElementById('gebieden-map'), {
+                    center: coordinates,
+                    zoom: 12,
+                    StreetViewPControl: false
+                });
+                $scope.rectangles = $scope.gebieden.map(function (location, i) {
+                    var gebied = $scope.gebieden[i];
+                    addRectangle(gebied);
                 });
             };
-        },
-        link: function ($scope) {
         },
         template: "\n      <div id=\"gebieden-map\"></div>\n    "
     };

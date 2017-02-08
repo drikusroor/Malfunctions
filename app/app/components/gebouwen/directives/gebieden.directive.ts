@@ -9,6 +9,11 @@ angular.module('StoringenApp')
       'clickEvent': '&',
       'location': '='
     },
+    link: function($scope) {
+      $scope.selectGebied = function(gebied) {
+        $scope.clickEvent({gebied: gebied});
+      }
+    },
     controller: function($scope, $window, $document) {
 
       $document.ready(function() {
@@ -23,53 +28,14 @@ angular.module('StoringenApp')
         }
       })
 
-      function getContentString(gebouw) {
-        var html =
-        '<div id="content">' +
-          '<div id="siteNotice">' +
-            '<a class="btn btn-info" href="#/gebieden/' + gebouw.BAG_VerblijfsobjectID + '">' +
-              gebouw.BAG_adres + ' ' + gebouw.BAG_huisnummer + ', ' + gebouw.BAG_postcode + ', ' + gebouw.BAG_plaats +
-              '<br>VHENR: ' + gebouw.VHE_nr +
-            '</a>' +
-          '</div>' +
-        '</div> ';
-        return html;
-      }
-
       var panorama;
 
+      function addRectangle(gebied) {
+        var {maxlat, minlat, maxlon, minlon} = gebied,
+          x = ( maxlat - minlat ) / 4,
+          y = ( maxlon - minlon ) / 4;
 
-
-      $scope.initMap = (): void => {
-
-        // Startlocatie
-        var coordinates = {
-          lat: 51.9980072,
-          lng: 4.4957816
-        }
-
-        $window.gebiedenMap = new google.maps.Map(document.getElementById('gebieden-map'), {
-          center: coordinates,
-          zoom: 16,
-          StreetViewPControl: false
-        });
-
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-
-        $scope.rectangles = $scope.gebieden.map(function(location, i) {
-          var gebied = $scope.gebieden[i];
-
-          var {maxlat, minlat, maxlon, minlon} = gebied;
-
-          var x = ( maxlat - minlat ) / 4;
-          var y = ( maxlon - minlon ) / 4;
-
+        if (maxlat > 0 && minlat > 0 && maxlon > 0 && minlon > 0) {
           var rectangle = new google.maps.Rectangle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
@@ -84,23 +50,38 @@ angular.module('StoringenApp')
               west: minlon - x
             }
           })
+          rectangle.metadata = gebied;
           google.maps.event.addListener(rectangle, 'click', function() {
-            console.log('benko')
+            //$scope.gebouwenFilter.Gebied2 = rectangle.metadata.Gebied2;
+            $scope.selectGebied(rectangle.metadata);
           })
+        }
+      }
+
+      $scope.initMap = (): void => {
+
+        // Startlocatie
+        var coordinates = {
+          lat: 51.9980072,
+          lng: 4.4957816
+        }
+
+        $window.gebiedenMap = new google.maps.Map(document.getElementById('gebieden-map'), {
+          center: coordinates,
+          zoom: 12,
+          StreetViewPControl: false
+        });
+
+        // Add some rectangles to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of rectangles based on a given "gebieden" array.
+        // The map() method here has nothing to do with the Google Maps API.
+        $scope.rectangles = $scope.gebieden.map(function(location, i) {
+          var gebied = $scope.gebieden[i];
+          addRectangle(gebied);
         })
-
-
-        // Add a marker clusterer to manage the markers.
-        // var markerCluster = new MarkerClusterer(map, markers,
-        //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
       }
     },
-    link: function($scope) {
-
-    },
-    // <div id="floating-panel">
-    //   <input type="button" value="Toggle Street View" ng-click="toggleStreetView();"></input>
-    // </div>
     template: `
       <div id="gebieden-map"></div>
     `
