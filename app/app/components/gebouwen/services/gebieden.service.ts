@@ -25,8 +25,11 @@ module StoringenApp {
     public getGebieden = (callback):any => {
       var deferred = this.$q.defer();
       var that = this;
-      this.$http.get('https://development.prognotice.nl/storingen/api/api/gebieden').then(function(response) {
+      this.$http.get('https://development.prognotice.nl/storingen/api/api/rayons').then(function(response) {
         console.log(response);
+        for(var i in response.data) {
+          response.data[i].Gebied2 = response.data[i].Rayon;
+        }
         that.gebieden = response.data;
         deferred.resolve(response.data);
       },

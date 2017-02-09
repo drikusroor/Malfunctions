@@ -10,7 +10,10 @@ module StoringenApp {
     status: IStatus[];
 
     static $inject = ['$http', '$q'];
-    constructor($http, $q)
+    constructor(
+      private $http,
+      private $q
+    )
     {
       this.status = [];
     }
@@ -18,7 +21,7 @@ module StoringenApp {
     public getStatus = (gebouwId):any => {
       var deferred = this.$q.defer();
       var that = this;
-      this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen' + gebouwId + '/status').then(function(response) {
+      this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen/' + gebouwId + '/status').then(function(response) {
         console.log(response);
         that.status = response.data;
         deferred.resolve(response.data);

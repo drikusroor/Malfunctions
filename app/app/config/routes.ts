@@ -49,11 +49,11 @@ angular.module('StoringenApp')
         }
     })
     .state('portal.gebouwen.detail.status', {
-      url: 'status',
+      url: '/status',
       views: {
         'content@': {
           templateUrl: 'app/components/status/status.html',
-          controller: 'statusCtrl',
+          controller: 'StatusCtrl',
           controllerAs: 'statusctrl'
         }
       },

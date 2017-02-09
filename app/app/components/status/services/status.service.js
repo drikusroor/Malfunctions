@@ -4,10 +4,12 @@ var StoringenApp;
     var StatusService = (function () {
         function StatusService($http, $q) {
             var _this = this;
+            this.$http = $http;
+            this.$q = $q;
             this.getStatus = function (gebouwId) {
                 var deferred = _this.$q.defer();
                 var that = _this;
-                _this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen' + gebouwId + '/status').then(function (response) {
+                _this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen/' + gebouwId + '/status').then(function (response) {
                     console.log(response);
                     that.status = response.data;
                     deferred.resolve(response.data);

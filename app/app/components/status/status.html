@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xs-12">
+    <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen.detail({id: statusctrl.$state.params.id})">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      Terug naar gebouwdetails
+    </a>
+  </div>
+</div>
+
+<h1>Gebouwstatus</h1>
+
+<br>
+
+<div class="row">
+
+  <!-- Google Streetview Frame -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Streetview:</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Locatie:</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- General Information -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>{{gebouwendetailctrl.gebouw.VHE_nr}}</strong> | {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+          <b>ID:</b>
+          {{gebouwendetailctrl.gebouw.BAG_VerblijfsobjectID}}
+        </li>
+        <li class="list-group-item">
+          <b>Adres:</b>
+          {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}
+        </li>
+        <li class="list-group-item">
+          <b>VHENR:</b>
+          {{gebouwendetailctrl.gebouw.VHE_nr}}
+        </li>
+        <li class="list-group-item">
+          <b>Coördinaten:</b>
+          {{gebouwendetailctrl.gebouw.BAG_lat | number:2}},
+          {{gebouwendetailctrl.gebouw.BAG_lon | number:2}}
+        </li>
+        <li class="list-group-item">
+          <b>Complex:</b>
+          {{gebouwendetailctrl.gebouw.Complr_nr}} {{gebouwendetailctrl.gebouw.Compl_naam}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

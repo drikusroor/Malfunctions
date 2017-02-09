@@ -10,8 +10,11 @@ var StoringenApp;
             this.getGebieden = function (callback) {
                 var deferred = _this.$q.defer();
                 var that = _this;
-                _this.$http.get('https://development.prognotice.nl/storingen/api/api/gebieden').then(function (response) {
+                _this.$http.get('https://development.prognotice.nl/storingen/api/api/rayons').then(function (response) {
                     console.log(response);
+                    for (var i in response.data) {
+                        response.data[i].Gebied2 = response.data[i].Rayon;
+                    }
                     that.gebieden = response.data;
                     deferred.resolve(response.data);
                 }, function (errorResponse) {

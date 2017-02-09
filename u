@@ -1,0 +1,123 @@
+* [33mcommit 150ea03f84cc402ac9ade0a5ebd5c8474ed0cce0[m
+[31m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[31m|[m Date:   Thu Feb 9 09:21:16 2017 +0100
+[31m|[m 
+[31m|[m     Added first part of Status component
+[31m|[m    
+*   [33mcommit ae0239dcf94616d26c3aed45775f51991497acbf[m
+[32m|[m[33m\[m  Merge: b1b4921 8798ec3
+[32m|[m [33m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[32m|[m [33m|[m Date:   Thu Feb 9 09:00:18 2017 +0100
+[32m|[m [33m|[m 
+[32m|[m [33m|[m     Merge branch 'master' of https://github.com/drikusroor/Malfunctions into technical
+[32m|[m [33m|[m     
+[32m|[m *   [33mcommit 8798ec377368dab1fd328024513ae7006f39947f[m
+[32m|[m [34m|[m[35m\[m  Merge: 771399c 212f810
+[32m|[m [34m|[m [35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[32m|[m [34m|[m [35m|[m Date:   Thu Feb 9 08:48:31 2017 +0100
+[32m|[m [34m|[m [35m|[m 
+[32m|[m [34m|[m [35m|[m     Merge pull request #1 from drikusroor/technical
+[32m|[m [34m|[m [35m|[m     
+[32m|[m [34m|[m [35m|[m     Restructured app and made area-based navigation possible in Gebouwen …
+[32m|[m [34m|[m [35m|[m    
+* [34m|[m [35m|[m [33mcommit b1b492189dc0ec0c46361eb3b32b01f5b67b2a0c[m
+[35m|[m [34m|[m[35m/[m  Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m[35m/[m[34m|[m   Date:   Thu Feb 9 07:57:59 2017 +0100
+[35m|[m [34m|[m   
+[35m|[m [34m|[m       Restyled the two map columns in Gebouwen view
+[35m|[m [34m|[m   
+* [34m|[m [33mcommit 212f81031d2d138ed855ed80062eed928677b591[m
+[34m|[m[34m/[m  Author: Drikus Roor <drikusroor@gmail.com>
+[34m|[m   Date:   Wed Feb 8 23:59:19 2017 +0100
+[34m|[m   
+[34m|[m       Restructured app and made area-based navigation possible in Gebouwen view
+[34m|[m  
+* [33mcommit 771399cf7bffa81c24ae2a2df8e0e8de3b44b55b[m
+[35m|[m Author: Adriana Matsufuji <adrianabm@gmail.com>
+[35m|[m Date:   Wed Feb 8 21:28:36 2017 +0100
+[35m|[m 
+[35m|[m     Fixed url for hashbang mode
+[35m|[m  
+* [33mcommit 42d9ece206c07d56bd9829690a285f81b25a0237[m
+[35m|[m Author: Roor <droor@acto.nl>
+[35m|[m Date:   Wed Feb 8 21:19:45 2017 +0100
+[35m|[m 
+[35m|[m     Updated depencies angular and angular-ui-router
+[35m|[m  
+* [33mcommit 0a44641fb1f13a8497beff036bb9eb682c5bfae7[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Wed Feb 8 20:52:07 2017 +0100
+[35m|[m 
+[35m|[m     Connected the app with the API and added Gebieden
+[35m|[m  
+* [33mcommit bc9687eb961499416954c08d95d7b127ae67c417[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 17:39:42 2017 +0100
+[35m|[m 
+[35m|[m     Click events now call selectGebouw function with gebouwId
+[35m|[m  
+* [33mcommit 40ebc6b1b4bf7e5ef9837bda823bf1cd650517bc[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 16:02:47 2017 +0100
+[35m|[m 
+[35m|[m     Added click events to markers
+[35m|[m  
+* [33mcommit ed7f27ca6d265e851a34070be001adde7f1d3e9e[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 15:52:13 2017 +0100
+[35m|[m 
+[35m|[m     Added markers on map and streetview. Made a directive for the google-maps map
+[35m|[m  
+* [33mcommit e428a8f3956540ae0855619999f65aeaea59c16b[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 15:17:57 2017 +0100
+[35m|[m 
+[35m|[m     Photos can now be added
+[35m|[m  
+* [33mcommit adf24ecb8b506af525ab9479358e45821515bb7d[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 13:55:26 2017 +0100
+[35m|[m 
+[35m|[m     Some improvements to the Gebouwen view. Users can deselect a gebouw now.
+[35m|[m  
+* [33mcommit 543d62633cfac872235cdcb58c7af7b4105847cc[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 13:17:39 2017 +0100
+[35m|[m 
+[35m|[m     Improved the views of Gebouwen and Meldingen
+[35m|[m  
+* [33mcommit ce766b389d771b59a5ff594beba608e2d6ed903e[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 12:57:18 2017 +0100
+[35m|[m 
+[35m|[m     Created the view meldingen with a embedded map in it. Embedded a map in Gebouwen as well.
+[35m|[m  
+* [33mcommit 8e6bac3d4878011f886d82cf5cbd56279d22aa5c[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 11:17:50 2017 +0100
+[35m|[m 
+[35m|[m     Improved header: added logo, colors & collapse
+[35m|[m  
+* [33mcommit 68a758401f0c2249ae99f9a426768cb4a5bd1b72[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 10:35:38 2017 +0100
+[35m|[m 
+[35m|[m     Split the Gebouwen-Detail page in two columns to make space for google streetview
+[35m|[m  
+* [33mcommit b04bd5c509fc1695fd5c957c726717866b5e9568[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 10:28:57 2017 +0100
+[35m|[m 
+[35m|[m     Expanded the Gebouwen and Gebouwen-Detail components
+[35m|[m  
+* [33mcommit 12f4ce7c5ab525d8e01799338329055e70f1fecd[m
+[35m|[m Author: Drikus Roor <drikusroor@gmail.com>
+[35m|[m Date:   Tue Feb 7 08:14:06 2017 +0100
+[35m|[m 
+[35m|[m     Added existing files
+[35m|[m  
+* [33mcommit f3a9f9883bfba4310a4901803195464cf0ad0317[m
+  Author: Drikus Roor <drikusroor@gmail.com>
+  Date:   Tue Feb 7 07:56:09 2017 +0100
+  
+      Initial commit

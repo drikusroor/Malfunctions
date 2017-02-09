@@ -1,18 +1,45 @@
 <div class="row">
-
-  <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    Terug naar gebouwenoverzicht
-  </a>
-
+  <div class="col-xs-12">
+    <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      Terug naar gebouwenoverzicht
+    </a>
+  </div>
 </div>
+
+<h1>Details</h1>
 
 <br>
 
 <div class="row">
 
+  <!-- Google Streetview Frame -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Streetview:</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Locatie:</h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
   <!-- General Information -->
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>{{gebouwendetailctrl.gebouw.VHE_nr}}</strong> | {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}</h3>
@@ -43,27 +70,9 @@
     </div>
   </div>
 
-  <!-- Google Streetview Frame -->
-  <div class="col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Streetview:</h3>
-      </div>
-
-
-
-      <ul class=" list-group">
-        <li class="list-group-item">
-
-        </li>
-      </ul>
-
-    </div>
-  </div>
-
 </div>
 
-<div class="row">
+<div ng-if="false" class="row">
 
   <div class="col-sm-4">
     <div class="panel panel-default">
