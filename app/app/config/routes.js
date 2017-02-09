@@ -51,6 +51,17 @@ angular.module('StoringenApp')
             },
             resolve: {}
         })
+            .state('portal.gebouwen.detail.status.meldingen', {
+            url: '/meldingen/:meldingId',
+            views: {
+                'content@': {
+                    templateUrl: 'app/components/meldingen/meldingen.html',
+                    controller: 'MeldingenCtrl',
+                    controllerAs: 'meldingenctrl'
+                }
+            },
+            resolve: {}
+        })
             .state('portal.admin.datasourceManagement.detail', {
             url: '/:id',
             views: {
