@@ -53,6 +53,7 @@ angular.module('StoringenApp')
                     });
                     rectangle.metadata = gebied;
                     google.maps.event.addListener(rectangle, 'click', function () {
+                        console.log(rectangle.metadata);
                         $scope.selectGebied(rectangle.metadata);
                     });
                 }

@@ -10,7 +10,7 @@ angular.module('StoringenApp')
             'gebouwenFilter': '=',
             'viewPortCenter': '='
         },
-        controller: function ($scope, $window, $document) {
+        controller: function ($scope, $window, $document, LocationService) {
             console.log($scope);
             $scope.$watch('gebouwen', function (newValue, oldValue, scope) {
                 if (newValue !== undefined) {
@@ -22,7 +22,14 @@ angular.module('StoringenApp')
             $scope.$watch('gebouwenFilter.Gebied2', function (newValue, oldValue, scope) {
                 if (newValue !== undefined) {
                     if (oldValue === undefined || newValue !== oldValue) {
-                        $scope.initMap();
+                        $scope.addMarkers();
+                    }
+                }
+            });
+            $scope.$watch('gebouwenFilter.Rayon', function (newValue, oldValue, scope) {
+                if (newValue !== undefined) {
+                    if (oldValue === undefined || newValue !== oldValue) {
+                        $scope.addMarkers();
                     }
                 }
             });
@@ -60,7 +67,6 @@ angular.module('StoringenApp')
                     amountX = Math.round(gridSize * ratio);
                     amountY = gridSize;
                 }
-                console.log(vb, amountX, amountY);
                 var xMin = vb.lng1;
                 var xMax = vb.lng0;
                 var lonRange = xMax - xMin;
@@ -69,7 +75,6 @@ angular.module('StoringenApp')
                 var yMax = vb.lat0;
                 var latRange = yMax - yMin;
                 var latStep = latRange / amountY;
-                console.log(xMin, xMax, yMin, yMax, lonRange, latRange);
                 var gridArray = [];
                 for (var y = 0; y < amountY; y++) {
                     for (var x = 0; x < amountX; x++) {
@@ -103,9 +108,12 @@ angular.module('StoringenApp')
                     }
                 }
                 gridArray = gridArray.filter(function (g) { return g.count > 0; });
+                if ($scope.markers !== undefined) {
+                    clearMarkers();
+                }
                 $scope.markers = gridArray.map(function (location, i) {
                     var grid = gridArray[i];
-                    var scale = (grid.count / 500) + 1;
+                    var scale = (grid.count / 400) + 1;
                     if (scale > 2.5)
                         scale = 2.5;
                     var size = 24 * scale;
@@ -117,15 +125,29 @@ angular.module('StoringenApp')
                             lng: grid.lonCenter
                         },
                         map: $window.map,
-                        title: grid.count.toString(),
-                        label: grid.count.toString(),
+                        title: label,
+                        labelContent: label,
+                        labelClass: "labels",
+                        label: {
+                            text: label,
+                            fontFamily: "Catamaran-Bold",
+                            fontSize: "14pt",
+                            fontWeight: "bolder",
+                            color: "#151515"
+                        },
                         icon: {
-                            url: 'assets/images/gebouwtje24.png',
+                            url: 'assets/images/gebouwtje64trans.png',
                             size: new google.maps.Size(size, size),
                             origin: new google.maps.Point(0, 0),
                             anchor: new google.maps.Point(point, point),
                             scaledSize: new google.maps.Size(size, size)
                         }
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+                        $window.map.panTo(latLng);
+                        var zoomLevel = $window.map.getZoom();
+                        $window.map.setZoom(zoomLevel + 1);
                     });
                     return marker;
                 });
@@ -137,15 +159,23 @@ angular.module('StoringenApp')
                         g.BAG_lon < vb.lng0 &&
                         g.BAG_lon > vb.lng1;
                 });
+                if ($scope.gebouwenFilter.Gebied2) {
+                    filteredGebouwen = gebouwen.filter(function (g) {
+                        return g.Gebied2 === $scope.gebouwenFilter.Gebied2;
+                    });
+                }
+                if ($scope.gebouwenFilter.Rayon) {
+                    filteredGebouwen = gebouwen.filter(function (g) {
+                        return g.Rayon === $scope.gebouwenFilter.Rayon;
+                    });
+                }
                 return filteredGebouwen;
             }
             function addIndividualMarkers(filteredGebouwen) {
+                if ($scope.markers !== undefined) {
+                    clearMarkers();
+                }
                 $scope.markers = filteredGebouwen.map(function (location, i) {
-                    if ($scope.gebouwenFilter.Gebied2) {
-                        if ($scope.gebouwen[i].Gebied2 !== $scope.gebouwenFilter.Gebied2) {
-                            return;
-                        }
-                    }
                     var marker = new google.maps.Marker({
                         position: {
                             lat: filteredGebouwen[i].BAG_lat,
@@ -177,10 +207,8 @@ angular.module('StoringenApp')
                 });
             }
             $scope.addMarkers = function () {
+                console.log($window.map);
                 var map = $window.map;
-                if ($scope.markers !== undefined) {
-                    clearMarkers();
-                }
                 var zoomLevel = map.getZoom();
                 console.log(map.getZoom());
                 var vb = {
@@ -215,8 +243,6 @@ angular.module('StoringenApp')
                     console.log('zoom changed benko');
                     $scope.addMarkers();
                 });
-                var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                var vpc = $scope.viewPortCenter;
             };
         },
         link: function ($scope) {
