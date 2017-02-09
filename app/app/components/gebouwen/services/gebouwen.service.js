@@ -7,9 +7,6 @@ var StoringenApp;
             this.$http = $http;
             this.$state = $state;
             this.$q = $q;
-            this.addGebouw = function (gebouw) {
-                _this.gebouwen.push(gebouw);
-            };
             this.getGebouwen = function (callback) {
                 var deferred = _this.$q.defer();
                 var that = _this;

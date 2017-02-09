@@ -44,10 +44,121 @@ angular.module('StoringenApp')
 
       // Sets the map on all markers in the array.
       function clearMarkers() {
+        console.log($scope.markers.length);
         for (var i = 0; i < $scope.markers.length; i++) {
           $scope.markers[i].setMap(null);
         }
         $scope.markers = []
+      }
+
+      function addClusteredMarkers(vb, filteredGebouwen) {
+        var container = document.getElementById('map');
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+        var gridSize = 8
+        var amountX;
+        var amountY;
+
+        // calculate ratio to decide the amount of grid blocks
+        var ratio = width/height;
+        if (ratio > 1) {
+          amountX = gridSize;
+          amountY = Math.round(gridSize/ratio);
+        } else {
+          amountX = Math.round(gridSize * ratio);
+          amountY = gridSize;
+        }
+
+        console.log(vb, amountX, amountY)
+        var xMin = vb.lng1;
+        var xMax = vb.lng0;
+        var lonRange = xMax - xMin;
+        var lonStep = lonRange / amountX;
+        var yMin = vb.lat1;
+        var yMax = vb.lat0;
+        var latRange = yMax - yMin;
+        var latStep = latRange / amountY;
+        console.log(xMin, xMax, yMin, yMax, lonRange, latRange);
+        var gridArray = [];
+        for (var y = 0; y < amountY; y++) {
+          for(var x = 0; x < amountX; x++) {
+            var lonMin = xMin + (x * lonStep);
+            var lonMax = lonMin + lonStep;
+            var latMin = yMin + (y * latStep);
+            var latMax = latMin + latStep;
+            var lonCenter = (lonMin + lonMax) / 2;
+            var latCenter = (latMin + latMax) / 2;
+
+            gridArray.push({
+              lonMin: lonMin,
+              lonMax: lonMax,
+              latMin: latMin,
+              latMax: latMax,
+              lonCenter: lonCenter,
+              latCenter: latCenter,
+              count: 0,
+            })
+          }
+        }
+
+        // nu checken wie in wat valt
+        for (var i = 0; i < filteredGebouwen.length; i++ ) {
+          for (var g = 0; g < gridArray.length; g++ ) {
+            var gebouw = filteredGebouwen[i];
+            var grid = gridArray[g];
+            if (
+              gebouw.BAG_lon > grid.lonMin &&
+              gebouw.BAG_lon < grid.lonMax &&
+              gebouw.BAG_lat > grid.latMin &&
+              gebouw.BAG_lat < grid.latMax
+            ) {
+              grid.count += 1;
+            }
+          }
+        }
+
+        gridArray = gridArray.filter(g => g.count > 0);
+
+        $scope.markers = gridArray.map(function(location, i) {
+          var grid = gridArray[i]
+
+          var scale = (grid.count / 500) + 1;
+          if (scale > 2.5) scale = 2.5;
+          var size = 24 * scale;
+          var point = size / 2
+
+          var label = grid.count.toString();
+
+          var marker = new google.maps.Marker({
+            position: {
+              lat: grid.latCenter,
+              lng: grid.lonCenter
+            },
+            map: $window.map,
+            title: grid.count.toString(),
+            label: grid.count.toString(),
+            //icon: 'assets/images/gebouwtje.png',
+            icon: {
+              url: 'assets/images/gebouwtje24.png',
+              size: new google.maps.Size(size, size),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(point, point),
+              scaledSize: new google.maps.Size(size, size)
+            }
+          });
+
+          return marker;
+        });
+      }
+
+      function filterGebouwen(vb, gebouwen) {
+        var filteredGebouwen = gebouwen.filter(g =>
+          g.BAG_lat < vb.lat0 &&
+          g.BAG_lat > vb.lat1 &&
+          g.BAG_lon < vb.lng0 &&
+          g.BAG_lon > vb.lng1
+        );
+        return filteredGebouwen
       }
 
       function addIndividualMarkers(filteredGebouwen){
@@ -104,7 +215,7 @@ angular.module('StoringenApp')
           clearMarkers();
         }
         var zoomLevel = map.getZoom();
-        console.log(map.getZoom() )
+        console.log(map.getZoom())
 
         var vb = {
           lat0: $window.map.getBounds().getNorthEast().lat(),
@@ -113,20 +224,12 @@ angular.module('StoringenApp')
           lng1: $window.map.getBounds().getSouthWest().lng()
         }
 
+        var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
 
-        if (zoomLevel >= 14) {
-          var filteredGebouwen = angular.copy($scope.gebouwen);
-          var filteredGebouwen = $scope.gebouwen.filter(g =>
-            g.BAG_lat < vb.lat0 &&
-            g.BAG_lat > vb.lat1 &&
-            g.BAG_lon < vb.lng0 &&
-            g.BAG_lon > vb.lng1
-          );
-          console.log(filteredGebouwen.length)
-        }
-
-
-        if (zoomLevel >= 14 && filteredGebouwen.length < 1000) {
+        // Als er
+        if (zoomLevel < 14 || filteredGebouwen.length > 1000) {
+          addClusteredMarkers(vb, filteredGebouwen);
+        } else {
           addIndividualMarkers(filteredGebouwen);
         }
 
@@ -149,7 +252,7 @@ angular.module('StoringenApp')
           StreetViewPControl: false
         });
 
-        $scope.addMarkers();
+        // $scope.addMarkers();
 
         google.maps.event.addListener($window.map, 'dragend', function(){
             //this part runs when the mapobject is created and rendered

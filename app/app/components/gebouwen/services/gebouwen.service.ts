@@ -22,10 +22,6 @@ module StoringenApp {
       this.gebouwen = [];
     }
 
-    public addGebouw = (gebouw: IGebouw):void => {
-      this.gebouwen.push(gebouw);
-    }
-
     public getGebouwen = (callback):any => {
       var deferred = this.$q.defer();
       var that = this;
