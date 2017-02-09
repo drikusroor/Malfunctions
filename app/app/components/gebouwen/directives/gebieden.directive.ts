@@ -63,7 +63,7 @@ angular.module('StoringenApp')
           })
           rectangle.metadata = gebied;
           google.maps.event.addListener(rectangle, 'click', function() {
-            //$scope.gebouwenFilter.Gebied2 = rectangle.metadata.Gebied2;
+            console.log(rectangle.metadata)
             $scope.selectGebied(rectangle.metadata);
           })
         }

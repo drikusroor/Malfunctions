@@ -42,7 +42,7 @@ module StoringenApp {
       GebouwenService.getGebouwen().then(function(response) {
         that.gebouwen = response;
       });
-      
+
       //GebouwenService.getGebouwen();
       this.selectedTab = "map";
       LocationService.getCurrentPosition().then(this.storeLocation);
@@ -61,7 +61,7 @@ module StoringenApp {
       var x = (gebied.maxlat + gebied.minlat) / 2;
       var y = (gebied.maxlon + gebied.minlon) / 2;
       this.$scope.$apply(function() {
-        that.gebouwenFilter.Gebied2 = gebied.Gebied2;
+        that.gebouwenFilter.Rayon = gebied.Rayon;
         that.viewPortCenter = {x, y};
         console.log(that)
       })
