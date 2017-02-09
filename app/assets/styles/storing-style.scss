@@ -243,3 +243,17 @@ body {
 .labels {
   color: red;
 }
+
+#gebieden-map {
+  height: 600px;
+  width: 100%;
+
+  @media (min-width: $break-small) {
+    margin-top: 42px;
+  }
+}
+
+#map {
+  height: 600px;
+  width: 100%;
+}

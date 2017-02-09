@@ -18,17 +18,6 @@ angular.module('StoringenApp')
             },
             resolve: {}
         })
-            .state('portal.meldingen', {
-            url: 'meldingen',
-            views: {
-                'content@': {
-                    templateUrl: 'app/components/meldingen/meldingen.html',
-                    controller: 'MeldingenCtrl',
-                    controllerAs: 'meldingen'
-                }
-            },
-            resolve: {}
-        })
             .state('portal.gebouwen', {
             url: 'gebouwen',
             views: {
@@ -47,6 +36,17 @@ angular.module('StoringenApp')
                     templateUrl: 'app/components/gebouwen-detail/gebouwen-detail.html',
                     controller: 'GebouwenDetailCtrl',
                     controllerAs: 'gebouwendetailctrl'
+                }
+            },
+            resolve: {}
+        })
+            .state('portal.gebouwen.detail.status', {
+            url: '/status',
+            views: {
+                'content@': {
+                    templateUrl: 'app/components/status/status.html',
+                    controller: 'StatusCtrl',
+                    controllerAs: 'statusctrl'
                 }
             },
             resolve: {}

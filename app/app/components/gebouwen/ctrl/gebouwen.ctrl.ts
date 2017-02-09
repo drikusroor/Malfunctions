@@ -41,7 +41,8 @@ module StoringenApp {
 
       GebouwenService.getGebouwen().then(function(response) {
         that.gebouwen = response;
-    });
+      });
+      
       //GebouwenService.getGebouwen();
       this.selectedTab = "map";
       LocationService.getCurrentPosition().then(this.storeLocation);

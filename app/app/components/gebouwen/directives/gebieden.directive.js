@@ -14,7 +14,7 @@ angular.module('StoringenApp')
                 $scope.clickEvent({ gebied: gebied });
             };
         },
-        controller: function ($scope, $window, $document) {
+        controller: function ($scope, $window, $document, $timeout) {
             $document.ready(function () {
             });
             $scope.$watch('gebieden', function (newValue, oldValue, scope) {
@@ -25,15 +25,24 @@ angular.module('StoringenApp')
                 }
             });
             var panorama;
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
             function addRectangle(gebied) {
                 var maxlat = gebied.maxlat, minlat = gebied.minlat, maxlon = gebied.maxlon, minlon = gebied.minlon, x = (maxlat - minlat) / 4, y = (maxlon - minlon) / 4;
+                var color = getRandomColor();
                 if (maxlat > 0 && minlat > 0 && maxlon > 0 && minlon > 0) {
                     var rectangle = new google.maps.Rectangle({
-                        strokeColor: '#FF0000',
+                        strokeColor: color,
                         strokeOpacity: 0.8,
                         strokeWeight: 2,
-                        fillColor: '#FF0000',
-                        fillOpacity: 0.35,
+                        fillColor: color,
+                        fillOpacity: 0.2,
                         map: $window.gebiedenMap,
                         bounds: {
                             north: maxlat + y,
@@ -60,7 +69,9 @@ angular.module('StoringenApp')
                 });
                 $scope.rectangles = $scope.gebieden.map(function (location, i) {
                     var gebied = $scope.gebieden[i];
-                    addRectangle(gebied);
+                    $timeout(function () {
+                        addRectangle(gebied);
+                    }, 10);
                 });
             };
         },
