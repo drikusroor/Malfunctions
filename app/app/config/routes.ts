@@ -22,19 +22,6 @@ angular.module('StoringenApp')
 
       }
     })
-    .state('portal.meldingen', {
-        url: 'meldingen',
-        views: {
-          'content@': {
-            templateUrl: 'app/components/meldingen/meldingen.html',
-            controller: 'MeldingenCtrl',
-            controllerAs: 'meldingen'
-          }
-        },
-        resolve: {
-
-        }
-    })
     .state('portal.gebouwen', {
         url: 'gebouwen',
         views: {
@@ -60,6 +47,19 @@ angular.module('StoringenApp')
         resolve: {
 
         }
+    })
+    .state('portal.gebouwen.detail.status', {
+      url: 'status',
+      views: {
+        'content@': {
+          templateUrl: 'app/components/status/status.html',
+          controller: 'statusCtrl',
+          controllerAs: 'statusctrl'
+        }
+      },
+      resolve: {
+
+      }
     })
 
     .state('portal.admin.datasourceManagement.detail', {
