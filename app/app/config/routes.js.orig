@@ -50,6 +50,8 @@ angular.module('StoringenApp')
                 }
             },
             resolve: {}
+<<<<<<< HEAD
+=======
         })
             .state('portal.gebouwen.detail.status.meldingen', {
             url: '/meldingen/:meldingId',
@@ -69,5 +71,6 @@ angular.module('StoringenApp')
                     templateUrl: 'app/components/datasource-management/detail/datasource-detail.html',
                 }
             }
+>>>>>>> master
         });
     }]);

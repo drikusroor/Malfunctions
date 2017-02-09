@@ -61,6 +61,8 @@ angular.module('StoringenApp')
 
       }
     })
+<<<<<<< HEAD
+=======
 
     .state('portal.gebouwen.detail.status.meldingen', {
       url: '/meldingen/:meldingId',
@@ -86,4 +88,5 @@ angular.module('StoringenApp')
         }
       }
     })
+>>>>>>> master
 }])

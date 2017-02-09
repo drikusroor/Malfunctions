@@ -1,56 +1,38 @@
 module StoringenApp {
   "use strict";
 
-  export class MeldingenCtrl {
-    gebouwen: IGebouw[];
-    selectedGebouw: IGebouw;
-    selectedTab: string;
-    form: any;
+  export interface IMelding {
+    meldingId: string;
+    BAG_VerblijfsobjectID: string;
+    consternaties: string;
+    opermerkingen : string;
+    dateCreated: Date;
+    dateEdited: Date;
+  }
 
-    static $inject = ['$scope', '$http', '$state', '$window', '$document', 'GEBOUWEN'];
+  export class MeldingenCtrl {
+    gebouw: IGebouw;
+    meldingen: IMelding[];
+
+    static $inject = ['$scope', '$http', '$state', '$window', '$document', 'GebouwenService'];
     constructor(
       private $scope,
       private $http,
       private $state,
       private $window,
       private $document,
-      private GEBOUWEN
+      private GebouwenService
     )
     {
-      this.gebouwen = GEBOUWEN;
-      this.selectedTab = "map";
-      this.form = {};
-
-      var that = this;
-
-      this.$document.ready(function() {
-        that.initMap();
+      var id: string = $state.params.id;
+      GebouwenService.getGebouwById(id).then(function(data) {
+        this.gebouw = data;
+        this.meldingen = data.meldingen;
       })
     }
-
-    public selectGebouw = (id: number): void => {
-      this.selectedGebouw = this.GEBOUWEN.find(g => g.gebouwId === id);
-      this.form.adres = this.selectedGebouw.adres;
-      this.form.vhenr = this.selectedGebouw.vhenr;
-    }
-
-    public initMap = (): void => {
-
-      var coordinates = {
-        lat: 52.1646443,
-        lng: 5.363390400000071
-      }
-
-      this.$window.map = new google.maps.Map(document.getElementById('map'), {
-        center: coordinates,
-        zoom: 16
-      });
-    }
-
-
   }
-  function controller($scope, $http, $state, $window, $document, GEBOUWEN): MeldingenCtrl {
-    return new MeldingenCtrl($scope, $http, $state, $window, $document, GEBOUWEN);
+  function controller($scope, $http, $state, $window, $document, GebouwenService): MeldingenCtrl {
+    return new MeldingenCtrl($scope, $http, $state, $window, $document, GebouwenService);
   }
   angular.module('StoringenApp').controller('MeldingenCtrl', controller);
 }
