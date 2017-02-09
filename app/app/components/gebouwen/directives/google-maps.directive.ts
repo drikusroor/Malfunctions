@@ -187,12 +187,12 @@ angular.module('StoringenApp')
           g.BAG_lon < vb.lng0 &&
           g.BAG_lon > vb.lng1
         );
-        if ($scope.gebouwenFilter.Gebied2) {
+        if ($scope.gebouwenFilter.Gebied2 !== "" && $scope.gebouwenFilter.Gebied2 !== undefined && $scope.gebouwenFilter.Gebied2 !== null) {
           filteredGebouwen = gebouwen.filter(g =>
             g.Gebied2 === $scope.gebouwenFilter.Gebied2
           );
         }
-        if ($scope.gebouwenFilter.Rayon) {
+        if ($scope.gebouwenFilter.Rayon !== "" && $scope.gebouwenFilter.Rayon !== undefined && $scope.gebouwenFilter.Rayon !== null) {
           filteredGebouwen = gebouwen.filter(g =>
             g.Rayon === $scope.gebouwenFilter.Rayon
           );
