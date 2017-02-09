@@ -1,49 +1,5 @@
-$break-super-small: 320px;
-$break-extra-small: 480px;
-$break-small: 768px;
-$break-medium: 1024px;
-$break-large: 1359px;
-$lichtgrijs: #f8f8f8;
-$grijsborder: #e7e7e7;
-$donkergrijs: #555555;
-$progyellow: #DAAF00;
-$progblue: #0E588C;
-$progblue: #003473;
-$vision-blue: #003b59;
-
-@font-face {
-    font-family: Catamaran;
-    src: url('../fonts/Catamaran-Regular.ttf');
-}
-
-@font-face {
-    font-family: Catamaran-Bold;
-    src: url('../fonts/Catamaran-Bold.ttf');
-}
-
-.color-blue {
-  color: $progblue;
-}
-
-.color-yellow {
-  color: $progyellow;
-}
-
-.color-white {
-  color: white;
-}
-
-.background-blue {
-  background: $progblue;
-}
-
-.background-yellow {
-  background: $progyellow;
-}
-
-.background-white {
-  background: white;
-}
+@import 'variables';
+@import 'fonts';
 
 .loading {
   width: 200px;
@@ -56,11 +12,11 @@ $vision-blue: #003b59;
 }
 
 body {
-  // font-family: 'Catamaran', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-family: 'Catamaran', Arial, helvetica, sans-serif;
+  background: $bgcolor;
+  font-family: 'Catamaran', Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  // color: #253372;
 }
+
 @media screen and (max-width: $break-medium) {
   #logo {
     position: absolute;

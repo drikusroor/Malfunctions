@@ -1,8 +1,33 @@
-$vision-blue: #003b59;
-$lightblue: #0c97c4;
+@import 'variables';
+@import 'fonts';
+
+.btn-info {
+  background-color: $gold;
+  border-color: $gold;
+  font-family: 'Catamaran', Arial, Helvetica, sans-serif;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:hover:focus {
+  background-color: $donkergold;
+  border-color: $donkergold;
+}
 
 .form-control {
   border-radius: 0px;
+}
+
+.form-control:focus {
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.h1, h1 {
+  font-family: 'Catamaran-Bold', Arial, Helvetica, sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 // Tabbladen scherpe hoeken

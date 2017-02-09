@@ -61,15 +61,4 @@ angular.module('StoringenApp')
 
       }
     })
-
-    .state('portal.admin.datasourceManagement.detail', {
-      url:'/:id',
-      views: {
-        'content@': {
-          templateUrl: 'app/components/datasource-management/detail/datasource-detail.html',
-          // controller: 'DatasourceDetailManagementCtrl',
-          // controllerAs: 'datasourcedetailctrl'
-        }
-      }
-    })
 }])
