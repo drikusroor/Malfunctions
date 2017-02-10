@@ -14,6 +14,7 @@ var StoringenApp;
                 var id = _this.$state.params.id;
                 _this.GebouwenService.getGebouwById(id).then(function (response) {
                     that.gebouw = response;
+                    that.gebouwen = [response];
                 });
             };
             this.showScope = function () {

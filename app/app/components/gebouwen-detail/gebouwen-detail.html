@@ -1,7 +1,13 @@
+<style>
+.catamaran-bold {
+  font-family: 'Catamaran-Bold'
+}
+</style>
+
 <div class="row">
   <div class="col-xs-12">
     <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen">
-      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="glyphicon glyphicon-chevron-left"></span><span class="col-50">
       Terug naar gebouwenoverzicht
     </a>
   </div>
@@ -15,16 +21,6 @@
 
   <!-- Google Streetview Frame -->
   <div class="col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Streetview:</h3>
-      </div>
-      <ul class=" list-group">
-        <li class="list-group-item">
-        </li>
-      </ul>
-
-    </div>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -32,6 +28,7 @@
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
+          <google-maps height="200" street-view="true" gebouwen="gebouwendetailctrl.gebouwen" location="location" gebouwen-filter="gebouwendetailctrl.gebouwenFilter" view-port-center="gebouwendetailctrl.viewPortCenter"></google-maps>
         </li>
       </ul>
 
@@ -42,29 +39,88 @@
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>{{gebouwendetailctrl.gebouw.VHE_nr}}</strong> | {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}</h3>
+        <h3 class="panel-title"><strong>Objectinformatie</strong></h3>
+      </div>
+      <ul class=" list-group">
+        <!-- <li class="list-group-item">
+          <span class="catamaran-bold col-50">ID:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BAG_VerblijfsobjectID}}
+        </li> -->
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Adres:</span>
+          <span class="col-50">
+            {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}
+          </span>
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Oppervlak:</span>
+          <span class="col-50">
+            {{gebouwendetailctrl.gebouw.BAG_Oppervlak}} m2
+          </span>
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Bouwjaar:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BAG_bouwjaar}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Status:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BAG_status}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Pandtype:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BAG_pandtype}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Gebruiksdoel:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BAG_Gebruiksdoel}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Aantal kamers:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Aantal_kamers}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Jaar aanpak:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Jaar_aanpak}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">VHE Categorie OMS:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.VHE_categorie_oms}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Techtype OMS:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Tech_type_oms}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Groepering</strong></h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
-          <b>ID:</b>
-          {{gebouwendetailctrl.gebouw.BAG_VerblijfsobjectID}}
+          <span class="catamaran-bold col-50">Complexnaam:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Compl_naam}}
         </li>
         <li class="list-group-item">
-          <b>Adres:</b>
-          {{gebouwendetailctrl.gebouw.BAG_adres}} {{gebouwendetailctrl.gebouw.BAG_huisnummer}}, {{gebouwendetailctrl.gebouw.BAG_postcode}}, {{gebouwendetailctrl.gebouw.BAG_plaats}}
+          <span class="catamaran-bold col-50">Rayon:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Rayon_nieuw_BOG}}
         </li>
         <li class="list-group-item">
-          <b>VHENR:</b>
-          {{gebouwendetailctrl.gebouw.VHE_nr}}
+          <span class="catamaran-bold col-50">Gebied:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Gebied}}
         </li>
         <li class="list-group-item">
-          <b>Coördinaten:</b>
-          {{gebouwendetailctrl.gebouw.BAG_lat | number:2}},
-          {{gebouwendetailctrl.gebouw.BAG_lon | number:2}}
+          <span class="catamaran-bold col-50">Gebied 2:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Gebied2}}
         </li>
         <li class="list-group-item">
-          <b>Complex:</b>
-          {{gebouwendetailctrl.gebouw.Complr_nr}} {{gebouwendetailctrl.gebouw.Compl_naam}}
+          <span class="catamaran-bold col-50">Wijkcode:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Wijk_code}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Wijkomschrijving:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Wijk_omschrijving}}
         </li>
       </ul>
     </div>
@@ -72,35 +128,153 @@
 
 </div>
 
-<div ng-if="false" class="row">
+<div class="row">
 
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Bewonersgegevens:</h3>
+        <h3 class="panel-title"><strong>Mensen & Partijen</strong></h3>
       </div>
-
       <ul class=" list-group">
         <li class="list-group-item">
-
+          <span class="catamaran-bold col-50">Verhuurder:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Verhuurder_nieuw}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Huismeester:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Huismeester}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Teamleider wonen:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Teamleider_wonen}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Wijkmanager:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Wijkmanager}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">MVDTer:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.MVDTer}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Projectleider Vastgoed:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Projectleider_Vastgoed}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Projectleider WB:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Projectleider_WB}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">VVE-consulent(en):</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.VVE_Consulenten}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Woonconsulent(en):</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Woon_Consulenten}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Incasso:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Incasso}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">CV-installateur:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_installateur}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">MV-installateur:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.MV_installateur}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">NPO-aannemer:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.NPO_installateur}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Onderhoudsinspecteur:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.Onderhouds_inspecteur}}
         </li>
       </ul>
-
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Meldingen:</h3>
+        <h3 class="panel-title"><strong>CV</strong></h3>
       </div>
-
       <ul class=" list-group">
         <li class="list-group-item">
-
+          <span class="catamaran-bold col-50">Type:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_type}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Aantal:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_Aantal}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Merk:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_merk}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Typering:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_Typering}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Bouwjaar:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.CV_Bouwjaar}}
         </li>
       </ul>
+    </div>
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>WTW</strong></h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Type:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.WTW_type}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Aantal:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.WTW_Aantal}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Merk:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.WTW_merk}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Wijkmanager:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.WTW_Bouwjaar}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>BG</strong></h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Type:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BG_type}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Aantal:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BG_Aantal}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Merk:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BG_merk}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Typering:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BG_Bouwjaar}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold col-50">Bouwjaar:</span><span class="col-50">
+          {{gebouwendetailctrl.gebouw.BG_EnecoHuur}}
+        </li>
+      </ul>
     </div>
   </div>
 

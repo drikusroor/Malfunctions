@@ -23,7 +23,26 @@
 <div class="row">
 
   <div class="col-sm-6 col-md-4">
-    <gebieden-map gebieden="gebouwenctrl.gebieden" click-event="gebouwenctrl.setGebouwenFilter(gebied)"></gebieden-map>
+    <!-- <gebieden-map gebieden="gebouwenctrl.gebieden" click-event="gebouwenctrl.setGebouwenFilter(gebied)"></gebieden-map> -->
+    <div class="panel panel-default"  >
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Rayons</strong></h3>
+      </div>
+      <ul class=" list-group">
+        <li class="list-group-item">
+          Rayon 1
+        </li>
+        <li class="list-group-item">
+          Rayon 1
+        </li>
+        <li class="list-group-item">
+          Rayon 1
+        </li>
+        <li class="list-group-item">
+          Rayon 1
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="col-sm-6 col-md-8">
@@ -34,7 +53,7 @@
     </uib-tabset>
 
     <div ng-show="gebouwenctrl.selectedTab === 'map'">
-      <google-maps gebouwen="gebouwenctrl.gebouwen" location="location" gebouwen-filter="gebouwenctrl.gebouwenFilter" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
+      <google-maps gebouwen="gebouwenctrl.gebouwen" location="gebouwenctrl.location" gebouwen-filter="gebouwenctrl.gebouwenFilter" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
     </div>
 
     <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
