@@ -1,6 +1,31 @@
 @import 'variables';
 @import 'fonts';
 
+body {
+  background: $bgcolor;
+  color: $donkergrijs;
+  font-family: 'Catamaran', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+hr {
+
+}
+
+th {
+  font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
+}
+
+#inlineFormInput {
+  margin: 0px 2px;
+  width: 100%;
+}
+
+.form-filter {
+  display: flex;
+  padding: 0 12px;
+}
+
 .loading {
   width: 200px;
   margin: auto auto auto calc(50% - 100px);
@@ -9,12 +34,6 @@
     width: 100%;
     height: auto;
   }
-}
-
-body {
-  background: $bgcolor;
-  font-family: 'Catamaran', Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
 }
 
 @media screen and (max-width: $break-medium) {
@@ -123,6 +142,11 @@ body {
   float: right;
 }
 
+.gm-style-iw {
+  left: 10.5px !important;
+  top: 10.5px !important;
+}
+
 .margin-top-10 {
   margin-top: 10px;
 }
@@ -137,6 +161,14 @@ body {
     margin: 0px;
     padding: 0px;
   }
+}
+
+.p-arrow {
+  margin: 10px 0px 0px 20px;
+}
+
+.p-info {
+  margin-bottom: 0px;
 }
 
 .rotate-270 {
@@ -205,7 +237,7 @@ body {
   width: 100%;
 
   @media (min-width: $break-small) {
-    margin-top: 42px;
+    margin-top: 58px;
   }
 }
 
