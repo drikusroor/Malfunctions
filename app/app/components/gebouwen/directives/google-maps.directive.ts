@@ -8,9 +8,14 @@ angular.module('StoringenApp')
       'gebouwen': '=',
       'location': '=',
       'gebouwenFilter': '=',
-      'viewPortCenter': '='
+      'viewPortCenter': '=',
+      'streetView': '=',
+      'height': '='
     },
-    controller: function($scope, $window, $document, LocationService) {
+    controller: function($scope, $window, $document, $state, LocationService) {
+
+      $scope.mapId = Math.random().toString(36).substr(2, 10);
+      $scope.detailView = $state.current.name === 'portal.gebouwen.detail';
 
       console.log($scope);
       $scope.$watch('gebouwen', function(newValue, oldValue, scope) {
@@ -21,21 +26,24 @@ angular.module('StoringenApp')
         }
       })
 
-      $scope.$watch('gebouwenFilter.Gebied2', function(newValue, oldValue, scope) {
-        if(newValue !== undefined) {
-          if (oldValue === undefined || newValue !== oldValue ) {
-            $scope.addMarkers();
+      if ($scope.gebouwenFilter) {
+        $scope.$watch('gebouwenFilter.Gebied2', function(newValue, oldValue, scope) {
+          if(newValue !== undefined) {
+            if (oldValue === undefined || newValue !== oldValue ) {
+              $scope.addMarkers();
+            }
           }
-        }
-      })
+        })
 
-      $scope.$watch('gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
-        if(newValue !== undefined) {
-          if (oldValue === undefined || newValue !== oldValue ) {
-            $scope.addMarkers();
+        $scope.$watch('gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
+          if(newValue !== undefined) {
+            if (oldValue === undefined || newValue !== oldValue ) {
+              $scope.addMarkers();
+            }
           }
-        }
-      })
+        })
+      }
+
 
       function getContentString(gebouw) {
         var html =
@@ -60,7 +68,7 @@ angular.module('StoringenApp')
       }
 
       function addClusteredMarkers(vb, filteredGebouwen) {
-        var container = document.getElementById('map');
+        var container = document.getElementById($scope.mapId);
         var width = container.offsetWidth;
         var height = container.offsetHeight;
         var gridSize = 8
@@ -187,15 +195,19 @@ angular.module('StoringenApp')
           g.BAG_lon < vb.lng0 &&
           g.BAG_lon > vb.lng1
         );
-        if ($scope.gebouwenFilter.Gebied2 !== "" && $scope.gebouwenFilter.Gebied2 !== undefined && $scope.gebouwenFilter.Gebied2 !== null) {
-          filteredGebouwen = gebouwen.filter(g =>
-            g.Gebied2 === $scope.gebouwenFilter.Gebied2
-          );
-        }
-        if ($scope.gebouwenFilter.Rayon !== "" && $scope.gebouwenFilter.Rayon !== undefined && $scope.gebouwenFilter.Rayon !== null) {
-          filteredGebouwen = gebouwen.filter(g =>
-            g.Rayon === $scope.gebouwenFilter.Rayon
-          );
+
+        if ($scope.gebouwenFilter) {
+          if ($scope.gebouwenFilter.Gebied2 !== "" && $scope.gebouwenFilter.Gebied2 !== undefined && $scope.gebouwenFilter.Gebied2 !== null) {
+            filteredGebouwen = gebouwen.filter(g =>
+              g.Gebied2 === $scope.gebouwenFilter.Gebied2
+            );
+          }
+
+          if ($scope.gebouwenFilter.Rayon !== "" && $scope.gebouwenFilter.Rayon !== undefined && $scope.gebouwenFilter.Rayon !== null) {
+            filteredGebouwen = gebouwen.filter(g =>
+              g.Rayon === $scope.gebouwenFilter.Rayon
+            );
+          }
         }
 
         return filteredGebouwen
@@ -266,12 +278,11 @@ angular.module('StoringenApp')
         var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
 
         // Als er
-        if (zoomLevel < 14 || filteredGebouwen.length > 1000) {
+        if (zoomLevel < 15 || filteredGebouwen.length > 1000) {
           addClusteredMarkers(vb, filteredGebouwen);
         } else {
           addIndividualMarkers(filteredGebouwen);
         }
-
       }
 
       $scope.initMap = (): void => {
@@ -282,31 +293,64 @@ angular.module('StoringenApp')
           lng: 4.4957816
         }
 
-        $window.map = new google.maps.Map(document.getElementById('map'), {
+        var zoomLevel = 14;
+
+        // In detail-view pannen en zoomen we naar het gebouw
+        if ($scope.detailView) {
+          coordinates = {
+            lat: $scope.gebouwen[0].BAG_lat,
+            lng: $scope.gebouwen[0].BAG_lon
+          }
+          zoomLevel = 18;
+        }
+
+        $window.map = new google.maps.Map(document.getElementById($scope.mapId), {
           center: coordinates,
-          zoom: 14,
+          zoom: zoomLevel,
           StreetViewPControl: false
         });
 
-        google.maps.event.addListener($window.map, 'dragend', function(){
-            //this part runs when the mapobject is created and rendered
+        console.log(document.getElementById('pano'))
+
+        // if ($scope.streetView) {
+        //   var panorama = new google.maps.StreetViewPanorama(
+        //     document.getElementById('pano'), {
+        //       position: coordinates,
+        //       pov: {
+        //         heading: 34,
+        //         pitch: 10
+        //       }
+        //     });
+        //     $window.map.setStreetView($window.map);
+        // }
+
+        if (!$scope.detailView) {
+          google.maps.event.addListener($window.map, 'dragend', function(){
+            //this part runs when the mapobject drag ended
             console.log('bounds changed benko');
             $scope.addMarkers();
-        });
+          });
 
-        google.maps.event.addListener($window.map, 'zoom_changed', function(){
-            //this part runs when the mapobject is created and rendered
+          google.maps.event.addListener($window.map, 'zoom_changed', function(){
+            //this part runs when the mapobject is being zoomed
             console.log('zoom changed benko');
             $scope.addMarkers();
-        });
+          });
+        }
 
+        google.maps.event.addListenerOnce($window.map, 'idle', function(){
+            //this part runs when the mapobject is created and rendered
+            console.log('first and only idle benko');
+            $scope.addMarkers();
+        });
       }
     },
     link: function($scope) {
 
     },
     template: `
-      <div id="map"></div>
+      <div ng-show="streetView" id="pano" style="height: 400px"></div>
+      <div id="{{mapId}}" style="height: 400px"></div>
     `
   };
 })

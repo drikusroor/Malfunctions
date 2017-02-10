@@ -10,7 +10,7 @@ var StoringenApp;
             this.getGebouwen = function (callback) {
                 var deferred = _this.$q.defer();
                 var that = _this;
-                _this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen/benko').then(function (response) {
+                _this.$http.get('https://development.prognotice.nl/storingen/api/api/gebouwen').then(function (response) {
                     console.log(response);
                     that.gebouwen = response.data;
                     deferred.resolve(response.data);

@@ -24,6 +24,7 @@ module StoringenApp {
       const {id} = this.$state.params;
       this.GebouwenService.getGebouwById(id).then(function(response){
         that.gebouw = response;
+        that.gebouwen = [response];
       })
     }
 
