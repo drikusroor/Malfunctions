@@ -6,9 +6,13 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen">
+    <a type="button" class=" btn btn-info pull-left" ui-sref="portal.gebouwen">
       <span class="glyphicon glyphicon-chevron-left"></span><span class="col-50">
       Terug naar gebouwenoverzicht
+    </a>
+    <a type="button" class=" btn btn-info pull-right" ui-sref="portal.gebouwen.detail.status({id: gebouwendetailctrl.$state.params.id})">
+      Ga naar bezoekhistorie
+      <span class="glyphicon glyphicon-chevron-right"></span><span class="col-50">
     </a>
   </div>
 </div>
@@ -198,7 +202,7 @@
   </div>
 
   <div class="col-sm-6">
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="gebouwendetailctrl.gebouw.CV_Aantal > 0">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>CV</strong></h3>
       </div>
@@ -226,7 +230,7 @@
       </ul>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="gebouwendetailctrl.gebouw.WTW_Aantal > 0">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>WTW</strong></h3>
       </div>
@@ -250,7 +254,7 @@
       </ul>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="gebouwendetailctrl.gebouw.BG_Aantal > 0">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>BG</strong></h3>
       </div>
@@ -279,4 +283,17 @@
     </div>
   </div>
 
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <a type="button" class=" btn btn-info pull-left" ui-sref="portal.gebouwen">
+      <span class="glyphicon glyphicon-chevron-left"></span><span class="col-50">
+      Terug naar gebouwenoverzicht
+    </a>
+    <a type="button" class=" btn btn-info pull-right" ui-sref="portal.gebouwen.detail.status({id: gebouwendetailctrl.$state.params.id})">
+      Ga naar bezoekhistorie
+      <span class="glyphicon glyphicon-chevron-right"></span><span class="col-50">
+    </a>
+  </div>
 </div>
