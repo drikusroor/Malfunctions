@@ -29,17 +29,8 @@
         <h3 class="panel-title"><strong>Rayons</strong></h3>
       </div>
       <ul class=" list-group">
-        <li class="list-group-item">
-          Rayon 1
-        </li>
-        <li class="list-group-item">
-          Rayon 1
-        </li>
-        <li class="list-group-item">
-          Rayon 1
-        </li>
-        <li class="list-group-item">
-          Rayon 1
+        <li class="list-group-item" ng-repeat="rayon in gebouwenctrl.rayons">
+          {{rayon.Rayon}}
         </li>
       </ul>
     </div>

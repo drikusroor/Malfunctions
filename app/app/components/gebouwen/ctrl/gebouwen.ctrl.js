@@ -52,7 +52,7 @@ var StoringenApp;
             };
             var that = this;
             GebiedenService.getGebieden().then(function (response) {
-                that.gebieden = response;
+                that.rayons = response;
             });
             GebouwenService.getGebouwen().then(function (response) {
                 that.gebouwen = response;

@@ -4,7 +4,7 @@ module StoringenApp {
   export class GebouwenCtrl {
     location: any;
     gebouwen: IGebouw[];
-    gebieden: IGebied[];
+    rayons: IGebied[];
     selectedGebouw: IGebouw;
     selectedTab: string;
     gebouwenFilter: any;
@@ -36,7 +36,7 @@ module StoringenApp {
       var that = this;
 
       GebiedenService.getGebieden().then(function(response) {
-        that.gebieden = response;
+        that.rayons = response;
       })
 
       GebouwenService.getGebouwen().then(function(response) {

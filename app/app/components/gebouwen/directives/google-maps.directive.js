@@ -59,6 +59,7 @@ angular.module('StoringenApp')
             }
             function addClusteredMarkers(vb, filteredGebouwen) {
                 var container = document.getElementById($scope.mapId);
+                var map = $scope.map;
                 var width = container.offsetWidth;
                 var height = container.offsetHeight;
                 var gridSize = 8;
@@ -130,7 +131,7 @@ angular.module('StoringenApp')
                             lat: grid.latCenter,
                             lng: grid.lonCenter
                         },
-                        map: $window.map,
+                        map: map,
                         title: label,
                         labelContent: label,
                         labelClass: "labels",
@@ -151,9 +152,9 @@ angular.module('StoringenApp')
                     });
                     google.maps.event.addListener(marker, 'click', function () {
                         var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-                        $window.map.panTo(latLng);
-                        var zoomLevel = $window.map.getZoom();
-                        $window.map.setZoom(zoomLevel + 1);
+                        map.panTo(latLng);
+                        var zoomLevel = map.getZoom();
+                        map.setZoom(zoomLevel + 1);
                     });
                     return marker;
                 });
@@ -179,7 +180,7 @@ angular.module('StoringenApp')
                 }
                 return filteredGebouwen;
             }
-            function addIndividualMarkers(filteredGebouwen) {
+            function addIndividualMarkers(filteredGebouwen, map) {
                 if ($scope.markers !== undefined) {
                     clearMarkers();
                 }
@@ -189,7 +190,7 @@ angular.module('StoringenApp')
                             lat: filteredGebouwen[i].BAG_lat,
                             lng: filteredGebouwen[i].BAG_lon
                         },
-                        map: $window.map,
+                        map: map,
                         title: $scope.gebouwen[i].adres,
                         icon: {
                             url: 'assets/images/gebouwtje24.png',
@@ -208,29 +209,28 @@ angular.module('StoringenApp')
                     };
                     google.maps.event.addListener(marker, 'click', function () {
                         console.log(marker);
-                        infowindow.open($window.map, marker);
+                        infowindow.open(map, marker);
                     });
                     $scope.lastMarker = marker;
                     return marker;
                 });
             }
             $scope.addMarkers = function () {
-                console.log($window.map);
-                var map = $window.map;
+                var map = $scope.map;
                 var zoomLevel = map.getZoom();
                 console.log(map.getZoom());
                 var vb = {
-                    lat0: $window.map.getBounds().getNorthEast().lat(),
-                    lng0: $window.map.getBounds().getNorthEast().lng(),
-                    lat1: $window.map.getBounds().getSouthWest().lat(),
-                    lng1: $window.map.getBounds().getSouthWest().lng()
+                    lat0: map.getBounds().getNorthEast().lat(),
+                    lng0: map.getBounds().getNorthEast().lng(),
+                    lat1: map.getBounds().getSouthWest().lat(),
+                    lng1: map.getBounds().getSouthWest().lng()
                 };
                 var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
                 if (zoomLevel < 15 || filteredGebouwen.length > 1000) {
                     addClusteredMarkers(vb, filteredGebouwen);
                 }
                 else {
-                    addIndividualMarkers(filteredGebouwen);
+                    addIndividualMarkers(filteredGebouwen, map);
                 }
             };
             $scope.initMap = function () {
@@ -246,30 +246,52 @@ angular.module('StoringenApp')
                     };
                     zoomLevel = 18;
                 }
-                $window.map = new google.maps.Map(document.getElementById($scope.mapId), {
+                var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);
+                $scope.map = new google.maps.Map(document.getElementById($scope.mapId), {
                     center: coordinates,
                     zoom: zoomLevel,
                     StreetViewPControl: false
                 });
-                console.log(document.getElementById('pano'));
                 if (!$scope.detailView) {
-                    google.maps.event.addListener($window.map, 'dragend', function () {
+                    google.maps.event.addListener($scope.map, 'dragend', function () {
                         console.log('bounds changed benko');
                         $scope.addMarkers();
                     });
-                    google.maps.event.addListener($window.map, 'zoom_changed', function () {
+                    google.maps.event.addListener($scope.map, 'zoom_changed', function () {
                         console.log('zoom changed benko');
                         $scope.addMarkers();
                     });
                 }
-                google.maps.event.addListenerOnce($window.map, 'idle', function () {
+                google.maps.event.addListenerOnce($scope.map, 'idle', function () {
                     console.log('first and only idle benko');
                     $scope.addMarkers();
+                    if ($scope.streetView) {
+                        $scope.panorama = $scope.map.getStreetView();
+                        $scope.panorama.setPosition(coordinatesLatLng);
+                        $scope.panorama.setPov(({
+                            heading: 265,
+                            pitch: 0
+                        }));
+                        var service = new google.maps.StreetViewService;
+                        service.getPanoramaByLocation($scope.panorama.getPosition(), 50, function (panoData) {
+                            if (panoData != null) {
+                                var panoCenter = panoData.location.latLng;
+                                var heading = google.maps.geometry.spherical.computeHeading(panoCenter, coordinatesLatLng);
+                                var pov = $scope.panorama.getPov();
+                                pov.heading = heading;
+                                $scope.panorama.setPov(pov);
+                            }
+                            else {
+                                console.log('not found');
+                            }
+                        });
+                        $scope.panorama.setVisible(true);
+                    }
                 });
             };
         },
         link: function ($scope) {
         },
-        template: "\n      <div ng-show=\"streetView\" id=\"pano\" style=\"height: 400px\"></div>\n      <div id=\"{{mapId}}\" style=\"height: 400px\"></div>\n    "
+        template: "\n      <div style=\"height: 400px\">\n        <div id=\"{{mapId}}\" style=\"height: 100%\"></div>\n      </div>\n    "
     };
 });

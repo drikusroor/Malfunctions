@@ -44,7 +44,6 @@ angular.module('StoringenApp')
         })
       }
 
-
       function getContentString(gebouw) {
         var html =
         '<div id="content">' +
@@ -69,6 +68,7 @@ angular.module('StoringenApp')
 
       function addClusteredMarkers(vb, filteredGebouwen) {
         var container = document.getElementById($scope.mapId);
+        var map = $scope.map;
         var width = container.offsetWidth;
         var height = container.offsetHeight;
         var gridSize = 8
@@ -156,7 +156,7 @@ angular.module('StoringenApp')
               lat: grid.latCenter,
               lng: grid.lonCenter
             },
-            map: $window.map,
+            map: map,
             title: label,
             labelContent: label,
             labelClass: "labels",
@@ -179,9 +179,9 @@ angular.module('StoringenApp')
 
           google.maps.event.addListener(marker, 'click', function() {
             var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-            $window.map.panTo(latLng);
-            var zoomLevel = $window.map.getZoom();
-            $window.map.setZoom(zoomLevel + 1);
+            map.panTo(latLng);
+            var zoomLevel = map.getZoom();
+            map.setZoom(zoomLevel + 1);
           })
 
           return marker;
@@ -213,7 +213,7 @@ angular.module('StoringenApp')
         return filteredGebouwen
       }
 
-      function addIndividualMarkers(filteredGebouwen){
+      function addIndividualMarkers(filteredGebouwen, map){
 
         // Verwijder oude markers
         if($scope.markers !== undefined) {
@@ -230,7 +230,7 @@ angular.module('StoringenApp')
               lat: filteredGebouwen[i].BAG_lat,
               lng: filteredGebouwen[i].BAG_lon
             },
-            map: $window.map,
+            map: map,
             title: $scope.gebouwen[i].adres,
             //icon: 'assets/images/gebouwtje.png',
             icon: {
@@ -253,7 +253,7 @@ angular.module('StoringenApp')
 
           google.maps.event.addListener(marker, 'click', function() {
             console.log(marker)
-            infowindow.open($window.map, marker);
+            infowindow.open(map, marker);
           })
 
           $scope.lastMarker = marker;
@@ -263,16 +263,16 @@ angular.module('StoringenApp')
       }
 
       $scope.addMarkers = function() {
-        console.log($window.map)
-        var map = $window.map;
+        var map = $scope.map;
+
         var zoomLevel = map.getZoom();
         console.log(map.getZoom())
 
         var vb = {
-          lat0: $window.map.getBounds().getNorthEast().lat(),
-          lng0: $window.map.getBounds().getNorthEast().lng(),
-          lat1: $window.map.getBounds().getSouthWest().lat(),
-          lng1: $window.map.getBounds().getSouthWest().lng()
+          lat0: map.getBounds().getNorthEast().lat(),
+          lng0: map.getBounds().getNorthEast().lng(),
+          lat1: map.getBounds().getSouthWest().lat(),
+          lng1: map.getBounds().getSouthWest().lng()
         }
 
         var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
@@ -281,7 +281,7 @@ angular.module('StoringenApp')
         if (zoomLevel < 15 || filteredGebouwen.length > 1000) {
           addClusteredMarkers(vb, filteredGebouwen);
         } else {
-          addIndividualMarkers(filteredGebouwen);
+          addIndividualMarkers(filteredGebouwen, map);
         }
       }
 
@@ -304,44 +304,74 @@ angular.module('StoringenApp')
           zoomLevel = 18;
         }
 
-        $window.map = new google.maps.Map(document.getElementById($scope.mapId), {
+        var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);
+
+        $scope.map = new google.maps.Map(document.getElementById($scope.mapId), {
           center: coordinates,
           zoom: zoomLevel,
           StreetViewPControl: false
         });
 
-        console.log(document.getElementById('pano'))
-
-        // if ($scope.streetView) {
-        //   var panorama = new google.maps.StreetViewPanorama(
-        //     document.getElementById('pano'), {
-        //       position: coordinates,
-        //       pov: {
-        //         heading: 34,
-        //         pitch: 10
-        //       }
-        //     });
-        //     $window.map.setStreetView($window.map);
-        // }
-
         if (!$scope.detailView) {
-          google.maps.event.addListener($window.map, 'dragend', function(){
+
+          google.maps.event.addListener($scope.map, 'dragend', function(){
             //this part runs when the mapobject drag ended
             console.log('bounds changed benko');
             $scope.addMarkers();
           });
 
-          google.maps.event.addListener($window.map, 'zoom_changed', function(){
+          google.maps.event.addListener($scope.map, 'zoom_changed', function(){
             //this part runs when the mapobject is being zoomed
             console.log('zoom changed benko');
             $scope.addMarkers();
           });
         }
 
-        google.maps.event.addListenerOnce($window.map, 'idle', function(){
+
+        google.maps.event.addListenerOnce($scope.map, 'idle', function(){
             //this part runs when the mapobject is created and rendered
             console.log('first and only idle benko');
             $scope.addMarkers();
+
+            if($scope.streetView) {
+
+              // We get the map's default panorama and set up some defaults.
+              // Note that we don't yet set it visible.
+              $scope.panorama = $scope.map.getStreetView();
+              $scope.panorama.setPosition(coordinatesLatLng);
+              $scope.panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+                heading: 265,
+                pitch: 0
+              }));
+
+              var service = new google.maps.StreetViewService;
+              // call the "getPanoramaByLocation" function of the Streetview Services to return the closest streetview position for the entered coordinates
+              service.getPanoramaByLocation($scope.panorama.getPosition(), 50, function(panoData) {
+                // if the function returned a result
+                if (panoData != null) {
+                  // the GPS coordinates of the streetview camera position
+                  var panoCenter = panoData.location.latLng;
+                  // this is where the magic happens!
+                  // the "computeHeading" function calculates the heading with the two GPS coordinates entered as parameters
+                  var heading = google.maps.geometry.spherical.computeHeading(panoCenter, coordinatesLatLng);
+                  // now we know the heading (camera direction, elevation, zoom, etc) set this as parameters to the panorama object
+                  var pov = $scope.panorama.getPov();
+                  pov.heading = heading;
+                  $scope.panorama.setPov(pov);
+                  // set a marker on the location we are looking at, to verify the calculations were correct
+                  // var marker = new google.maps.Marker({
+                  //   map: $scope.panorama,
+                  //   position: coordinates
+                  // });
+                } else {
+                  // no streetview found :(
+                  console.log('not found');
+                }
+              });
+
+
+              $scope.panorama.setVisible(true);
+            }
         });
       }
     },
@@ -349,8 +379,9 @@ angular.module('StoringenApp')
 
     },
     template: `
-      <div ng-show="streetView" id="pano" style="height: 400px"></div>
-      <div id="{{mapId}}" style="height: 400px"></div>
+      <div style="height: 400px">
+        <div id="{{mapId}}" style="height: 100%"></div>
+      </div>
     `
   };
 })
