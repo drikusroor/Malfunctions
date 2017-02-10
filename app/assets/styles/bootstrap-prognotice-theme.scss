@@ -1,10 +1,17 @@
 @import 'variables';
 @import 'fonts';
 
+input[type=file] {
+  max-width: 100%;
+}
+
 .btn-info {
   background-color: $gold;
   border-color: $gold;
+  border-radius: 0px;
   font-family: 'Catamaran', Arial, Helvetica, sans-serif;
+  padding: 6px;
+  text-align: left;
 }
 
 .btn-info:hover,
@@ -15,13 +22,23 @@
 }
 
 .form-control {
+  border: 1px solid $donkergrijs;
   border-radius: 0px;
 }
 
 .form-control:focus {
   border-color: transparent;
   box-shadow: none;
-  outline: none;
+  outline: 2px solid $vision-blue;
+}
+
+.form-inline {
+  display: flex;
+}
+
+.glyphicon-search {
+  font-size: 20px;
+  padding: 6px;
 }
 
 .h1, h1 {
@@ -30,10 +47,46 @@
   text-transform: uppercase;
 }
 
-// Tabbladen scherpe hoeken
-.nav-tabs.nav-justified>li>a {
-    //border-bottom: 1px solid #ddd;
-    border-radius: 0px;
+.nav-tabs.nav-justified {
+  display: inline-flex;
+
+  > li {
+    width: 100%;
+
+    &:last-child>a {
+      border-right: 1px solid $donkergrijs
+    }
+
+    > a {
+      background: white;
+      border: none;
+      border-bottom: 5px solid white;
+      border-left: 1px solid $donkergrijs;
+      border-radius: 0px; // Tabbladen scherpe hoeken
+      color: $donkergrijs;
+      font-family: 'Catamaran-Bold', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+
+        &:hover {
+          color: $magenta;
+        }
+    }
+  }
+
+  > .active>a,
+  > .active>a:hover,
+  > .active>a:focus {
+    background: white;
+    border: none;
+    border-bottom: 5px solid $magenta;
+    border-left: 1px solid $donkergrijs;
+    color: $magenta;
+  }
+
+  > .active:last-child>a {
+    border-right: 1px solid $donkergrijs;
+  }
 }
 
 .navbar-prognotice {
@@ -49,13 +102,8 @@
     border-radius: 0px;
   }
   .navbar-toggle:hover {
-    background-color: $lightblue;
+    background-color: $magenta;
   }
-
-}
-
-input[type=file] {
-  max-width: 100%;
 }
 
 .panel, .panel-heading {
