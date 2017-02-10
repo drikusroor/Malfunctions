@@ -10,7 +10,7 @@ var StoringenApp;
             var gebouwId = $state.params.id;
             GebouwenService.getGebouwById(gebouwId).then(function (response) {
                 that.gebouw = response;
-                that.meldingen = response.meldingen;
+                that.bezoeken = response.bezoeken;
             });
         }
         return StatusCtrl;

@@ -1,7 +1,7 @@
 module StoringenApp {
   "use strict";
 
-  export interface IMelding {
+  export interface IBezoek {
     meldingId: string;
     BAG_VerblijfsobjectID: string;
     consternaties: string;
@@ -12,7 +12,7 @@ module StoringenApp {
 
   export class StatusCtrl {
     gebouw: IGebouw;
-    meldingen: IMelding[];
+    bezoeken: IBezoek[];
 
     static $inject = ['$scope', '$state', 'GebouwenService'];
     constructor(
@@ -27,7 +27,7 @@ module StoringenApp {
 
       GebouwenService.getGebouwById(gebouwId).then(function(response) {
         that.gebouw = response;
-        that.meldingen = response.meldingen;
+        that.bezoeken = response.bezoeken;
       });
     }
 

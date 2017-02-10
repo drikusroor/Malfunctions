@@ -1,3 +1,9 @@
+<style>
+.catamaran-bold {
+  font-family: 'Catamaran-Bold'
+}
+</style>
+
 <div class="row">
   <div class="col-xs-12">
     <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen.detail({id: statusctrl.$state.params.id})">
@@ -16,13 +22,25 @@
   <!-- Historie -->
   <div class="col-sm-6">
     <h3>Historie</h3>
-    <div class="panel panel-default" ng-repeat="melding in statusctrl.meldingen">
+    <div class="panel panel-default" ng-repeat="bezoek in statusctrl.bezoeken">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>{{melding.dateCreated | date}}</strong></h3>
+        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumMelding}}</span></h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
-          {{melding.consternaties}}
+          <span class="catamaran-bold">Gemeld door:</span>
+          {{bezoek.GemeldDoor}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Soort Bon Omschrijving:</span>
+          {{bezoek.SoortBonOmschrijving}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bonnummer:</span>
+          {{bezoek.Bonnummer}}
+        </li>
+        <li class="list-group-item">
+          {{bezoek}}
         </li>
       </ul>
     </div>
