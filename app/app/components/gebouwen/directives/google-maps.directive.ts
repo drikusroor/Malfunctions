@@ -231,7 +231,7 @@ angular.module('StoringenApp')
               lng: filteredGebouwen[i].BAG_lon
             },
             map: $window.map,
-            title: $scope.gebouwen[i].adres,
+            title: filteredGebouwen[i].adres,
             //icon: 'assets/images/gebouwtje.png',
             icon: {
               url: 'assets/images/gebouwtje24.png',
@@ -243,12 +243,12 @@ angular.module('StoringenApp')
           });
 
           var infowindow = new google.maps.InfoWindow({
-            content: getContentString($scope.gebouwen[i])
+            content: getContentString(filteredGebouwen[i])
           })
 
           marker.metadata = {
-            adres: $scope.gebouwen[i].adres,
-            Object_ID: $scope.gebouwen[i].Object_ID
+            adres: filteredGebouwen[i].adres,
+            Object_ID: filteredGebouwen[i].Object_ID
           }
 
           google.maps.event.addListener(marker, 'click', function() {
