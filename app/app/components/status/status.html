@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-xs-12">
     <a type="button" class=" btn btn-info" ui-sref="portal.gebouwen.detail({id: statusctrl.$state.params.id})">
-      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="glyphicon glyphicon-menu-left"></span>
       Terug naar gebouwdetails
     </a>
   </div>
@@ -60,7 +60,7 @@
           {{melding.status}}
         </li>
         <li class="list-group-item" ng-click="statusctrl.$state.go('portal.gebouwen.detail.status.meldingen', {id: $state.params.id, meldingId: melding.meldingId})">
-          <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          <span class="glyphicon glyphicon-menu-right pull-right"></span>
           Aanpassen
         </li>
       </ul>

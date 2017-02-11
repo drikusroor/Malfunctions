@@ -32,15 +32,13 @@ angular.module('StoringenApp')
     <br>
     <table class="table">
       <tr>
-        <th>VHENR</th>
         <th>Adres</th>
       </tr>
-      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="clickEvent({id: gebouw.gebouwId})">
-        <td>{{gebouw.VHE_nr}}</td>
-        <td>{{gebouw.BAG_adres}} {{gebouw.BAG_huisnummer}}, {{gebouw.BAG_postcode}}, {{gebouw.BAG_plaats}}</td>
+      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="clickEvent({id: gebouw.gebouwId})" class="table-row">
+        <td>{{gebouw.BAG_adres}}</td>
       </tr>
     </table>
-    <button type="button" class="btn btn-info float-right" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
+    <button type="button" class="btn btn-info" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
     `
   };
 })
