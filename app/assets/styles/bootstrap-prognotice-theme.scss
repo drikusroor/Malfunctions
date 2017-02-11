@@ -19,6 +19,7 @@ input[type=file] {
 .btn-info:hover:focus {
   background-color: $donkergold;
   border-color: $donkergold;
+  outline: none;
 }
 
 .form-control {
@@ -32,13 +33,19 @@ input[type=file] {
   outline: 2px solid $vision-blue;
 }
 
-.form-inline {
-  display: flex;
+.form-inline .form-group {
+  display: inline-flex;
+  padding: 0px 15px;
+  width: 100%;
 }
 
 .glyphicon-search {
   font-size: 20px;
-  padding: 6px;
+  left: 18px;
+}
+
+.has-feedback label~.form-control-feedback {
+  top: 0px;
 }
 
 .h1, h1 {
@@ -107,5 +114,20 @@ input[type=file] {
 }
 
 .panel, .panel-heading {
+  border: 1px solid $donkergrijs;
   border-radius: 0px;
+
+  > .panel-heading {
+    background-color: $donkergrijs;
+    border: none;
+    color: white;
+    font-family: 'Catamaran-Bold', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    height: 46px;
+    letter-spacing: 1px;
+
+    > h3 {
+      margin-top: 2px;
+    }
+  }
 }

@@ -17,7 +17,7 @@ th {
 }
 
 #inlineFormInput {
-  margin: 0px 2px;
+  padding-left: 40px;
   width: 100%;
 }
 
@@ -34,6 +34,10 @@ th {
     width: 100%;
     height: auto;
   }
+}
+
+.panel-rayons {
+  margin-top: 12px;
 }
 
 @media screen and (max-width: $break-medium) {
@@ -85,6 +89,10 @@ th {
   & li a {
     cursor: pointer;
   }
+}
+
+.catamaran-bold {
+  font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
 }
 
 .custom-container {

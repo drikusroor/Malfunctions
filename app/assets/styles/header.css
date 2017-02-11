@@ -1,3 +1,24 @@
 .navbar {
   height: 50px;
 }
+
+.nav>li>a>img {
+  width: 80px !important;
+  margin-bottom: 6px;
+}
+
+.navbar-nav>li {
+  height: 59px;
+  text-align: center;
+}
+
+.navbar-nav>li>a {
+  height: 59px;
+  padding-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.navbar-nav {
+  margin-right: 0px;
+}

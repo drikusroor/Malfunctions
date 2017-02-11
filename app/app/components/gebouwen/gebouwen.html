@@ -1,19 +1,17 @@
 <h1>Gebouwen</h1>
 
-
 <br>
 
 <div class="row">
 
-  <form class="form-inline form-filter">
-    <label class="sr-only" for="inlineFormInput">Rayon</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Rayon" ng-model="gebouwenctrl.gebouwenFilter.Rayon">
-
-    <label class="sr-only" for="inlineFormInput">Complexnummer</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Gebied2">
-
-    <label class="sr-only" for="inlineFormInput">Adres</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Complexnummer">
+  <form class="form-inline">
+    <label class="sr-only" for="inlineFormInput">Zoeken:</label>
+    <div class="form-group has-feedback">
+      <label class="control-label"></label>
+      <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+      <input type="text" class="form-control mb-2 mr-sm-3 mb-sm-0" id="inlineFormInput" placeholder="Vul een zoekterm in" ng-model="gebouwenctrl.delayedFilter" ng-model-options='{ debounce: 500 }' ng-change="setGebouwenFilter(delayedFilter)"/>
+    </div>
+    <loading ng-show="gebouwenLoading"></loading>
   </form>
 
 </div>
@@ -24,9 +22,9 @@
 
   <div class="col-sm-6 col-md-4">
     <!-- <gebieden-map gebieden="gebouwenctrl.gebieden" click-event="gebouwenctrl.setGebouwenFilter(gebied)"></gebieden-map> -->
-    <div class="panel panel-default"  >
+    <div class="panel panel-default panel-rayons">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Rayons</strong></h3>
+        <h3 class="panel-title">Rayons</h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
@@ -56,50 +54,6 @@
       <google-maps gebouwen="gebouwenctrl.gebouwen" location="gebouwenctrl.location" gebouwen-filter="gebouwenctrl.gebouwenFilter" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
     </div>
 
-    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" gebouwen-filter="gebouwenctrl.delayedFilter" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
   </div>
-
-</div>
-
-
-<div class="col-sm-6" ng-show="gebouwenctrl.selectedGebouw">
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <span ng-click="gebouwenctrl.selectedGebouw = undefined" class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-      <h3 class="panel-title">{{gebouwenctrl.selectedGebouw.BAG_adres}} {{gebouwenctrl.selectedGebouw.BAG_huisnummer}}, {{gebouwenctrl.selectedGebouw.BAG_postcode}}, {{gebouwenctrl.selectedGebouw.BAG_plaats}}</h3>
-    </div>
-    <ul class=" list-group">
-      <li class="list-group-item">
-        <b>ID:</b>
-        {{gebouwenctrl.selectedGebouw.BAG_VerblijfsobjectID}}
-      </li>
-      <li class="list-group-item">
-        <b>Adres:</b>
-        {{gebouwenctrl.selectedGebouw.BAG_adres}} {{gebouwenctrl.selectedGebouw.BAG_huisnummer}}, {{gebouwenctrl.selectedGebouw.BAG_postcode}}, {{gebouwenctrl.selectedGebouw.BAG_plaats}}
-      </li>
-      <li class="list-group-item">
-        <b>Bouwjaar:</b>
-        {{gebouwenctrl.selectedGebouw.BAG_bouwjaar}}
-      </li>
-      <li class="list-group-item">
-        <b>VHENR:</b>
-        {{gebouwenctrl.selectedGebouw.VHE_nr}}
-      </li>
-      <li class="list-group-item">
-        <b>Latitude:</b>
-        {{gebouwenctrl.selectedGebouw.BAG_lat | number:2}}
-      </li>
-      <li class="list-group-item">
-        <b>Longitude:</b>
-        {{gebouwenctrl.selectedGebouw.BAG_lon | number:2}}
-      </li>
-    </ul>
-  </div>
-
-  <button type="button" class="btn btn-info" ng-click="gebouwenctrl.$state.go('portal.gebouwen.detail', {id: gebouwenctrl.selectedGebouw.BAG_VerblijfsobjectID})">
-    Ga naar Gebouw
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-  </button>
-
 </div>
