@@ -39,18 +39,21 @@ angular.module('StoringenApp')
       <tr>
         <th>Adres</th>
       </tr>
-      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="selectGebouw(gebouw)">
-        <td>{{gebouw.BAG_adres}}</td>
+      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="selectGebouw(gebouw)" class="gebouwenlist">
+        <td>{{gebouw.BAG_adres}}
+          <p class="btn-details">
+            <a type="button" ng-show="selectedGebouw.BAG_VerblijfsobjectID == gebouw.BAG_VerblijfsobjectID" ui-sref="portal.gebouwen.detail({id: selectedGebouw.BAG_VerblijfsobjectID})">
+              Ga naar details
+              <span class="glyphicon glyphicon-menu-right"></span><span class="col-50">
+            </a>
+          </p>
+        </td>
       </tr>
     </table>
-    <button type="button" ng-show="gebouwenShowLimit < gebouwen.length" class="btn btn-info float-right" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
+    <button type="button" ng-show="gebouwenShowLimit < gebouwen.length" class="btn btn-info" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
     <div class="row" ng-show="selectedGebouw">
       <div class="col-xs-12">
       <br>
-        <a type="button" class=" btn btn-info pull-right" ui-sref="portal.gebouwen.detail({id: selectedGebouw.BAG_VerblijfsobjectID})">
-          Ga naar details {{selectedGebouw.BAG_adres}}
-          <span class="glyphicon glyphicon-chevron-right"></span><span class="col-50">
-        </a>
       </div>
     </div>
     `
