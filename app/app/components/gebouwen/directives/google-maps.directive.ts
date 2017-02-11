@@ -369,7 +369,7 @@ angular.module('StoringenApp')
         });
       }
     },
-    link: function($scope) {
+    link: function($scope) {  
 
     },
     template: `
