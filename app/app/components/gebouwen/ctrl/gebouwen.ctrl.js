@@ -42,8 +42,15 @@ var StoringenApp;
                     _this.gebouwenFilter.Rayon = undefined;
                 }
             };
-            this.panToGebouw = function () {
-                _this.$window.map.panTo({ lat: _this.selectedGebouw.BAG_lat, lng: _this.selectedGebouw.BAG_lon });
+            this.setGebouwenFilter = function (gebied) {
+                var that = _this;
+                var x = (gebied.maxlat + gebied.minlat) / 2;
+                var y = (gebied.maxlon + gebied.minlon) / 2;
+                _this.$scope.$apply(function () {
+                    that.gebouwenFilter.Rayon = gebied.Rayon;
+                    that.viewPortCenter = { x: x, y: y };
+                    console.log(that);
+                });
             };
             this.selectTab = function (tabName) {
                 _this.selectedTab = tabName;

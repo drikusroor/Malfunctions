@@ -6,7 +6,7 @@ module StoringenApp {
     gebouwen: IGebouw[];
     preFilteredGebouwen: IGebouw[];
     rayons: IGebied[];
-    selectedGebouw: IGebouw;
+    // selectedGebouw: IGebouw;
     selectedTab: string;
     gebouwenFilter: any;
     viewPortCenter: any;
@@ -100,33 +100,26 @@ module StoringenApp {
       }
     }
 
-    // public setGebouwenFilter = (gebied): void => {
-    //   var that = this;
-    //   var x = (gebied.maxlat + gebied.minlat) / 2;
-    //   var y = (gebied.maxlon + gebied.minlon) / 2;
-    //   this.$scope.$apply(function() {
-    //     that.gebouwenFilter.Rayon = gebied.Rayon;
-    //     that.viewPortCenter = {x, y};
-    //     console.log(that)
-    //   })
-    // }
-    //
+    public setGebouwenFilter = (gebied): void => {
+      var that = this;
+      var x = (gebied.maxlat + gebied.minlat) / 2;
+      var y = (gebied.maxlon + gebied.minlon) / 2;
+      this.$scope.$apply(function() {
+        that.gebouwenFilter.Rayon = gebied.Rayon;
+        that.viewPortCenter = {x, y};
+        console.log(that)
+      })
+    }
+
     // public selectGebouw = (id: number): void => {
     //   console.log(id);
-    //   var selectedGebouw = this.gebouwen.find(g => g.Object_ID === id);
-    //   this.$scope.$apply(
-    //     this.selectedGebouw = selectedGebouw
-    //   );
-    //   var that = this;
-    //   this.$timeout(function() {
-    //     that.panToGebouw();
-    //   }, 100)
-    //   console.log(this.selectedGebouw)
+    //   var selectedGebouw = this.gebouwen.find(g => g.BAG_VerblijfsobjectID === id);
+    //   this.selectedGebouw = selectedGebouw
     // }
 
-    public panToGebouw = (): void => {
-      this.$window.map.panTo({lat: this.selectedGebouw.BAG_lat, lng: this.selectedGebouw.BAG_lon});
-    }
+    // public panToGebouw = (): void => {
+    //   this.$window.map.panTo({lat: this.selectedGebouw.BAG_lat, lng: this.selectedGebouw.BAG_lon});
+    // }
 
     public selectTab = (tabName: string) : void => {
       this.selectedTab = tabName;
