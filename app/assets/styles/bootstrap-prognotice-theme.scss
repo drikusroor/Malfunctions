@@ -70,6 +70,25 @@ input[type=file] {
   text-transform: uppercase;
 }
 
+#rayons-list-item.active:hover,
+#rayons-list-item.active:focus,
+#rayons-list-item.active:active,
+#rayons-list-item:hover,
+#rayons-list-item:focus,
+#rayons-list-item:active,
+#rayons-list-item.active {
+  background: $lichtgrijs;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  color: black;
+  outline: none;
+}
+
+#rayons-list-item.active:first-child,
+#rayons-list-item:hover:first-child {
+  border-top: 0px;
+}
+
 .nav-tabs.nav-justified {
   display: inline-flex;
 

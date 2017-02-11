@@ -17,6 +17,31 @@ th {
   text-transform: uppercase;
 }
 
+th:hover {
+  background: $bgcolor;
+}
+
+td:hover,
+td:focus,
+td:active,
+td:hover:focus,
+tr:hover,
+tr:focus,
+tr:active,
+tr:hover:focus {
+  background: $lichtgrijs;
+  outline:none;
+}
+
+.btn-details {
+  font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
+  margin-bottom: 0px;
+
+  > a {
+    color: $magenta;
+  }
+}
+
 .catamaran-bold {
   font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
 }
