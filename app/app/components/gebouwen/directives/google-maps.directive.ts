@@ -7,7 +7,6 @@ angular.module('StoringenApp')
     scope: {
       'gebouwen': '=',
       'location': '=',
-      'gebouwenFilter': '=',
       'viewPortCenter': '=',
       'streetView': '=',
       'height': '='
@@ -17,32 +16,17 @@ angular.module('StoringenApp')
       $scope.mapId = Math.random().toString(36).substr(2, 10);
       $scope.detailView = $state.current.name === 'portal.gebouwen.detail';
 
-      console.log($scope);
-      $scope.$watch('gebouwen', function(newValue, oldValue, scope) {
+      $scope.$watch('gebouwen.length', function(newValue, oldValue, scope) {
         if(newValue !== undefined) {
-          if (oldValue === undefined || newValue.length !== oldValue.length) {
+          console.log("gebouwen.length: ", newValue)
+          if (oldValue === undefined) {
             $scope.initMap();
           }
         }
+        if($scope.mapInitialized && newValue !== undefined) {
+          $scope.addMarkers();
+        }
       })
-
-      if ($scope.gebouwenFilter) {
-        $scope.$watch('gebouwenFilter.Gebied2', function(newValue, oldValue, scope) {
-          if(newValue !== undefined) {
-            if (oldValue === undefined || newValue !== oldValue ) {
-              $scope.addMarkers();
-            }
-          }
-        })
-
-        $scope.$watch('gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
-          if(newValue !== undefined) {
-            if (oldValue === undefined || newValue !== oldValue ) {
-              $scope.addMarkers();
-            }
-          }
-        })
-      }
 
       function getContentString(gebouw) {
         var html =
@@ -189,26 +173,14 @@ angular.module('StoringenApp')
       }
 
       function filterGebouwen(vb, gebouwen) {
+
+        // Filter viewport
         var filteredGebouwen = gebouwen.filter(g =>
           g.BAG_lat < vb.lat0 &&
           g.BAG_lat > vb.lat1 &&
           g.BAG_lon < vb.lng0 &&
           g.BAG_lon > vb.lng1
         );
-
-        if ($scope.gebouwenFilter) {
-          if ($scope.gebouwenFilter.Gebied2 !== "" && $scope.gebouwenFilter.Gebied2 !== undefined && $scope.gebouwenFilter.Gebied2 !== null) {
-            filteredGebouwen = gebouwen.filter(g =>
-              g.Gebied2 === $scope.gebouwenFilter.Gebied2
-            );
-          }
-
-          if ($scope.gebouwenFilter.Rayon !== "" && $scope.gebouwenFilter.Rayon !== undefined && $scope.gebouwenFilter.Rayon !== null) {
-            filteredGebouwen = gebouwen.filter(g =>
-              g.Rayon === $scope.gebouwenFilter.Rayon
-            );
-          }
-        }
 
         return filteredGebouwen
       }
@@ -243,12 +215,12 @@ angular.module('StoringenApp')
           });
 
           var infowindow = new google.maps.InfoWindow({
-            content: getContentString($scope.gebouwen[i])
+            content: getContentString(filteredGebouwen[i])
           })
 
           marker.metadata = {
-            adres: $scope.gebouwen[i].adres,
-            Object_ID: $scope.gebouwen[i].Object_ID
+            adres: filteredGebouwen[i].adres,
+            Object_ID: filteredGebouwen[i].Object_ID
           }
 
           google.maps.event.addListener(marker, 'click', function() {
@@ -283,6 +255,7 @@ angular.module('StoringenApp')
           lng1: map.getBounds().getSouthWest().lng()
         }
 
+        console.log("lengte voor spatial filter: ", $scope.gebouwen.length)
         var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
 
         // Als er
@@ -312,6 +285,14 @@ angular.module('StoringenApp')
           zoomLevel = 18;
         }
 
+        if($scope.location) {
+          coordinates = {
+            lat: $scope.location.coords.latitude,
+            lng: $scope.location.coords.longitude
+          }
+          zoomLevel = 13;
+        }
+
         var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);
 
         $scope.map = new google.maps.Map(document.getElementById($scope.mapId), {
@@ -339,6 +320,7 @@ angular.module('StoringenApp')
         google.maps.event.addListenerOnce($scope.map, 'idle', function(){
             //this part runs when the mapobject is created and rendered
             console.log('first and only idle benko');
+            $scope.mapInitialized = true;
             $scope.addMarkers();
 
             if($scope.streetView) {

@@ -12,6 +12,11 @@ angular.module('StoringenApp')
     controller: function($scope, $timeout) {
       $scope.gebouwenShowLimit = 20;
 
+      $scope.selectGebouw = function(gebouw) {
+        console.log("selecting gebouw: ", gebouw);
+        $scope.selectedGebouw = gebouw;
+      }
+
       $scope.$watch('gebouwenFilter', function() {
         console.log($scope.gebouwenFilter)
       })
@@ -35,12 +40,21 @@ angular.module('StoringenApp')
         <th>VHENR</th>
         <th>Adres</th>
       </tr>
-      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="clickEvent({id: gebouw.gebouwId})">
+      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="selectGebouw(gebouw)">
         <td>{{gebouw.VHE_nr}}</td>
         <td>{{gebouw.BAG_adres}} {{gebouw.BAG_huisnummer}}, {{gebouw.BAG_postcode}}, {{gebouw.BAG_plaats}}</td>
       </tr>
     </table>
-    <button type="button" class="btn btn-info float-right" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
+    <button type="button" ng-show="gebouwenShowLimit < gebouwen.length" class="btn btn-info float-right" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
+    <div class="row" ng-show="selectedGebouw">
+      <div class="col-xs-12">
+      <br>
+        <a type="button" class=" btn btn-info pull-right" ui-sref="portal.gebouwen.detail({id: selectedGebouw.BAG_VerblijfsobjectID})">
+          Ga naar details {{selectedGebouw.BAG_adres}}
+          <span class="glyphicon glyphicon-chevron-right"></span><span class="col-50">
+        </a>
+      </div>
+    </div>
     `
   };
 })
