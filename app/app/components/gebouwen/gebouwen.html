@@ -9,7 +9,7 @@
     <div class="form-group has-feedback">
       <label class="control-label"></label>
       <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-      <input type="text" class="form-control mb-2 mr-sm-3 mb-sm-0" id="inlineFormInput" placeholder="Vul een zoekterm in" ng-model="gebouwenctrl.delayedFilter" ng-model-options='{ debounce: 500 }' ng-change="setGebouwenFilter(delayedFilter)"/>
+      <input type="text" class="form-control mb-2 mr-sm-3 mb-sm-0" id="inlineFormInput" placeholder="Vul een zoekterm in" ng-model="gebouwenctrl.gebouwenFilter.generic" ng-model-options='{ debounce: 500 }' ng-change="setGebouwenFilter(delayedFilter)"/>
     </div>
     <loading ng-show="gebouwenLoading"></loading>
   </form>
@@ -21,13 +21,12 @@
 <div class="row">
 
   <div class="col-sm-6 col-md-4">
-    <!-- <gebieden-map gebieden="gebouwenctrl.gebieden" click-event="gebouwenctrl.setGebouwenFilter(gebied)"></gebieden-map> -->
     <div class="panel panel-default panel-rayons">
       <div class="panel-heading">
         <h3 class="panel-title">Rayons</h3>
       </div>
       <ul class=" list-group">
-        <li class="list-group-item" ng-repeat="rayon in gebouwenctrl.rayons">
+        <li class="list-group-item" ng-repeat="rayon in gebouwenctrl.rayons" ng-click="gebouwenctrl.gebouwenFilter.Rayon = rayon.Rayon">
           {{rayon.Rayon}}
         </li>
       </ul>
@@ -42,9 +41,9 @@
     </uib-tabset>
 
     <div ng-show="gebouwenctrl.selectedTab === 'map'">
-      <google-maps gebouwen="gebouwenctrl.gebouwen" location="gebouwenctrl.location" gebouwen-filter="gebouwenctrl.gebouwenFilter" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
+      <google-maps gebouwen="gebouwenctrl.preFilteredGebouwen" location="gebouwenctrl.location" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
     </div>
 
-    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.gebouwen" gebouwen-filter="gebouwenctrl.delayedFilter" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.preFilteredGebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
   </div>
 </div>

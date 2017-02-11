@@ -4,6 +4,7 @@ module StoringenApp {
   export class GebouwenCtrl {
     location: any;
     gebouwen: IGebouw[];
+    preFilteredGebouwen: IGebouw[];
     rayons: IGebied[];
     selectedGebouw: IGebouw;
     selectedTab: string;
@@ -17,6 +18,7 @@ module StoringenApp {
       '$window',
       '$document',
       '$timeout',
+      '$filter',
       'LocationService',
       'GebouwenService',
       'GebiedenService'
@@ -28,6 +30,7 @@ module StoringenApp {
       private $window,
       private $document,
       private $timeout,
+      private $filter,
       private LocationService,
       private GebouwenService,
       private GebiedenService
@@ -41,6 +44,21 @@ module StoringenApp {
 
       GebouwenService.getGebouwen().then(function(response) {
         that.gebouwen = response;
+        that.preFilterGebouwen(that.gebouwen);
+
+        $scope.$watch('gebouwenctrl.gebouwenFilter.generic', function(newValue, oldValue, scope) {
+          var ctrl = scope.gebouwenctrl;
+          if(oldValue || newValue) {
+            ctrl.preFilterGebouwen(ctrl.gebouwen);
+          }
+        })
+
+        $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
+          var ctrl = scope.gebouwenctrl;
+          if(oldValue || newValue) {
+            ctrl.preFilterGebouwen(ctrl.gebouwen);
+          }
+        })
       });
 
       //GebouwenService.getGebouwen();
@@ -49,6 +67,24 @@ module StoringenApp {
 
       this.gebouwenFilter = {};
       this.viewPortCenter = {};
+    }
+
+    public preFilterGebouwen = (gebouwen: IGebouw[]): void => {
+      var ctrl = this;
+      var preFilteredGebouwen = gebouwen;
+      var gebouwenFilter = this.gebouwenFilter;
+
+      if (gebouwenFilter.Rayon !== undefined && gebouwenFilter.Rayon !== null) {
+        if(gebouwen[0].Rayon !== undefined) {
+          preFilteredGebouwen = preFilteredGebouwen.filter(g =>
+            g.Rayon === gebouwenFilter.Rayon
+          );
+        }
+      }
+      if (gebouwenFilter.generic !== undefined && gebouwenFilter.generic !== null) {
+        preFilteredGebouwen = this.$filter('filter')(preFilteredGebouwen, gebouwenFilter.generic);
+      }
+      ctrl.preFilteredGebouwen = preFilteredGebouwen;
     }
 
     public storeLocation = (loc):void => {
@@ -97,8 +133,8 @@ module StoringenApp {
     }
 
   }
-  function controller($scope, $http, $state, $window, $document, $timeout, LocationService, GebouwenService, GebiedenService): GebouwenCtrl {
-    return new GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, LocationService, GebouwenService, GebiedenService);
+  function controller($scope, $http, $state, $window, $document, $timeout, $filter, LocationService, GebouwenService, GebiedenService): GebouwenCtrl {
+    return new GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, $filter, LocationService, GebouwenService, GebiedenService);
   }
   angular.module('StoringenApp').controller('GebouwenCtrl', controller);
 }

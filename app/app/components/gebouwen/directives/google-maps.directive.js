@@ -7,7 +7,6 @@ angular.module('StoringenApp')
         scope: {
             'gebouwen': '=',
             'location': '=',
-            'gebouwenFilter': '=',
             'viewPortCenter': '=',
             'streetView': '=',
             'height': '='
@@ -15,30 +14,17 @@ angular.module('StoringenApp')
         controller: function ($scope, $window, $document, $state, LocationService) {
             $scope.mapId = Math.random().toString(36).substr(2, 10);
             $scope.detailView = $state.current.name === 'portal.gebouwen.detail';
-            console.log($scope);
-            $scope.$watch('gebouwen', function (newValue, oldValue, scope) {
+            $scope.$watch('gebouwen.length', function (newValue, oldValue, scope) {
                 if (newValue !== undefined) {
-                    if (oldValue === undefined || newValue.length !== oldValue.length) {
+                    console.log("gebouwen.length: ", newValue);
+                    if (oldValue === undefined || newValue !== oldValue) {
                         $scope.initMap();
                     }
                 }
+                if ($scope.mapInitialized && newValue !== undefined) {
+                    $scope.addMarkers();
+                }
             });
-            if ($scope.gebouwenFilter) {
-                $scope.$watch('gebouwenFilter.Gebied2', function (newValue, oldValue, scope) {
-                    if (newValue !== undefined) {
-                        if (oldValue === undefined || newValue !== oldValue) {
-                            $scope.addMarkers();
-                        }
-                    }
-                });
-                $scope.$watch('gebouwenFilter.Rayon', function (newValue, oldValue, scope) {
-                    if (newValue !== undefined) {
-                        if (oldValue === undefined || newValue !== oldValue) {
-                            $scope.addMarkers();
-                        }
-                    }
-                });
-            }
             function getContentString(gebouw) {
                 var html = '<div id="content">' +
                     '<div id="siteNotice">' +
@@ -166,18 +152,6 @@ angular.module('StoringenApp')
                         g.BAG_lon < vb.lng0 &&
                         g.BAG_lon > vb.lng1;
                 });
-                if ($scope.gebouwenFilter) {
-                    if ($scope.gebouwenFilter.Gebied2 !== "" && $scope.gebouwenFilter.Gebied2 !== undefined && $scope.gebouwenFilter.Gebied2 !== null) {
-                        filteredGebouwen = gebouwen.filter(function (g) {
-                            return g.Gebied2 === $scope.gebouwenFilter.Gebied2;
-                        });
-                    }
-                    if ($scope.gebouwenFilter.Rayon !== "" && $scope.gebouwenFilter.Rayon !== undefined && $scope.gebouwenFilter.Rayon !== null) {
-                        filteredGebouwen = gebouwen.filter(function (g) {
-                            return g.Rayon === $scope.gebouwenFilter.Rayon;
-                        });
-                    }
-                }
                 return filteredGebouwen;
             }
             function addIndividualMarkers(filteredGebouwen, map) {
@@ -201,11 +175,11 @@ angular.module('StoringenApp')
                         }
                     });
                     var infowindow = new google.maps.InfoWindow({
-                        content: getContentString($scope.gebouwen[i])
+                        content: getContentString(filteredGebouwen[i])
                     });
                     marker.metadata = {
-                        adres: $scope.gebouwen[i].adres,
-                        Object_ID: $scope.gebouwen[i].Object_ID
+                        adres: filteredGebouwen[i].adres,
+                        Object_ID: filteredGebouwen[i].Object_ID
                     };
                     google.maps.event.addListener(marker, 'click', function () {
                         if ($scope.lastOpenedInfoWindow) {
@@ -229,6 +203,7 @@ angular.module('StoringenApp')
                     lat1: map.getBounds().getSouthWest().lat(),
                     lng1: map.getBounds().getSouthWest().lng()
                 };
+                console.log("lengte voor spatial filter: ", $scope.gebouwen.length);
                 var filteredGebouwen = filterGebouwen(vb, $scope.gebouwen);
                 if (zoomLevel < 15 || filteredGebouwen.length > 1000) {
                     addClusteredMarkers(vb, filteredGebouwen);
@@ -268,6 +243,7 @@ angular.module('StoringenApp')
                 }
                 google.maps.event.addListenerOnce($scope.map, 'idle', function () {
                     console.log('first and only idle benko');
+                    $scope.mapInitialized = true;
                     $scope.addMarkers();
                     if ($scope.streetView) {
                         $scope.panorama = $scope.map.getStreetView();

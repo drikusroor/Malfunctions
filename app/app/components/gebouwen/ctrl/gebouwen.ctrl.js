@@ -2,7 +2,7 @@ var StoringenApp;
 (function (StoringenApp) {
     "use strict";
     var GebouwenCtrl = (function () {
-        function GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, LocationService, GebouwenService, GebiedenService) {
+        function GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, $filter, LocationService, GebouwenService, GebiedenService) {
             var _this = this;
             this.$scope = $scope;
             this.$http = $http;
@@ -10,9 +10,26 @@ var StoringenApp;
             this.$window = $window;
             this.$document = $document;
             this.$timeout = $timeout;
+            this.$filter = $filter;
             this.LocationService = LocationService;
             this.GebouwenService = GebouwenService;
             this.GebiedenService = GebiedenService;
+            this.preFilterGebouwen = function (gebouwen) {
+                var ctrl = _this;
+                var preFilteredGebouwen = gebouwen;
+                var gebouwenFilter = _this.gebouwenFilter;
+                if (gebouwenFilter.Rayon !== undefined && gebouwenFilter.Rayon !== null) {
+                    if (gebouwen[0].Rayon !== undefined) {
+                        preFilteredGebouwen = preFilteredGebouwen.filter(function (g) {
+                            return g.Rayon === gebouwenFilter.Rayon;
+                        });
+                    }
+                }
+                if (gebouwenFilter.generic !== undefined && gebouwenFilter.generic !== null) {
+                    preFilteredGebouwen = _this.$filter('filter')(preFilteredGebouwen, gebouwenFilter.generic);
+                }
+                ctrl.preFilteredGebouwen = preFilteredGebouwen;
+            };
             this.storeLocation = function (loc) {
                 console.log(loc);
                 _this.location = loc;
@@ -56,6 +73,19 @@ var StoringenApp;
             });
             GebouwenService.getGebouwen().then(function (response) {
                 that.gebouwen = response;
+                that.preFilterGebouwen(that.gebouwen);
+                $scope.$watch('gebouwenctrl.gebouwenFilter.generic', function (newValue, oldValue, scope) {
+                    var ctrl = scope.gebouwenctrl;
+                    if (oldValue || newValue) {
+                        ctrl.preFilterGebouwen(ctrl.gebouwen);
+                    }
+                });
+                $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon', function (newValue, oldValue, scope) {
+                    var ctrl = scope.gebouwenctrl;
+                    if (oldValue || newValue) {
+                        ctrl.preFilterGebouwen(ctrl.gebouwen);
+                    }
+                });
             });
             this.selectedTab = "map";
             LocationService.getCurrentPosition().then(this.storeLocation);
@@ -71,13 +101,14 @@ var StoringenApp;
         '$window',
         '$document',
         '$timeout',
+        '$filter',
         'LocationService',
         'GebouwenService',
         'GebiedenService'
     ];
     StoringenApp.GebouwenCtrl = GebouwenCtrl;
-    function controller($scope, $http, $state, $window, $document, $timeout, LocationService, GebouwenService, GebiedenService) {
-        return new GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, LocationService, GebouwenService, GebiedenService);
+    function controller($scope, $http, $state, $window, $document, $timeout, $filter, LocationService, GebouwenService, GebiedenService) {
+        return new GebouwenCtrl($scope, $http, $state, $window, $document, $timeout, $filter, LocationService, GebouwenService, GebiedenService);
     }
     angular.module('StoringenApp').controller('GebouwenCtrl', controller);
 })(StoringenApp || (StoringenApp = {}));
