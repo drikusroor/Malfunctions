@@ -252,8 +252,16 @@ angular.module('StoringenApp')
           }
 
           google.maps.event.addListener(marker, 'click', function() {
+
+            // close the last opened info window
+            if($scope.lastOpenedInfoWindow) {
+              $scope.lastOpenedInfoWindow.close()
+            }
+
             console.log(marker)
             infowindow.open(map, marker);
+
+            $scope.lastOpenedInfoWindow = infowindow;
           })
 
           $scope.lastMarker = marker;
