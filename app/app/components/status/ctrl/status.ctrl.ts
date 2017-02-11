@@ -28,6 +28,9 @@ module StoringenApp {
       GebouwenService.getGebouwById(gebouwId).then(function(response) {
         that.gebouw = response;
         that.bezoeken = response.bezoeken;
+        that.storingen = that.bezoeken.filter(b => b.SoortBonOmschrijving !== "Periodiek onderhoud");
+        that.periodiek = that.bezoeken.filter(b => b.SoortBonOmschrijving === "Periodiek onderhoud");
+        console.log(that);
       });
     }
 

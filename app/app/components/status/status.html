@@ -19,18 +19,15 @@
 
 <div class="row">
 
-  <!-- Historie -->
+  <!-- Periodiek -->
   <div class="col-sm-6">
-    <h3>Historie</h3>
-    <div class="panel panel-default" ng-repeat="bezoek in statusctrl.bezoeken">
+    <h3>Periodiek</h3>
+    <h4 ng-hide="statusctrl.periodiek.length > 0">Er zijn geen periodieke bezoeken bekend voor dit object</h4>
+    <div class="panel panel-default" ng-repeat="bezoek in statusctrl.periodiek">
       <div class="panel-heading">
         <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumMelding}}</span></h3>
       </div>
       <ul class=" list-group">
-        <li class="list-group-item">
-          <span class="catamaran-bold">Gemeld door:</span>
-          {{bezoek.GemeldDoor}}
-        </li>
         <li class="list-group-item">
           <span class="catamaran-bold">Soort Bon Omschrijving:</span>
           {{bezoek.SoortBonOmschrijving}}
@@ -40,28 +37,113 @@
           {{bezoek.Bonnummer}}
         </li>
         <li class="list-group-item">
-          {{bezoek}}
+          <span class="catamaran-bold">Gemeld door:</span>
+          {{bezoek.GemeldDoor}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Medewerkernaam:</span>
+          {{bezoek.Medewerker_naam}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Fabrikaat:</span>
+          {{bezoek.Fabrikaat}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Type:</span>
+          {{bezoek.Type}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bouwjaar Toestel:</span>
+          {{bezoek.Bouwjaar_toestel}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Datum/Tijd Melding:</span>
+          {{bezoek.DatumMelding}} {{bezoek.TijdMelding}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Datum/Tijd Afhandeling:</span>
+          {{bezoek.DatumAfgehandeld}} {{bezoek.TijdAanvang}} {{bezoek.TijdGereed}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Storingomschrijving:</span>
+          {{bezoek.Storingomschrijving}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Oorzaakomschrijving:</span>
+          {{bezoek.Oorzaak_omschrijving_1}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bevindingomschrijving:</span>
+          {{bezoek.Bevinding_omschrijving_1}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Opmerkingafhandeling:</span>
+          {{bezoek.Opmerking_afhandeling}}
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- Actueel -->
+  <!-- Storingen -->
   <div class="col-sm-6">
-
-    <h3>Actueel</h3>
-    <div class="panel panel-default" ng-repeat="melding in statusctrl.meldingen">
+    <h3>Storingen</h3>
+    <h4 ng-hide="statusctrl.storingen.length > 0">Er zijn geen storingen bekend voor dit object</h4>
+    <div class="panel panel-default" ng-repeat="bezoek in statusctrl.storingen">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>{{melding.dateCreated | date}}</strong></h3>
+        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumMelding}}</span></h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
-          <b>Status:</b>
-          {{melding.status}}
+          <span class="catamaran-bold">Soort Bon Omschrijving:</span>
+          {{bezoek.SoortBonOmschrijving}}
         </li>
-        <li class="list-group-item" ng-click="statusctrl.$state.go('portal.gebouwen.detail.status.meldingen', {id: $state.params.id, meldingId: melding.meldingId})">
-          <span class="glyphicon glyphicon-menu-right pull-right"></span>
-          Aanpassen
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bonnummer:</span>
+          {{bezoek.Bonnummer}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Gemeld door:</span>
+          {{bezoek.GemeldDoor}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Medewerkernaam:</span>
+          {{bezoek.Medewerker_naam}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Fabrikaat:</span>
+          {{bezoek.Fabrikaat}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Type:</span>
+          {{bezoek.Type}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bouwjaar Toestel:</span>
+          {{bezoek.Bouwjaar_toestel}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Datum/Tijd Melding:</span>
+          {{bezoek.DatumMelding}} {{bezoek.TijdMelding}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Datum/Tijd Afhandeling:</span>
+          {{bezoek.DatumAfgehandeld}} {{bezoek.TijdAanvang}} {{bezoek.TijdGereed}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Storingomschrijving:</span>
+          {{bezoek.Storingomschrijving}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Oorzaakomschrijving:</span>
+          {{bezoek.Oorzaak_omschrijving_1}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Bevindingomschrijving:</span>
+          {{bezoek.Bevinding_omschrijving_1}}
+        </li>
+        <li class="list-group-item">
+          <span class="catamaran-bold">Opmerkingafhandeling:</span>
+          {{bezoek.Opmerking_afhandeling}}
         </li>
       </ul>
     </div>
