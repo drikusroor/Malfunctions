@@ -53,7 +53,7 @@ module StoringenApp {
           }
         })
 
-        $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
+        $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon_nieuw_BOG', function(newValue, oldValue, scope) {
           var ctrl = scope.gebouwenctrl;
           if(oldValue || newValue) {
             ctrl.preFilterGebouwen(ctrl.gebouwen);
@@ -74,10 +74,10 @@ module StoringenApp {
       var preFilteredGebouwen = gebouwen;
       var gebouwenFilter = this.gebouwenFilter;
 
-      if (gebouwenFilter.Rayon !== undefined && gebouwenFilter.Rayon !== null) {
-        if(gebouwen[0].Rayon !== undefined) {
+      if (gebouwenFilter.Rayon_nieuw_BOG !== undefined && gebouwenFilter.Rayon_nieuw_BOG !== null) {
+        if(gebouwen[0].Rayon_nieuw_BOG !== undefined) {
           preFilteredGebouwen = preFilteredGebouwen.filter(g =>
-            g.Rayon === gebouwenFilter.Rayon
+            g.Rayon_nieuw_BOG === gebouwenFilter.Rayon_nieuw_BOG
           );
         }
       }
