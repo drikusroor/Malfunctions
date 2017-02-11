@@ -5,20 +5,31 @@ input[type=file] {
   max-width: 100%;
 }
 
+#btn-maps:hover,
+#btn-maps:active,
+#btn-maps:focus,
+#btn-maps:hover:focus {
+  background-color: $gold;
+  border-color: $gold;
+}
+
 .btn-info {
   background-color: $gold;
   border-color: $gold;
   border-radius: 0px;
   font-family: 'Catamaran', Arial, Helvetica, sans-serif;
-  padding: 6px;
+  letter-spacing: 1px;
+  padding: 8px 10px;
   text-align: left;
 }
 
+.btn-info:active,
 .btn-info:hover,
 .btn-info:focus,
 .btn-info:hover:focus {
   background-color: $donkergold;
   border-color: $donkergold;
+  box-shadow: none;
   outline: none;
 }
 
@@ -37,6 +48,11 @@ input[type=file] {
   display: inline-flex;
   padding: 0px 15px;
   width: 100%;
+}
+
+.glyphicon-menu-left,
+.glyphicon-menu-right {
+  top: 3px;
 }
 
 .glyphicon-search {
@@ -125,6 +141,7 @@ input[type=file] {
     font-size: 16px;
     height: 46px;
     letter-spacing: 1px;
+    text-transform: uppercase;
 
     > h3 {
       margin-top: 2px;

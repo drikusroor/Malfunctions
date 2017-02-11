@@ -39,8 +39,16 @@ angular.module('StoringenApp')
       <tr>
         <th>Adres</th>
       </tr>
-      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="selectGebouw(gebouw)">
+<<<<<<< HEAD
+      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="clickEvent({id: gebouw.gebouwId})" class="table-row">
         <td>{{gebouw.BAG_adres}}</td>
+      </tr>
+    </table>
+    <button type="button" class="btn btn-info" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
+=======
+      <tr ng-repeat="gebouw in gebouwen | filter: gebouwenFilter | limitTo: gebouwenShowLimit" ng-click="selectGebouw(gebouw)">
+        <td>{{gebouw.VHE_nr}}</td>
+        <td>{{gebouw.BAG_adres}} {{gebouw.BAG_huisnummer}}, {{gebouw.BAG_postcode}}, {{gebouw.BAG_plaats}}</td>
       </tr>
     </table>
     <button type="button" ng-show="gebouwenShowLimit < gebouwen.length" class="btn btn-info float-right" ng-click="gebouwenShowLimit = gebouwenShowLimit + 20">Laat meer resultaten zien</button>
@@ -53,6 +61,7 @@ angular.module('StoringenApp')
         </a>
       </div>
     </div>
+>>>>>>> master
     `
   };
 })

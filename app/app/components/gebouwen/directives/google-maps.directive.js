@@ -26,11 +26,15 @@ angular.module('StoringenApp')
                 }
             });
             function getContentString(gebouw) {
+                var str = gebouw.BAG_adres;
+                var adressArray = str.split(",");
                 var html = '<div id="content">' +
                     '<div id="siteNotice">' +
-                    '<a class="btn btn-info" href="#!/gebouwen/' + gebouw.BAG_VerblijfsobjectID + '">' +
-                    gebouw.BAG_adres + ' ' + gebouw.BAG_huisnummer + ', ' + gebouw.BAG_postcode + ', ' + gebouw.BAG_plaats +
-                    '<br>VHENR: ' + gebouw.VHE_nr +
+                    '<a class="btn btn-info" id="btn-maps" href="#!/gebouwen/' + gebouw.BAG_VerblijfsobjectID + '">' +
+                    adressArray[0] + ', ' +
+                    adressArray[1] +
+                    '<br>' + adressArray[2] +
+                    '<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>' +
                     '</a>' +
                     '</div>' +
                     '</div> ';
@@ -279,6 +283,6 @@ angular.module('StoringenApp')
         },
         link: function ($scope) {
         },
-        template: "\n      <div style=\"height: 400px\">\n        <div id=\"{{mapId}}\" style=\"height: 100%\"></div>\n      </div>\n    "
+        template: "\n      <div class=\"map-container\" ng-class=\"{'streetview-container': streetView}\">\n        <div id=\"{{mapId}}\" style=\"height: 100%\"></div>\n      </div>\n    "
     };
 });

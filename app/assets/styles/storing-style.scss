@@ -5,25 +5,92 @@ body {
   background: $bgcolor;
   color: $donkergrijs;
   font-family: 'Catamaran', Arial, Helvetica, sans-serif;
+  letter-spacing: 0.5px;
   overflow-x: hidden;
 }
 
-hr {
-
+th {
+  border-bottom: 3px solid $donkergrijs;
+  border-top: 0px !important;
+  font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-th {
+.catamaran-bold {
   font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
 }
 
-#inlineFormInput {
-  padding-left: 40px;
-  width: 100%;
+.custom-container {
+  width: calc(95%);
+  margin: auto;
+  padding-top: 20px;
+}
+
+.default-border {
+  border: 1px solid $grijsborder;
 }
 
 .form-filter {
   display: flex;
   padding: 0 12px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+// FRONT PAGE
+.front-button {
+  cursor: pointer;
+  & h1 {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+  }
+}
+
+.front-button:hover {
+  & h1 {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    font-size: 40pt;
+  }
+}
+
+.gm-style-iw {
+  left: 10.5px !important;
+  top: 10.5px !important;
+}
+
+.header {
+  .navbar {
+    margin-bottom: 0px;
+  }
+
+  & li a {
+    cursor: pointer;
+  }
+}
+
+.image-close-button {
+  position: absolute;
+  top: 17px;
+  right: 22px;
+  color: white;
+  background: $vision-blue;
+  padding: 10px;
+}
+
+.labels {
+  color: red;
 }
 
 .loading {
@@ -36,19 +103,61 @@ th {
   }
 }
 
+.margin-top-10 {
+  margin-top: 10px;
+}
+
 .panel-rayons {
   margin-top: 12px;
 }
 
-@media screen and (max-width: $break-medium) {
-  #logo {
-    position: absolute;
-    right: 24px;
-    top: 10px;
-    height: 40px;
-  }
-
+.pointer {
+  cursor: pointer;
 }
+
+.responsive-inline {
+  width: 100%;
+  @media(min-width: $break-small) {
+    & {
+      width: calc(100% / 2);
+    }
+  }
+  @media(min-width: $break-large) {
+    & {
+      width: calc(100% / 3);
+    }
+  }
+  &.list-display {
+    width: 100%;
+  }
+}
+
+.row-vision {
+  width: 100%;
+  display: inline-flex;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.table-row:hover,
+.table-row:focus {
+  background: $lichtgrijs;
+  outline: none;
+}
+
+.tile {
+  overflow: hidden;
+  display: inline-block;
+
+  .content {
+    background: white;
+    min-height: 500px;
+    @extend .default-border
+  }
+  padding: 3px;
+  @extend .responsive-inline;
+}
+
 
 .top-bar {
   min-height: 30px;
@@ -81,84 +190,6 @@ th {
   }
 }
 
-.header {
-  .navbar {
-    margin-bottom: 0px;
-  }
-
-  & li a {
-    cursor: pointer;
-  }
-}
-
-.catamaran-bold {
-  font-family: 'Catamaran-bold', Arial, Helvetica, sans-serif;
-}
-
-.custom-container {
-  width: calc(95%);
-  margin: auto;
-  padding-top: 20px;
-}
-
-.row-vision {
-  width: 100%;
-  display: inline-flex;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-.responsive-inline {
-  width: 100%;
-  @media(min-width: $break-small) {
-    & {
-      width: calc(100% / 2);
-    }
-  }
-  @media(min-width: $break-large) {
-    & {
-      width: calc(100% / 3);
-    }
-  }
-  &.list-display {
-    width: 100%;
-  }
-}
-
-.default-border {
-  border: 1px solid $grijsborder;
-}
-
-.tile {
-  overflow: hidden;
-  display: inline-block;
-
-  .content {
-    background: white;
-    min-height: 500px;
-    @extend .default-border
-  }
-  padding: 3px;
-  @extend .responsive-inline;
-}
-
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
-.gm-style-iw {
-  left: 10.5px !important;
-  top: 10.5px !important;
-}
-
-.margin-top-10 {
-  margin-top: 10px;
-}
-
 @media print {
   .top-bar {
     display: none;
@@ -171,7 +202,7 @@ th {
   }
 }
 
-.p-arrow {
+.arrow {
   margin: 10px 0px 0px 20px;
 }
 
@@ -194,50 +225,11 @@ th {
 
   /* Internet Explorer */
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-
 }
 
 .vertical-padding-15 {
   padding-top: 15px;
   padding-bottom: 15px;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-// FRONT PAGE
-.front-button {
-  cursor: pointer;
-  & h1 {
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-  }
-}
-
-.front-button:hover {
-  & h1 {
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    font-size: 40pt;
-  }
-}
-
-.image-close-button {
-  position: absolute;
-  top: 17px;
-  right: 22px;
-  color: white;
-  background: $vision-blue;
-  padding: 10px;
-}
-
-.labels {
-  color: red;
 }
 
 #gebieden-map {
@@ -249,7 +241,59 @@ th {
   }
 }
 
+
+#inlineFormInput {
+  padding-left: 40px;
+  width: 100%;
+}
+
 #map {
   height: 600px;
   width: 100%;
+}
+
+@media screen and (max-width: $break-medium) {
+  #logo {
+    position: absolute;
+    right: 24px;
+    top: 10px;
+    height: 40px;
+  }
+}
+
+/*style the box*/
+.gm-style .gm-style-iw {
+   background-color: $gold;
+   top: 0 !important;
+   left: 0 !important;
+   width: 100% !important;
+   height: 100% !important;
+  //  min-height: 120px !important;
+  //  padding-top: 10px;
+   display: block !important;
+}
+
+/*style the p tag*/
+.gm-style .gm-style-iw #google-popup p{
+   padding: 10px;
+}
+
+/*style the arrow*/
+.gm-style div div div div div div div div {
+   background-color: $gold !important;
+   box-shadow: none !important;
+   padding: 0;
+   margin: 0;
+   padding: 0;
+   top: 0;
+   color: #fff;
+   font-size: 16px;
+}
+
+.map-container {
+  height: 400px;
+}
+
+.streetview-container {
+  height: 302px;
 }
