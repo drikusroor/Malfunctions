@@ -18,10 +18,10 @@ var StoringenApp;
                 var ctrl = _this;
                 var preFilteredGebouwen = gebouwen;
                 var gebouwenFilter = _this.gebouwenFilter;
-                if (gebouwenFilter.Rayon_nieuw_BOG !== undefined && gebouwenFilter.Rayon_nieuw_BOG !== null) {
-                    if (gebouwen[0].Rayon_nieuw_BOG !== undefined) {
+                if (gebouwenFilter.Rayon !== undefined && gebouwenFilter.Rayon !== null) {
+                    if (gebouwen[0].Rayon !== undefined) {
                         preFilteredGebouwen = preFilteredGebouwen.filter(function (g) {
-                            return g.Rayon_nieuw_BOG === gebouwenFilter.Rayon_nieuw_BOG;
+                            return g.Rayon === gebouwenFilter.Rayon;
                         });
                     }
                 }
@@ -34,25 +34,13 @@ var StoringenApp;
                 console.log(loc);
                 _this.location = loc;
             };
-            this.setGebouwenFilter = function (gebied) {
-                var that = _this;
-                var x = (gebied.maxlat + gebied.minlat) / 2;
-                var y = (gebied.maxlon + gebied.minlon) / 2;
-                _this.$scope.$apply(function () {
-                    that.gebouwenFilter.Rayon = gebied.Rayon;
-                    that.viewPortCenter = { x: x, y: y };
-                    console.log(that);
-                });
-            };
-            this.selectGebouw = function (id) {
-                console.log(id);
-                var selectedGebouw = _this.gebouwen.find(function (g) { return g.Object_ID === id; });
-                _this.$scope.$apply(_this.selectedGebouw = selectedGebouw);
-                var that = _this;
-                _this.$timeout(function () {
-                    that.panToGebouw();
-                }, 100);
-                console.log(_this.selectedGebouw);
+            this.setRayonFilter = function (rayon) {
+                if (_this.gebouwenFilter.Rayon !== rayon) {
+                    _this.gebouwenFilter.Rayon = rayon;
+                }
+                else {
+                    _this.gebouwenFilter.Rayon = undefined;
+                }
             };
             this.panToGebouw = function () {
                 _this.$window.map.panTo({ lat: _this.selectedGebouw.BAG_lat, lng: _this.selectedGebouw.BAG_lon });
@@ -80,7 +68,7 @@ var StoringenApp;
                         ctrl.preFilterGebouwen(ctrl.gebouwen);
                     }
                 });
-                $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon_nieuw_BOG', function (newValue, oldValue, scope) {
+                $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon', function (newValue, oldValue, scope) {
                     var ctrl = scope.gebouwenctrl;
                     if (oldValue || newValue) {
                         ctrl.preFilterGebouwen(ctrl.gebouwen);

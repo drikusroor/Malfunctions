@@ -26,7 +26,7 @@
         <h3 class="panel-title">Rayons</h3>
       </div>
       <ul class=" list-group">
-        <li class="list-group-item" ng-repeat="rayon in gebouwenctrl.rayons" ng-click="gebouwenctrl.gebouwenFilter.Rayon_nieuw_BOG = rayon.Rayon">
+        <li class="list-group-item" ng-class="{'active': gebouwenctrl.gebouwenFilter.Rayon === rayon.Rayon}" ng-repeat="rayon in gebouwenctrl.rayons" ng-click="gebouwenctrl.setRayonFilter(rayon.Rayon)">
           {{rayon.Rayon}}
         </li>
       </ul>

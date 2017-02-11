@@ -19,7 +19,7 @@ angular.module('StoringenApp')
       $scope.$watch('gebouwen.length', function(newValue, oldValue, scope) {
         if(newValue !== undefined) {
           console.log("gebouwen.length: ", newValue)
-          if (oldValue === undefined || newValue !== oldValue) {
+          if (oldValue === undefined) {
             $scope.initMap();
           }
         }
@@ -283,6 +283,14 @@ angular.module('StoringenApp')
             lng: $scope.gebouwen[0].BAG_lon
           }
           zoomLevel = 18;
+        }
+
+        if($scope.location) {
+          coordinates = {
+            lat: $scope.location.coords.latitude,
+            lng: $scope.location.coords.longitude
+          }
+          zoomLevel = 13;
         }
 
         var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);

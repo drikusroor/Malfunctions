@@ -53,7 +53,7 @@ module StoringenApp {
           }
         })
 
-        $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon_nieuw_BOG', function(newValue, oldValue, scope) {
+        $scope.$watch('gebouwenctrl.gebouwenFilter.Rayon', function(newValue, oldValue, scope) {
           var ctrl = scope.gebouwenctrl;
           if(oldValue || newValue) {
             ctrl.preFilterGebouwen(ctrl.gebouwen);
@@ -74,10 +74,10 @@ module StoringenApp {
       var preFilteredGebouwen = gebouwen;
       var gebouwenFilter = this.gebouwenFilter;
 
-      if (gebouwenFilter.Rayon_nieuw_BOG !== undefined && gebouwenFilter.Rayon_nieuw_BOG !== null) {
-        if(gebouwen[0].Rayon_nieuw_BOG !== undefined) {
+      if (gebouwenFilter.Rayon !== undefined && gebouwenFilter.Rayon !== null) {
+        if(gebouwen[0].Rayon !== undefined) {
           preFilteredGebouwen = preFilteredGebouwen.filter(g =>
-            g.Rayon_nieuw_BOG === gebouwenFilter.Rayon_nieuw_BOG
+            g.Rayon === gebouwenFilter.Rayon
           );
         }
       }
@@ -92,29 +92,37 @@ module StoringenApp {
       this.location = loc;
     }
 
-    public setGebouwenFilter = (gebied): void => {
-      var that = this;
-      var x = (gebied.maxlat + gebied.minlat) / 2;
-      var y = (gebied.maxlon + gebied.minlon) / 2;
-      this.$scope.$apply(function() {
-        that.gebouwenFilter.Rayon = gebied.Rayon;
-        that.viewPortCenter = {x, y};
-        console.log(that)
-      })
+    public setRayonFilter = (rayon: string): void => {
+      if (this.gebouwenFilter.Rayon !== rayon) {
+        this.gebouwenFilter.Rayon = rayon;
+      } else {
+        this.gebouwenFilter.Rayon = undefined;
+      }
     }
 
-    public selectGebouw = (id: number): void => {
-      console.log(id);
-      var selectedGebouw = this.gebouwen.find(g => g.Object_ID === id);
-      this.$scope.$apply(
-        this.selectedGebouw = selectedGebouw
-      );
-      var that = this;
-      this.$timeout(function() {
-        that.panToGebouw();
-      }, 100)
-      console.log(this.selectedGebouw)
-    }
+    // public setGebouwenFilter = (gebied): void => {
+    //   var that = this;
+    //   var x = (gebied.maxlat + gebied.minlat) / 2;
+    //   var y = (gebied.maxlon + gebied.minlon) / 2;
+    //   this.$scope.$apply(function() {
+    //     that.gebouwenFilter.Rayon = gebied.Rayon;
+    //     that.viewPortCenter = {x, y};
+    //     console.log(that)
+    //   })
+    // }
+    //
+    // public selectGebouw = (id: number): void => {
+    //   console.log(id);
+    //   var selectedGebouw = this.gebouwen.find(g => g.Object_ID === id);
+    //   this.$scope.$apply(
+    //     this.selectedGebouw = selectedGebouw
+    //   );
+    //   var that = this;
+    //   this.$timeout(function() {
+    //     that.panToGebouw();
+    //   }, 100)
+    //   console.log(this.selectedGebouw)
+    // }
 
     public panToGebouw = (): void => {
       this.$window.map.panTo({lat: this.selectedGebouw.BAG_lat, lng: this.selectedGebouw.BAG_lon});
