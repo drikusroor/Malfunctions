@@ -208,8 +208,12 @@ angular.module('StoringenApp')
                         Object_ID: $scope.gebouwen[i].Object_ID
                     };
                     google.maps.event.addListener(marker, 'click', function () {
+                        if ($scope.lastOpenedInfoWindow) {
+                            $scope.lastOpenedInfoWindow.close();
+                        }
                         console.log(marker);
                         infowindow.open(map, marker);
+                        $scope.lastOpenedInfoWindow = infowindow;
                     });
                     $scope.lastMarker = marker;
                     return marker;
