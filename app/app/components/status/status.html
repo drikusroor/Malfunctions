@@ -25,7 +25,7 @@
     <h4 ng-hide="statusctrl.periodiek.length > 0">Er zijn geen periodieke bezoeken bekend voor dit object</h4>
     <div class="panel panel-default" ng-repeat="bezoek in statusctrl.periodiek">
       <div class="panel-heading">
-        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumMelding}}</span></h3>
+        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumAfgehandeld}}</span></h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
@@ -90,7 +90,7 @@
     <h4 ng-hide="statusctrl.storingen.length > 0">Er zijn geen storingen bekend voor dit object</h4>
     <div class="panel panel-default" ng-repeat="bezoek in statusctrl.storingen">
       <div class="panel-heading">
-        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumMelding}}</span></h3>
+        <h3 class="panel-title"><span class="catamaran-bold">{{bezoek.DatumAfgehandeld}}</span></h3>
       </div>
       <ul class=" list-group">
         <li class="list-group-item">
