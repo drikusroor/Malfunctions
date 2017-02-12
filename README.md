@@ -22,4 +22,4 @@ Run `gulp build` to build the application. Gulp will exit after the build is com
 
 ## License
 
-This project is licensed under the GNU LESSER GENERAL PUBLIC LICENSE - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License - see the [LICENSE.md](LICENSE.md) file for details
