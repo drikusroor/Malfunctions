@@ -13,6 +13,15 @@ input[type=file] {
   border-color: $gold;
 }
 
+.alert {
+  border-radius: 0px;
+}
+
+.alert-danger {
+  background-color: $magenta;
+  color: white;
+}
+
 .btn-info {
   background-color: $gold;
   border-color: $gold;

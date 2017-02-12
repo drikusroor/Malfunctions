@@ -48,7 +48,7 @@
     <div ng-show="gebouwenctrl.gebouwenLoading" style="margin-top: 100px"><loading center="true"></loading></div>
 
     <div ng-show="gebouwenctrl.selectedTab === 'map'">
-      <google-maps gebouwen="gebouwenctrl.preFilteredGebouwen" location="gebouwenctrl.location" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
+      <google-maps gebouwen="gebouwenctrl.preFilteredGebouwen" location="gebouwenctrl.location" location-button="true"></google-maps>
     </div>
 
     <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list' && gebouwenctrl.preFilteredGebouwen" gebouwen="gebouwenctrl.preFilteredGebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>

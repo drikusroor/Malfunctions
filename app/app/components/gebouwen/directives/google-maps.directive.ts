@@ -7,9 +7,9 @@ angular.module('StoringenApp')
     scope: {
       'gebouwen': '=',
       'location': '=',
-      'viewPortCenter': '=',
       'streetView': '=',
-      'height': '='
+      'height': '=',
+      'locationButton': '='
     },
     controller: function($scope, $window, $document, $state, LocationService) {
 
@@ -30,6 +30,19 @@ angular.module('StoringenApp')
           $scope.addMarkers();
         }
       })
+
+      $scope.panToUser = (): void => {
+        $scope.showLocationError = false;
+        if($scope.location) {
+          var location = {
+            lat: $scope.location.coords.latitude,
+            lng: $scope.location.coords.longitude,
+          }
+          panTo(location)
+        } else {
+          $scope.showLocationError = true;
+        }
+      }
 
       function panTo(location) {
         if(location !== undefined && location !== null &&
@@ -201,6 +214,7 @@ angular.module('StoringenApp')
 
           google.maps.event.addListener(marker, 'click', function() {
             var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+            latLng = {lat: marker.position.lat(), lng: marker.position.lng() }
             panTo(latLng);
             var zoomLevel = map.getZoom();
             map.setZoom(zoomLevel + 1);
@@ -400,8 +414,6 @@ angular.module('StoringenApp')
                   console.log('not found');
                 }
               });
-
-
               $scope.panorama.setVisible(true);
             }
         });
@@ -413,6 +425,17 @@ angular.module('StoringenApp')
     template: `
       <div class="map-container" ng-class="{'streetview-container': streetView}">
         <div id="{{mapId}}" style="height: 100%"></div>
+      </div>
+      <div class="row" style="margin-top: 10px;" ng-show="locationButton">
+        <button type="button" ng-click="panToUser()" class="btn btn-info pull-right">
+        Mijn locatie
+        </button>
+      </div>
+      <div class="row" style="margin-top: 10px;" ng-show="showLocationError" ng-click="showLocationError = false">
+        <div class="alert alert-danger" role="alert" >
+          Uw locatie kon niet worden vastgesteld
+          <span class="glyphicon glyphicon-remove pull-right"></span>
+        </div>
       </div>
     `
   };
