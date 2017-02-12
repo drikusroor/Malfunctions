@@ -22,9 +22,24 @@ angular.module('StoringenApp')
                     }
                 }
                 if ($scope.mapInitialized && newValue !== undefined) {
+                    var avgLocation = getAvgLocation($scope.gebouwen);
+                    $scope.map.panTo(avgLocation);
                     $scope.addMarkers();
                 }
             });
+            function getAvgLocation(gebouwen) {
+                var avgLat, avgLng, sumLat = 0, sumLng = 0, length = gebouwen.length;
+                for (var i in gebouwen) {
+                    sumLat = sumLat + gebouwen[i].BAG_lat,
+                        sumLng = sumLng + gebouwen[i].BAG_lon;
+                }
+                avgLat = sumLat / length;
+                avgLng = sumLng / length;
+                return {
+                    lat: avgLat,
+                    lng: avgLng
+                };
+            }
             function getContentString(gebouw) {
                 var str = gebouw.BAG_adres;
                 var adressArray = str.split(",");
@@ -229,12 +244,17 @@ angular.module('StoringenApp')
                     };
                     zoomLevel = 18;
                 }
-                if ($scope.location) {
-                    coordinates = {
-                        lat: $scope.location.coords.latitude,
-                        lng: $scope.location.coords.longitude
-                    };
-                    zoomLevel = 13;
+                else {
+                    if ($scope.location && $scope.followLocation) {
+                        coordinates = {
+                            lat: $scope.location.coords.latitude,
+                            lng: $scope.location.coords.longitude
+                        };
+                        zoomLevel = 13;
+                    }
+                    else {
+                        coordinates = getAvgLocation($scope.gebouwen);
+                    }
                 }
                 var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);
                 $scope.map = new google.maps.Map(document.getElementById($scope.mapId), {
