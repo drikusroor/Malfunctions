@@ -113,7 +113,7 @@ gulp.task('css', function () {
     .pipe(connect.reload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch-files', function() {
   watch(paths.js, function() {
     gulp.start('scripts');
   });
@@ -128,7 +128,19 @@ gulp.task('watch', function() {
   })
 });
 
-gulp.task('compile', ['scripts', 'assets', 'html', 'main-bower-files', 'watch', 'connect']);
+gulp.task('compile', ['scripts', 'assets', 'html', 'main-bower-files', 'watch-files', 'connect']);
+
+gulp.task('watch-action', ['scripts', 'assets', 'html', 'main-bower-files', 'watch-files']);
+
+gulp.task('build-action', ['scripts', 'assets', 'html', 'main-bower-files']);
+
+gulp.task('watch', ['clean'], function() {
+  gulp.start('watch-action');
+})
+
+gulp.task('build', ['clean'], function() {
+  gulp.start('build-action');
+})
 
 gulp.task('default', ['clean'], function(){
   gulp.start('compile');
