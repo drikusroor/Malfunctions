@@ -26,6 +26,10 @@
         <h3 class="panel-title">Rayons</h3>
       </div>
       <ul class="list-group">
+
+        <!-- LOADING SPINNER -->
+        <div ng-show="gebouwenctrl.rayonsLoading" style="margin-top: 100px"><loading center="true"></loading></div>
+
         <li class="list-group-item" id="rayons-list-item" ng-class="{'active': gebouwenctrl.gebouwenFilter.Rayon === rayon.Rayon}" ng-repeat="rayon in gebouwenctrl.rayons" ng-click="gebouwenctrl.setRayonFilter(rayon.Rayon)">
           {{rayon.Rayon}}
         </li>
@@ -40,10 +44,13 @@
       <uib-tab index="1" heading="Lijst" ng-click="gebouwenctrl.selectTab('list')"></uib-tab>
     </uib-tabset>
 
+    <!-- LOADING SPINNER -->
+    <div ng-show="gebouwenctrl.gebouwenLoading" style="margin-top: 100px"><loading center="true"></loading></div>
+
     <div ng-show="gebouwenctrl.selectedTab === 'map'">
       <google-maps gebouwen="gebouwenctrl.preFilteredGebouwen" location="gebouwenctrl.location" view-port-center="gebouwenctrl.viewPortCenter"></google-maps>
     </div>
 
-    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list'" gebouwen="gebouwenctrl.preFilteredGebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
+    <gebouwen-tabel ng-show="gebouwenctrl.selectedTab === 'list' && gebouwenctrl.preFilteredGebouwen" gebouwen="gebouwenctrl.preFilteredGebouwen" click-event="gebouwenctrl.selectGebouw(id)"></gebouwen-tabel>
   </div>
 </div>

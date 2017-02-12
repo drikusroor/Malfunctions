@@ -18,9 +18,9 @@ angular.module('StoringenApp')
       }
 
       $scope.$watch('gebouwenFilter', function() {
-        console.log($scope.gebouwenFilter) 
+        console.log($scope.gebouwenFilter)
       })
-
+ 
       $scope.setGebouwenFilter = function(filter) {
         $scope.gebouwenLoading = true;
         $timeout(function() {

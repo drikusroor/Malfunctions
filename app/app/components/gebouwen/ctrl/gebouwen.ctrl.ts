@@ -11,6 +11,9 @@ module StoringenApp {
     gebouwenFilter: any;
     viewPortCenter: any;
 
+    gebouwenLoading: boolean;
+    rayonsLoading: boolean;
+
     static $inject = [
       '$scope',
       '$http',
@@ -38,11 +41,16 @@ module StoringenApp {
     {
       var that = this;
 
+      this.gebouwenLoading = true;
+      this.rayonsLoading = true;
+
       GebiedenService.getGebieden().then(function(response) {
+        that.rayonsLoading = false;
         that.rayons = response;
       })
 
       GebouwenService.getGebouwen().then(function(response) {
+        that.gebouwenLoading = false;
         that.gebouwen = response;
         that.preFilterGebouwen(that.gebouwen);
 

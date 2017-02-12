@@ -22,9 +22,34 @@ angular.module('StoringenApp')
                     }
                 }
                 if ($scope.mapInitialized && newValue !== undefined) {
+                    var avgLocation = getAvgLocation($scope.gebouwen);
+                    panTo(avgLocation);
                     $scope.addMarkers();
                 }
             });
+            function panTo(location) {
+                if (location !== undefined && location !== null &&
+                    location.lat !== undefined && location.lat !== null && !isNaN(location.lat) &&
+                    location.lng !== undefined && location.lng !== null && !isNaN(location.lng)) {
+                    $scope.map.panTo(location);
+                }
+                else {
+                    console.log("Pan was not possible: ", location);
+                }
+            }
+            function getAvgLocation(gebouwen) {
+                var avgLat, avgLng, sumLat = 0, sumLng = 0, length = gebouwen.length;
+                for (var i in gebouwen) {
+                    sumLat = sumLat + gebouwen[i].BAG_lat,
+                        sumLng = sumLng + gebouwen[i].BAG_lon;
+                }
+                avgLat = sumLat / length;
+                avgLng = sumLng / length;
+                return {
+                    lat: avgLat,
+                    lng: avgLng
+                };
+            }
             function getContentString(gebouw) {
                 var str = gebouw.BAG_adres;
                 var adressArray = str.split(",");
@@ -142,7 +167,7 @@ angular.module('StoringenApp')
                     });
                     google.maps.event.addListener(marker, 'click', function () {
                         var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-                        map.panTo(latLng);
+                        panTo(latLng);
                         var zoomLevel = map.getZoom();
                         map.setZoom(zoomLevel + 1);
                     });
@@ -229,12 +254,17 @@ angular.module('StoringenApp')
                     };
                     zoomLevel = 18;
                 }
-                if ($scope.location) {
-                    coordinates = {
-                        lat: $scope.location.coords.latitude,
-                        lng: $scope.location.coords.longitude
-                    };
-                    zoomLevel = 13;
+                else {
+                    if ($scope.location && $scope.followLocation) {
+                        coordinates = {
+                            lat: $scope.location.coords.latitude,
+                            lng: $scope.location.coords.longitude
+                        };
+                        zoomLevel = 13;
+                    }
+                    else {
+                        coordinates = getAvgLocation($scope.gebouwen);
+                    }
                 }
                 var coordinatesLatLng = new google.maps.LatLng(coordinates.lat, coordinates.lng);
                 $scope.map = new google.maps.Map(document.getElementById($scope.mapId), {
