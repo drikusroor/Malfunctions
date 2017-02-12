@@ -32,7 +32,9 @@ angular.module('StoringenApp')
       })
 
       function panTo(location) {
-        if(location !== undefined && location !== null && location.lat !== undefined && location.lat !== null && location.lng !== undefined && location.lng !== null) {
+        if(location !== undefined && location !== null &&
+          location.lat !== undefined && location.lat !== null && !isNaN(location.lat) &&
+          location.lng !== undefined && location.lng !== null && !isNaN(location.lng)) {
           $scope.map.panTo(location);
         } else {
           console.log("Pan was not possible: ", location);
