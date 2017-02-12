@@ -23,10 +23,18 @@ angular.module('StoringenApp')
                 }
                 if ($scope.mapInitialized && newValue !== undefined) {
                     var avgLocation = getAvgLocation($scope.gebouwen);
-                    $scope.map.panTo(avgLocation);
+                    panTo(avgLocation);
                     $scope.addMarkers();
                 }
             });
+            function panTo(location) {
+                if (location !== undefined && location !== null && location.lat !== undefined && location.lat !== null && location.lng !== undefined && location.lng !== null) {
+                    $scope.map.panTo(location);
+                }
+                else {
+                    console.log("Pan was not possible: ", location);
+                }
+            }
             function getAvgLocation(gebouwen) {
                 var avgLat, avgLng, sumLat = 0, sumLng = 0, length = gebouwen.length;
                 for (var i in gebouwen) {
@@ -157,7 +165,7 @@ angular.module('StoringenApp')
                     });
                     google.maps.event.addListener(marker, 'click', function () {
                         var latLng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-                        map.panTo(latLng);
+                        panTo(latLng);
                         var zoomLevel = map.getZoom();
                         map.setZoom(zoomLevel + 1);
                     });
