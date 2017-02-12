@@ -427,14 +427,18 @@ angular.module('StoringenApp')
         <div id="{{mapId}}" style="height: 100%"></div>
       </div>
       <div class="row" style="margin-top: 10px;" ng-show="locationButton">
-        <button type="button" ng-click="panToUser()" class="btn btn-info pull-right">
-        Mijn locatie
-        </button>
+        <div class="col-xs-12">
+          <button type="button" ng-click="panToUser()" class="btn btn-info pull-right">
+          Mijn locatie
+          </button>
+        </div>
       </div>
       <div class="row" style="margin-top: 10px;" ng-show="showLocationError" ng-click="showLocationError = false">
-        <div class="alert alert-danger" role="alert" >
-          Uw locatie kon niet worden vastgesteld
-          <span class="glyphicon glyphicon-remove pull-right"></span>
+        <div class="col-xs-12">
+          <div class="alert alert-danger" role="alert" >
+            Uw locatie kon niet worden vastgesteld
+            <span class="glyphicon glyphicon-remove pull-right"></span>
+          </div>
         </div>
       </div>
     `
