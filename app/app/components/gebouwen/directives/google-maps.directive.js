@@ -51,10 +51,20 @@ angular.module('StoringenApp')
                 }
             }
             function getAvgLocation(gebouwen) {
-                var avgLat, avgLng, sumLat = 0, sumLng = 0, length = gebouwen.length;
+                var avgLat, avgLng, sumLat = 0, sumLng = 0, length = 0;
                 for (var i in gebouwen) {
                     sumLat = sumLat + gebouwen[i].BAG_lat,
                         sumLng = sumLng + gebouwen[i].BAG_lon;
+                }
+                for (var i in gebouwen) {
+                    if (gebouwen[i].BAG_lat === undefined || gebouwen[i].BAG_lon === undefined || gebouwen[i].BAG_lat === '') {
+                        console.log("Locatie undefined! ", gebouwen[i]);
+                    }
+                    else {
+                        length = length + 1;
+                        sumLat = sumLat + gebouwen[i].BAG_lat,
+                            sumLng = sumLng + gebouwen[i].BAG_lon;
+                    }
                 }
                 avgLat = sumLat / length;
                 avgLng = sumLng / length;
